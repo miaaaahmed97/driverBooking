@@ -1,7 +1,5 @@
 package com.rasai.driverBooking;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,6 +28,11 @@ public class driverRegistration extends Activity implements Serializable {
     Driver driverInformation;
     private List<String> listLangSelected;
     private String StringLangSelected;
+    private String phoneNumber;
+
+    //private FirebaseDatabase database;
+    private FirebaseAuth mauth = FirebaseAuth.getInstance();
+    private FirebaseUser user = mauth.getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,8 @@ public class driverRegistration extends Activity implements Serializable {
         setContentView(R.layout.activity_driver_registration);
 
         driverInformation = new Driver();
+
+        phoneNumber = user.getPhoneNumber();
 
         mLangSpinner = (MultiSelectionSpinner)findViewById(R.id.lang_spinner);
 
@@ -63,20 +70,21 @@ public class driverRegistration extends Activity implements Serializable {
             public void onClick(View view) {
 
                 //set tripInformation
+                driverInformation.setPhoneNumber(phoneNumber);
                 driverInformation.setCnic(mCnic.getText().toString());
                 driverInformation.setBirthday(mBday.getText().toString());
                 driverInformation.setAddress(mAddress.getText().toString());
                 driverInformation.setLanguages(StringLangSelected);
 
-                Log.d("testing2", StringLangSelected);
+                //Log.d("testing2", StringLangSelected);
 
-                Log.d("testing3", driverInformation.toString());
+                //Log.d("testing3", driverInformation.toString());
 
                 Intent navNext = new Intent(driverRegistration.this, driverRegistration2.class);
                 navNext.putExtra("driverObject", driverInformation);
                 startActivity(navNext);
             }
-        };
+        }
 
         mnextButton.setOnClickListener(new MyOnClickListener());
 
