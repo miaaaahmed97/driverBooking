@@ -1,13 +1,14 @@
 package com.rasai.driverBooking;
 
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.List;
 
-public class Driver {
+public class Driver implements Serializable {
 
     private String cnic;
     private String birthday;
     private String address;
-    private ArrayList<String> languages;
+    private String languages;
     private Vehicle vehicle;
     private SecurityDeposit securityDeposit;
 
@@ -47,11 +48,11 @@ public class Driver {
         this.address = address;
     }
 
-    public ArrayList<String> getLanguages() {
+    public String getLanguages() {
         return languages;
     }
 
-    public void setLanguages(ArrayList<String> languages) {
+    public void setLanguages(String languages) {
         this.languages = languages;
     }
 

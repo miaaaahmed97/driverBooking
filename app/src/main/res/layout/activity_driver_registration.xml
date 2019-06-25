@@ -22,6 +22,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/cnic_field"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="number" />
@@ -43,13 +44,14 @@
         app:layout_constraintTop_toBottomOf="@+id/CNIC">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/birthday_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="date" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/Address"
+        android:id="@+id/address"
         android:layout_width="313dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -64,6 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/DOB">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/address_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -78,22 +81,34 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:hint="Select Languages"
+        app:helperText="Select Languages"
+        app:helperTextEnabled="true"
+        app:helperTextTextAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:hintAnimationEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.378"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Address">
+        app:layout_constraintTop_toBottomOf="@+id/address">
 
+        <com.rasai.driverBooking.MultiSelectionSpinner
+            android:id="@+id/lang_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="clip_vertical|right|top|fill_vertical"
+            android:layout_margin="1dp"
+            android:foregroundGravity="top" />
+        <!--
         <Spinner
             android:id="@+id/lang_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            />
+            /> -->
         <!--android:entries="@array/languages_array" -->
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/selectedLanguages"
+        android:id="@+id/selectedLanguages_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="41dp"
@@ -109,9 +124,10 @@
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="184dp"
+        android:layout_marginTop="84dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:text="Continue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.417"
         app:layout_constraintStart_toStartOf="parent"
