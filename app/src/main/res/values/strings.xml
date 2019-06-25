@@ -6,4 +6,15 @@
         <item>Punjabi</item>
         <item>Pushto</item>
     </string-array>
+
+    <string-array name="manufacturer_array">
+        <item>Pak Suzuki</item>
+        <item>Honda Atlas</item>
+    </string-array>
+
+    <string-array name="seats_array">
+        <item>8</item>
+        <item>16</item>
+    </string-array>
+
 </resources>
