@@ -3,27 +3,12 @@ package com.rasai.driverBooking;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.ImageDecoder;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
-import android.app.Activity;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.view.View;
-import android.widget.ImageView;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.Serializable;
 
-import static android.graphics.ImageDecoder.decodeBitmap;
-
-public class driverRegistration2 extends AppCompatActivity {
+public class driverRegistration2 extends AppCompatActivity implements Serializable {
 
     /*
     public static final int GET_FROM_GALLERY = 1;
@@ -41,6 +26,9 @@ public class driverRegistration2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_registration2);
+
+        Intent i = getIntent();
+        final Driver driverInformation = (Driver) i.getSerializableExtra("driverObject");
 
         /*addIDButton = findViewById(R.id.addIDPicture);
         addCNICButton=findViewById(R.id.addCnic);

@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
 
         //new intent creation has to be inside a method
-        //myIntent = new Intent(MainActivity.this, TripDetails.class);
+        myIntent = new Intent(MainActivity.this, driverRegistration.class);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             /*gets invoked in the UI thread on changes in the authentication state
@@ -43,14 +43,14 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() != null) {
                     // Sign in logic here.
-                    //startActivity(myIntent);
+                    startActivity(myIntent);
                 }
             }
         };
 
         if( user != null){
             //already signed in
-            //startActivity(myIntent);
+            startActivity(myIntent);
         }else{
             //create login options
             startActivityForResult(AuthUI.getInstance().
