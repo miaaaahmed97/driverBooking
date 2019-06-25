@@ -26,9 +26,9 @@ public class Driver implements Serializable {
     private String languages;
     private Vehicle vehicle;
     private SecurityDeposit securityDeposit;
-    private Uri cnicImage;
-    private Uri idImage;
-    private Uri drivingLicenseImage;
+    private String cnicImage;
+    private String idImage;
+    private String drivingLicenseImage;
 
     @Override
     public String toString() {
@@ -83,13 +83,13 @@ public class Driver implements Serializable {
                     Uri downloadUri = task.getResult();
                     switch(fieldName){
                         case "cnicImage":
-                            cnicImage = downloadUri;
+                            cnicImage = downloadUri.toString();
                             break;
                         case "idImage":
-                            idImage = downloadUri;
+                            idImage = downloadUri.toString();
                             break;
                         case "drivingLicenseImage":
-                            drivingLicenseImage = downloadUri;
+                            drivingLicenseImage = downloadUri.toString();
                             break;
                         default:
                             Log.d("checking", "Inside default of store Image; Drive.java");
@@ -104,27 +104,27 @@ public class Driver implements Serializable {
 
     public void postDriverInfo(DatabaseReference mRef){}
 
-    public Uri getCnicImage() {
+    public String getCnicImage() {
         return cnicImage;
     }
 
-    public void setCnicImage(Uri cnicImage) {
+    public void setCnicImage(String cnicImage) {
         this.cnicImage = cnicImage;
     }
 
-    public Uri getIdImage() {
+    public String getIdImage() {
         return idImage;
     }
 
-    public void setIdImage(Uri idImage) {
+    public void setIdImage(String idImage) {
         this.idImage = idImage;
     }
 
-    public Uri getDrivingLicenseImage() {
+    public String getDrivingLicenseImage() {
         return drivingLicenseImage;
     }
 
-    public void setDrivingLicenseImage(Uri drivingLicenseImage) {
+    public void setDrivingLicenseImage(String drivingLicenseImage) {
         this.drivingLicenseImage = drivingLicenseImage;
     }
 

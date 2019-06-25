@@ -1,6 +1,8 @@
 package com.rasai.driverBooking;
 
-public class SecurityDeposit {
+import java.io.Serializable;
+
+public class SecurityDeposit implements Serializable {
 
     private String depositDate;
     private String amount;

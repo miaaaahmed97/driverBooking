@@ -1,12 +1,18 @@
 package com.rasai.driverBooking;
 
-public class Vehicle {
+import android.net.Uri;
+
+import java.io.Serializable;
+
+public class Vehicle implements Serializable {
 
     private String manufacturer;
     private String model;
     private String registration;
     private String vehicleSeats;
     private String hasAc = "no";
+    private String exteriorImage;
+    private String interiorImage;
 
     @Override
     public String toString() {
@@ -16,7 +22,25 @@ public class Vehicle {
                 ", registration='" + registration + '\'' +
                 ", vehicleSeats='" + vehicleSeats + '\'' +
                 ", hasAc='" + hasAc + '\'' +
+                ", exteriorImage=" + exteriorImage +
+                ", interiorImage=" + interiorImage +
                 '}';
+    }
+
+    public String getExteriorImage() {
+        return exteriorImage;
+    }
+
+    public void setExteriorImage(String exteriorImage) {
+        this.exteriorImage = exteriorImage;
+    }
+
+    public String getInteriorImage() {
+        return interiorImage;
+    }
+
+    public void setInteriorImage(String interiorImage) {
+        this.interiorImage = interiorImage;
     }
 
     public String getManufacturer() {

@@ -21,7 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 
-public class driverRegistration2 extends AppCompatActivity{
+public class driverRegistration2 extends AppCompatActivity implements Serializable{
 
     Intent buttonIntent;
 
@@ -41,7 +41,7 @@ public class driverRegistration2 extends AppCompatActivity{
         this.driverInformation = driverInformation;
     }
 
-    class ImageButtonListener implements View.OnClickListener {
+    class ImageButtonListener implements View.OnClickListener, Serializable {
         @Override
         public void onClick(View v) {
             //calls gallery
@@ -65,7 +65,7 @@ public class driverRegistration2 extends AppCompatActivity{
         //Driver driverInformation = (Driver) i.getSerializableExtra("driverObject");
         setDriverInformation((Driver) i.getSerializableExtra("driverObject"));
 
-        addIDButton = findViewById(R.id.addIDPicture);
+        addIDButton = findViewById(R.id.addExterior);
         addCNICButton=findViewById(R.id.addCnic);
         addDrivLicButton = findViewById(R.id.addDrivingLicense);
         registrationButton = (Button) findViewById(R.id.registerDriverButton);
@@ -86,7 +86,7 @@ public class driverRegistration2 extends AppCompatActivity{
             }
         }
 
-        addDrivLicButton.setOnClickListener(new MyOnClickListener());
+        registrationButton.setOnClickListener(new MyOnClickListener());
 
     }
 
@@ -122,17 +122,17 @@ public class driverRegistration2 extends AppCompatActivity{
         String stringID= buttonIntent.getExtras().getString("EXTRA");
         int intID =Integer.parseInt(stringID);
         switch (intID){
-            case R.id.addIDPicture:
+            case R.id.addExterior:
                 imageView = findViewById(R.id.showIDPicture);
-                getDriverInformation().setIdImage(uri);
+                getDriverInformation().setIdImage(uri.toString());
                 break;
             case R.id.addCnic:
                 imageView = findViewById(R.id.showCNIC);
-                getDriverInformation().setCnicImage(uri);
+                getDriverInformation().setCnicImage(uri.toString());
                 break;
             case R.id.addDrivingLicense:
                 imageView = findViewById(R.id.showDrivingLicense);
-                getDriverInformation().setDrivingLicenseImage(uri);
+                getDriverInformation().setDrivingLicenseImage(uri.toString());
                 break;
             default:
                 imageView = findViewById(R.id.showDrivingLicense);
@@ -144,13 +144,13 @@ public class driverRegistration2 extends AppCompatActivity{
 
 
 
-    public void registerDriver(View v){
+    /*public void registerDriver(View v){
         if (v.getId()==R.id.registerDriverButton) {
             Intent i = new Intent(driverRegistration2.this, vehicleRegistration.class);
             startActivity(i);
 
         }
 
-    }
+    }*/
 }
 

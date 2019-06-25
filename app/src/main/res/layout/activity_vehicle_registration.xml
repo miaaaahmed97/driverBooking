@@ -24,31 +24,29 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="24dp"
+        app:helperText="Model"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/manufacturerSpinner">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/model_field"
             android:layout_width="291dp"
-            android:layout_height="wrap_content"
-            android:hint="Model" />
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/registration"
         android:layout_width="363dp"
         android:layout_height="39dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="48dp"
+        app:helperText="Registration Number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/model">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/registration_field"
             android:layout_width="291dp"
-            android:layout_height="wrap_content"
-            android:hint="Registration Number" />
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -69,8 +67,10 @@
         android:layout_marginStart="28dp"
         android:layout_marginLeft="28dp"
         android:layout_marginTop="8dp"
+        android:dropDownSelector="@android:drawable/arrow_down_float"
         app:layout_constraintStart_toEndOf="@+id/numberSeats"
         app:layout_constraintTop_toBottomOf="@+id/registration" />
+
 
     <TextView
         android:id="@+id/ac_textview"
@@ -116,35 +116,35 @@
         app:layout_constraintTop_toBottomOf="@+id/exterior_textview" />
 
     <ImageButton
-        android:id="@+id/addIDPicture"
+        android:id="@+id/addExterior"
         android:layout_width="40dp"
         android:layout_height="36dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
         android:layout_marginTop="112dp"
-        app:layout_constraintStart_toEndOf="@+id/exterior_textview"
+        android:layout_marginEnd="72dp"
+        android:layout_marginRight="72dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registration"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <ImageButton
-        android:id="@+id/addIDPicture2"
+        android:id="@+id/addInterior"
         android:layout_width="40dp"
         android:layout_height="36dp"
         android:layout_marginStart="64dp"
         android:layout_marginLeft="64dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="13dp"
+        app:layout_constraintBottom_toTopOf="@+id/showInterior"
         app:layout_constraintStart_toEndOf="@+id/interior_textview"
-        app:layout_constraintTop_toBottomOf="@+id/addIDPicture"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <ImageView
         android:id="@+id/showInterior"
         android:layout_width="118dp"
         android:layout_height="68dp"
-        android:layout_marginTop="39dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginRight="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="13dp"
+        app:layout_constraintStart_toEndOf="@+id/showExterior"
         app:layout_constraintTop_toBottomOf="@+id/interior_textview"
         app:srcCompat="@android:drawable/ic_menu_report_image" />
 
@@ -154,9 +154,12 @@
         android:layout_height="68dp"
         android:layout_marginStart="61dp"
         android:layout_marginLeft="61dp"
-        android:layout_marginTop="39dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginRight="34dp"
+        android:layout_marginBottom="91dp"
+        app:layout_constraintBottom_toTopOf="@+id/Register"
+        app:layout_constraintEnd_toStartOf="@+id/showInterior"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/interior_textview"
         app:srcCompat="@android:drawable/ic_menu_report_image" />
 
     <Button
