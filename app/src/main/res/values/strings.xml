@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">driverBooking</string>
+    <string name="app_name">Rasai</string>
     <string-array name="languages_array">
         <item>Urdu</item>
         <item>English</item>
