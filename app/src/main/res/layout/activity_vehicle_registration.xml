@@ -12,18 +12,19 @@
         android:layout_height="39dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:dropDownSelector="@android:drawable/arrow_down_float"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/vehicleRegText" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/model"
         android:layout_width="363dp"
         android:layout_height="39dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="24dp"
+        android:hint="Model"
         app:helperText="Model"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/manufacturerSpinner">
@@ -38,7 +39,10 @@
         android:id="@+id/registration"
         android:layout_width="363dp"
         android:layout_height="39dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:hint="Registration Field"
         app:helperText="Registration Number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/model">
@@ -53,9 +57,10 @@
         android:id="@+id/numberSeats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="32dp"
+        android:editable="false"
         android:text="Number of Seats"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registration" />
@@ -64,21 +69,21 @@
         android:id="@+id/seatsSpinner"
         android:layout_width="79dp"
         android:layout_height="40dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:dropDownSelector="@android:drawable/arrow_down_float"
-        app:layout_constraintStart_toEndOf="@+id/numberSeats"
-        app:layout_constraintTop_toBottomOf="@+id/registration" />
+        app:layout_constraintBottom_toBottomOf="@+id/numberSeats"
+        app:layout_constraintStart_toEndOf="@+id/numberSeats" />
 
 
     <TextView
         android:id="@+id/ac_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:editable="false"
         android:text="AC"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/numberSeats" />
@@ -87,19 +92,19 @@
         android:id="@+id/ac_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintStart_toEndOf="@+id/ac_textview"
-        app:layout_constraintTop_toBottomOf="@+id/numberSeats" />
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ac_textview"
+        app:layout_constraintStart_toEndOf="@+id/ac_textview" />
 
     <TextView
         android:id="@+id/exterior_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:editable="false"
         android:text="Upload Vehicle Exterior Pictures"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ac_textview" />
@@ -108,9 +113,10 @@
         android:id="@+id/interior_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:editable="false"
         android:text="Upload Vehicle Exterior Pictures"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exterior_textview" />
@@ -119,11 +125,10 @@
         android:id="@+id/addExterior"
         android:layout_width="40dp"
         android:layout_height="36dp"
-        android:layout_marginTop="112dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginRight="72dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registration"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        app:layout_constraintBottom_toBottomOf="@+id/exterior_textview"
+        app:layout_constraintStart_toEndOf="@+id/exterior_textview"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <ImageButton
@@ -132,8 +137,7 @@
         android:layout_height="36dp"
         android:layout_marginStart="64dp"
         android:layout_marginLeft="64dp"
-        android:layout_marginBottom="13dp"
-        app:layout_constraintBottom_toTopOf="@+id/showInterior"
+        app:layout_constraintBottom_toBottomOf="@+id/interior_textview"
         app:layout_constraintStart_toEndOf="@+id/interior_textview"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
@@ -141,39 +145,58 @@
         android:id="@+id/showInterior"
         android:layout_width="118dp"
         android:layout_height="68dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/showExterior"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/showExterior"
-        app:layout_constraintTop_toBottomOf="@+id/interior_textview"
         app:srcCompat="@android:drawable/ic_menu_report_image" />
 
     <ImageView
         android:id="@+id/showExterior"
         android:layout_width="118dp"
         android:layout_height="68dp"
-        android:layout_marginStart="61dp"
-        android:layout_marginLeft="61dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="34dp"
         android:layout_marginRight="34dp"
-        android:layout_marginBottom="91dp"
-        app:layout_constraintBottom_toTopOf="@+id/Register"
         app:layout_constraintEnd_toStartOf="@+id/showInterior"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/interior_textview"
         app:srcCompat="@android:drawable/ic_menu_report_image" />
 
     <Button
         android:id="@+id/Register"
         android:layout_width="279dp"
         android:layout_height="50dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="39dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
         android:text="Register"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/showInterior"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/showInterior" />
+
+    <TextView
+        android:id="@+id/vehicleRegText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="VEHICLE REGISTRATION"
+        android:textColor="#0A0A0A"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
