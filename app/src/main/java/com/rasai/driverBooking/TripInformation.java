@@ -1,0 +1,162 @@
+package com.rasai.driverBooking;
+
+import android.util.Log;
+
+import com.google.firebase.database.DatabaseReference;
+
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class TripInformation implements Serializable {
+
+    public TripInformation() {}
+
+    private String phoneNumber;
+    private String to;
+    private String from;
+    private String startDate;
+    private String startTime;
+    private String endDate;
+    private String endTime;
+    private String tripType;
+    private String seats;
+    private String minBudget;
+    private String maxBudget;
+    private String extraDetails;
+    private String isReturn = "no";
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getIsReturn() {
+        return isReturn;
+    }
+
+    public void setIsReturn(String isReturn) {
+        this.isReturn = isReturn;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = changeDateFormat(startDate);
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) { this.startTime = startTime; }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = changeDateFormat(endDate);
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getTripType() {
+        return tripType;
+    }
+
+    public void setTripType(String tripType) {
+        this.tripType = tripType;
+    }
+
+    public String getSeats() {
+        return seats;
+    }
+
+    public void setSeats(String seats) {
+        this.seats = seats;
+    }
+
+    public String getMinBudget() {
+        return minBudget;
+    }
+
+    public void setMinBudget(String minBudget) {
+        this.minBudget = minBudget;
+    }
+
+    public String getMaxBudget() {
+        return maxBudget;
+    }
+
+    public void setMaxBudget(String maxBudget) {
+        this.maxBudget = maxBudget;
+    }
+
+    public String getExtraDetails() {
+        return extraDetails;
+    }
+
+    public void setExtraDetails(String extraDetails) {
+        this.extraDetails = extraDetails;
+    }
+
+    public void postTrip(DatabaseReference myRef) { //add to database package
+        myRef.child("Trips/"+phoneNumber).push().setValue(this);
+    }
+
+    public String toString() {
+        return String.format(getClass().getSimpleName() + "[from=%s, to=%s, phoneNumber=%s, startDate=%s, startTime=%s, " +
+                        "endDate=%s, endTime=%s, tripType=%s, seats=%s, minBudget=%s, " +
+                        "maxBudget=%s, extraDetails=%s, isReturn=%s]",
+                getFrom(), getTo(), getPhoneNumber(), getStartDate(), getStartTime(), getEndDate(), getEndTime(),
+                getTripType(), getSeats(), getMinBudget(), getMaxBudget(), getExtraDetails(), getIsReturn());
+    }
+
+    public String changeDateFormat(String date) {
+        SimpleDateFormat formatter=new SimpleDateFormat("dd/MM/yy");
+        DateFormat reqFormatter=new SimpleDateFormat("dd MMM yyyy");
+
+        Date date1= null;
+        try {
+            date1 = formatter.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return date;
+        }
+        String retDate= reqFormatter.format(date1);
+        Log.d("datechecker",retDate);
+
+        return retDate;
+    }
+}
+
