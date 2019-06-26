@@ -131,11 +131,11 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
                 getDriverInformation().setCnicImage(uri.toString());
                 break;
             case R.id.addDrivingLicense:
-                imageView = findViewById(R.id.showDrivingLicense);
+                imageView = findViewById(R.id.showDeposit);
                 getDriverInformation().setDrivingLicenseImage(uri.toString());
                 break;
             default:
-                imageView = findViewById(R.id.showDrivingLicense);
+                imageView = findViewById(R.id.showDeposit);
                 break;
         }
         Log.d("pleasee", getDriverInformation().toString());

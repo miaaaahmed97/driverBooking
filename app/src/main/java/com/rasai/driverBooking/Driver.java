@@ -46,7 +46,11 @@ public class Driver implements Serializable {
                 '}';
     }
 
-    public void storeDriverImage (StorageReference storageRef, final String fieldName, Uri file){
+    public void postDriverInfo(DatabaseReference myRef) { //add to database package
+        myRef.child("Driver/"+phoneNumber).push().setValue(this);
+    }
+
+    /*public void storeDriverImage (StorageReference storageRef, final String fieldName, Uri file){
         final StorageReference mStorageRef = storageRef.child("Driver/"+phoneNumber+fieldName);
         UploadTask uploadTask = mStorageRef.putFile(file);
 
@@ -100,9 +104,7 @@ public class Driver implements Serializable {
                 }
             }
         });
-    }
-
-    public void postDriverInfo(DatabaseReference mRef){}
+    }*/
 
     public String getCnicImage() {
         return cnicImage;

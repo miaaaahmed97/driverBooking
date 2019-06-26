@@ -6,4 +6,90 @@
     android:layout_height="match_parent"
     tools:context=".SecurityDepositUpload">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="94dp"
+        android:layout_marginLeft="94dp"
+        android:layout_marginTop="79dp"
+        android:text="Upload Picture of Bank Deposit Slip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/addSlip"
+        android:layout_width="54dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="178dp"
+        android:layout_marginLeft="178dp"
+        android:layout_marginTop="27dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
+
+    <ImageView
+        android:id="@+id/showDeposit"
+        android:layout_width="181dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="115dp"
+        android:layout_marginLeft="115dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addInterior"
+        app:srcCompat="@android:drawable/ic_menu_report_image" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/amount"
+        android:layout_width="313dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="68dp"
+        android:layout_marginRight="68dp"
+        android:layout_marginBottom="320dp"
+        android:hint="Amount Deposited"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/amount_field"
+        android:layout_width="355dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showDeposit" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/date"
+        android:layout_width="313dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="38dp"
+        android:layout_marginRight="38dp"
+        android:layout_marginBottom="14dp"
+        android:hint="Date of Deposit"
+        app:layout_constraintBottom_toTopOf="@+id/date_field"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/date_field"
+        android:layout_width="355dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/amount_field" />
+
+    <Button
+        android:id="@+id/Done"
+        android:layout_width="206dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="103dp"
+        android:layout_marginRight="103dp"
+        android:layout_marginBottom="153dp"
+        android:text="Done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,14 +6,7 @@ public class SecurityDeposit implements Serializable {
 
     private String depositDate;
     private String amount;
-
-    @Override
-    public String toString() {
-        return "SecurityDeposit{" +
-                "depositDate='" + depositDate + '\'' +
-                ", amount='" + amount + '\'' +
-                '}';
-    }
+    private String depositImage;
 
     public String getDepositDate() {
         return depositDate;
@@ -31,4 +24,20 @@ public class SecurityDeposit implements Serializable {
         this.amount = amount;
     }
 
+    public String getDepositImage() {
+        return depositImage;
+    }
+
+    public void setDepositImage(String depositImage) {
+        this.depositImage = depositImage;
+    }
+
+    @Override
+    public String toString() {
+        return "SecurityDeposit{" +
+                "depositDate='" + depositDate + '\'' +
+                ", amount='" + amount + '\'' +
+                ", depositImage='" + depositImage + '\'' +
+                '}';
+    }
 }
