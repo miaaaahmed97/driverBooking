@@ -1,6 +1,7 @@
 package com.rasai.driverBooking;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,6 @@ import java.util.List;
 
 public class CustomListAdapter extends ArrayAdapter<TripInformation> {
 
-    private int resourceLayout;
-    private Context mContext;
     List<TripInformation> list;
 
     TextView mFrom;
@@ -29,11 +28,15 @@ public class CustomListAdapter extends ArrayAdapter<TripInformation> {
 
     public CustomListAdapter(Context context, int resource, List<TripInformation> objects) {
         super(context, resource, objects);
-        list = objects;
+        this.list = objects;
+        //Log.d("testing list in adapter", objects.toString());
+        //Log.d("testing list adapter2", list.toString());
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+
+        Log.d("getview", list.toString());
 
         LayoutInflater myCustomInflater = LayoutInflater.from(getContext());
         View customView = myCustomInflater.inflate(R.layout.driver_home_list_item, parent, false);
@@ -50,6 +53,8 @@ public class CustomListAdapter extends ArrayAdapter<TripInformation> {
         mSeats = (TextView) customView.findViewById(R.id.numSeatsCd);
         mIsReturn = (TextView) customView.findViewById(R.id.returnCd);
 
+
+        //Log.d("getview2", getItem(position).getFrom());
 
         mFrom.setText(getItem(position).getFrom());
         mTo.setText(getItem(position).getTo());

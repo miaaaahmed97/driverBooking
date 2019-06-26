@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DriverHome extends AppCompatActivity {
+public class DriverHome extends AppCompatActivity implements Serializable{
 
     private ListView mListView;
     private CustomListAdapter mAdapter;
@@ -31,15 +32,17 @@ public class DriverHome extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_driver_home);
+        mListView = findViewById(R.id.list_view);
         //setContentView(R.layout.activity_driver_home);
 
-        minflater = this.getLayoutInflater();
-        inflateView = minflater.inflate(R.layout.activity_driver_home,null,true);
-        mListView = (ListView) inflateView.findViewById(R.id.list_view);
+        //minflater = this.getLayoutInflater();
+        //inflateView = minflater.inflate(R.layout.activity_driver_home,null,true);
+        //mListView = (ListView) inflateView.findViewById(R.id.list_view);
 
         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Trips");
 
-        class MyValueEventListener implements ValueEventListener {
+        class MyValueEventListener implements ValueEventListener, Serializable {
 
 
             @Override
@@ -57,7 +60,7 @@ public class DriverHome extends AppCompatActivity {
                         //Iterate through the trips of a given phone number
                         for(DataSnapshot inner_child: inner_children){
 
-                            Log.d("testing2", "Inside first for loop");
+                            //Log.d("testing2", "Inside first for loop");
 
                             TripInformation tripInfo = new TripInformation();
 
@@ -76,11 +79,12 @@ public class DriverHome extends AppCompatActivity {
                             tripInfo.setIsReturn(inner_child.child("isReturn").getValue(String.class));
 
                             postedTripsList.add(tripInfo);
+                            //Log.d("Testinglist in Homeloop", postedTripsList.toString());
 
                         }
                 }
-
                 mAdapter = new CustomListAdapter(DriverHome.this, R.layout.driver_home_list_item, postedTripsList);
+                mAdapter.notifyDataSetChanged();
                 mListView.setAdapter(mAdapter);
 
             }
@@ -88,6 +92,11 @@ public class DriverHome extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         }
         mRef.addValueEventListener(new MyValueEventListener());
+        //Log.d("Testing list in Home", postedTripsList.toString());
 
     }
+
+    /*@Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState){}*/
 }
