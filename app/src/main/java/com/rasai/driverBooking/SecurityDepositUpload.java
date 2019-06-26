@@ -72,9 +72,6 @@ public class SecurityDepositUpload extends AppCompatActivity {
             //calls gallery
             buttonIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
             startActivityForResult(buttonIntent, GET_FROM_GALLERY);
-            //get ID of calling button
-            String viewID= String.valueOf(v.getId());
-            buttonIntent.putExtra("EXTRA",viewID);
         }
     }
 
@@ -160,18 +157,8 @@ public class SecurityDepositUpload extends AppCompatActivity {
     public void displayImage(Bitmap bmp, Uri uri){
         ImageView imageView;
         testURI = uri;
-        //get ID of calling button
-        String stringID= buttonIntent.getExtras().getString("EXTRA");
-        int intID =Integer.parseInt(stringID);
-        switch (intID){
-            case R.id.addSlip:
-                imageView = findViewById(R.id.showDeposit);
-                getSecurityDeposit().setDepositImage(uri.toString());
-                break;
-            default:
-                imageView = findViewById(R.id.showDeposit);
-                break;
-        }
+        imageView = findViewById(R.id.showDeposit);
+        getSecurityDeposit().setDepositImage(uri.toString());
         Log.d("pleasee", getSecurityDeposit().toString());
         imageView.setImageBitmap(bmp);
     }
