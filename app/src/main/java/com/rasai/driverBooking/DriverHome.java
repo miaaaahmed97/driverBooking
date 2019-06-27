@@ -96,6 +96,9 @@ public class DriverHome extends AppCompatActivity implements Serializable{
         mRef.addValueEventListener(new MyValueEventListener());
         //Log.d("Testing list in Home", postedTripsList.toString());
 
+        //creating bottom navigation view
+        setupBottomNavigationView();
+
     }
 
     /*@Override
