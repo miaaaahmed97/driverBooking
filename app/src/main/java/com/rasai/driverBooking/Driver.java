@@ -5,17 +5,16 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.UUID;
 
 public class Driver implements Serializable {
 
@@ -50,61 +49,106 @@ public class Driver implements Serializable {
         myRef.child("Driver/"+phoneNumber).push().setValue(this);
     }
 
-    /*public void storeDriverImage (StorageReference storageRef, final String fieldName, Uri file){
-        final StorageReference mStorageRef = storageRef.child("Driver/"+phoneNumber+fieldName);
-        UploadTask uploadTask = mStorageRef.putFile(file);
+    private Uri getImageUri(String imageName){
+        Uri filePath;
 
-        //upload image to firebase
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                // ...
-                Log.d("checking", fieldName+" addedd succcessfully");
-            }
-        });
+        switch(imageName){
+            case "cnicImage":
+                filePath = Uri.parse(cnicImage);
+                break;
+            case "idImage":
+                filePath = Uri.parse(idImage);
+                break;
+            case "drivingLicenseImage":
+                filePath = Uri.parse(drivingLicenseImage);
+                break;
+            case "exteriorImage":
+                filePath = Uri.parse(vehicle.getExteriorImage());
+                break;
+            case "interiorImage":
+                filePath = Uri.parse(vehicle.getInteriorImage());
+                break;
+            case "depositImage":
+                filePath = Uri.parse(securityDeposit.getDepositImage());
+                break;
+            default:
+                filePath = Uri.parse(cnicImage);
+                break;
+        }
+        return  filePath;
+    }
 
-        //get download uri
-        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                if (!task.isSuccessful()) {
-                    throw task.getException();
-                }
+    private void setImageUrl(String imageName, String url){
 
-                // Continue with the task to get the download URL
-                return mStorageRef.getDownloadUrl();
+        switch(imageName){
+            case "cnicImage":
+                cnicImage = url;
+                break;
+            case "idImage":
+                idImage = url;
+                break;
+            case "drivingLicenseImage":
+                drivingLicenseImage =url;
+                break;
+            case "exteriorImage":
+                vehicle.setExteriorImage(url);
+                break;
+            case "interiorImage":
+                vehicle.setInteriorImage(url);
+                break;
+            case "depositImage":
+                securityDeposit.setDepositImage(url);
+                break;
+            default:
+                cnicImage = url;
+                break;
+        }
+    }
+
+    public void uploadImage(StorageReference storageReference, final String[] imageNameArray) {
+
+        for(final String image_Name: imageNameArray){
+            final String imageName = image_Name;
+            Uri filePath = getImageUri(imageName);
+            final String imageid;
+            final String[] imagelink = new String[1];
+            final Uri[] download_url = new Uri[1];
+
+            if(filePath != null)
+            {
+                imageid="Driver/"+ phoneNumber +"/"+UUID.randomUUID().toString();
+                Log.d("imagelink",imageid);
+
+                StorageReference ref = storageReference.child(imageid);
+                ref.putFile(filePath)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Task<Uri> urlTask=taskSnapshot.getStorage().getDownloadUrl();
+
+                                while(!urlTask.isSuccessful()){
+                                }
+                                download_url[0] = urlTask.getResult();
+                                imagelink[0] = String.valueOf(download_url[0]);
+                                setImageUrl(imageName, imagelink[0]);
+
+                                Log.d("imagelink", imagelink[0]);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                            }
+                        })
+                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            }
+                        });
             }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    Uri downloadUri = task.getResult();
-                    switch(fieldName){
-                        case "cnicImage":
-                            cnicImage = downloadUri.toString();
-                            break;
-                        case "idImage":
-                            idImage = downloadUri.toString();
-                            break;
-                        case "drivingLicenseImage":
-                            drivingLicenseImage = downloadUri.toString();
-                            break;
-                        default:
-                            Log.d("checking", "Inside default of store Image; Drive.java");
-                    }
-                } else {
-                    // Handle failures
-                    // ...
-                }
-            }
-        });
-    }*/
+        }
+
+    }
 
     public String getCnicImage() {
         return cnicImage;

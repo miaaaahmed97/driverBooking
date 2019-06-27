@@ -1,6 +1,5 @@
 package com.rasai.driverBooking;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -12,21 +11,16 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -37,25 +31,26 @@ public class SecurityDepositUpload extends AppCompatActivity {
     Intent buttonIntent;
     private static final int GET_FROM_GALLERY = 1;
 
-    private StorageReference mStorageRef;
     FirebaseDatabase database;
+    FirebaseStorage storage;
+    StorageReference storageReference;
 
     ImageButton addDepositButton;
     private Button registrationButton;
     private TextInputEditText mDate;
     private TextInputEditText mAmount;
 
-    private Driver driverInformation;
+    private Driver driverInfo;
     private SecurityDeposit securityDeposit;
 
     Uri testURI;
 
-    public void setDriverInformation(Driver driverInformation) {
-        this.driverInformation = driverInformation;
+    public void setDriverInfo(Driver driverInfo) {
+        this.driverInfo = driverInfo;
     }
 
-    public Driver getDriverInformation() {
-        return driverInformation;
+    public Driver getDriverInfo() {
+        return driverInfo;
     }
 
     public SecurityDeposit getSecurityDeposit() {
@@ -81,6 +76,8 @@ public class SecurityDepositUpload extends AppCompatActivity {
         setContentView(R.layout.activity_security_deposit_upload);
 
         database = FirebaseDatabase.getInstance();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
         registrationButton = (Button) findViewById(R.id.Done);
         mDate = (TextInputEditText) findViewById(R.id.date_field);
@@ -91,7 +88,7 @@ public class SecurityDepositUpload extends AppCompatActivity {
 
         //Get Driver Object from driverRegistration2
         Intent i = getIntent();
-        setDriverInformation((Driver) i.getSerializableExtra("driverObject"));
+        setDriverInfo((Driver) i.getSerializableExtra("driverObject"));
 
         //initialize vehicle
         setSecurityDeposit(new SecurityDeposit());
@@ -101,54 +98,29 @@ public class SecurityDepositUpload extends AppCompatActivity {
         {
             @Override
             public void onClick(View view) {
-                //Log.d("testing3", driverInformation.toString());
+                //Log.d("testing3", driverInfo.toString());
 
                 getSecurityDeposit().setAmount(mAmount.getText().toString());
                 getSecurityDeposit().setDepositDate(mDate.getText().toString());
-                getDriverInformation().setSecurityDeposit(getSecurityDeposit());
+                getDriverInfo().setSecurityDeposit(getSecurityDeposit());
 
-                /*mStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://rasai-3c730.appspot.com");
-                database = FirebaseDatabase.getInstance();
+                String[] imageNames = {getDriverInfo().getCnicImage(), getDriverInfo().getIdImage(),
+                        getDriverInfo().getDrivingLicenseImage(), getDriverInfo().getVehicle().getExteriorImage(),
+                getDriverInfo().getVehicle().getInteriorImage(), getSecurityDeposit().getDepositImage()};
 
-                StorageReference ref = mStorageRef.child("Driver/");
-                ref.putFile(testURI);
-                       /* .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                            }
-                        });
+                if (imageNames.length ==6){
+                    getDriverInfo().uploadImage(storageReference, imageNames);
 
-                /*final StorageReference storageRef = mStorageRef.child("Driver/"+getDriverInformation().getPhoneNumber()+"CNIC");
-                UploadTask uploadTask = storageRef.putFile(Uri.parse(getDriverInformation().getCnicImage()));
+                    DatabaseReference mDriver = database.getReference();
+                    getDriverInfo().postDriverInfo(mDriver);
 
-                //upload image to firebase
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        //getDriverInformation().setCnicImage(taskSnapshot.getMetadata().toString());
-                        // ...
-                        Log.d("checking", "addedd succcessfully");
-                    }
-                });*/
-
-                //getDriverInformation().storeDriverImage(mStorageRef, "cnicImage", Uri.parse(getDriverInformation().getCnicImage()));
-
-                DatabaseReference mDriver = database.getReference();
-                getDriverInformation().postDriverInfo(mDriver);
-
-                Intent navNext = new Intent(SecurityDepositUpload.this, DriverHome.class);
-                navNext.putExtra("driverObject", driverInformation);
-                startActivity(navNext);
+                    Intent navNext = new Intent(SecurityDepositUpload.this, DriverHome.class);
+                    navNext.putExtra("driverObject", driverInfo);
+                    startActivity(navNext);
+                }else{
+                    Log.d("MyError", "selsct all images");
+                    Toast.makeText(SecurityDepositUpload.this, "Please Upload all Images ", Toast.LENGTH_SHORT).show();
+                }
             }
         }
         registrationButton.setOnClickListener(new MyOnClickListener());
@@ -185,8 +157,5 @@ public class SecurityDepositUpload extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
     }
-
-
 }

@@ -24,6 +24,7 @@ import java.io.Serializable;
 public class driverRegistration2 extends AppCompatActivity implements Serializable{
 
     Intent buttonIntent;
+    //ImageDisplayer imageDisplayer;
 
     private static final int GET_FROM_GALLERY = 1;
     ImageButton addIDButton, addCNICButton, addDrivLicButton;
@@ -62,7 +63,6 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
         Intent i = getIntent();
-        //Driver driverInformation = (Driver) i.getSerializableExtra("driverObject");
         setDriverInformation((Driver) i.getSerializableExtra("driverObject"));
 
         addIDButton = findViewById(R.id.addExterior);
@@ -102,7 +102,12 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
             try {
                 Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
                 //image display
+
                 displayImage(bmp, selectedImage);
+                //Refactoring try
+                //String stringID= buttonIntent.getExtras().getString("EXTRA");
+                //imageDisplayer = new ImageDisplayer(getDriverInformation(), R.layout.activity_driver_registration2, this, stringID);
+                //imageDisplayer.displayImage(bmp, selectedImage);
 
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
@@ -142,15 +147,5 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
         imageView.setImageBitmap(bmp);
     }
 
-
-
-    /*public void registerDriver(View v){
-        if (v.getId()==R.id.registerDriverButton) {
-            Intent i = new Intent(driverRegistration2.this, vehicleRegistration.class);
-            startActivity(i);
-
-        }
-
-    }*/
 }
 
