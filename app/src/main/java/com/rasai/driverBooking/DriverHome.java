@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.List;
 
 public class DriverHome extends AppCompatActivity implements Serializable{
 
+    private static final String TAG = "DriverHome";
     private ListView mListView;
     private CustomListAdapter mAdapter;
     private View inflateView;
@@ -94,9 +96,21 @@ public class DriverHome extends AppCompatActivity implements Serializable{
         mRef.addValueEventListener(new MyValueEventListener());
         //Log.d("Testing list in Home", postedTripsList.toString());
 
+        //creating bottom navigation view
+        setupBottomNavigationView();
+
     }
 
     /*@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){}*/
+
+    /**
+     * BottomNavigationView setup
+     */
+    private void setupBottomNavigationView() {
+        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
+        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
+        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
+    }
 }

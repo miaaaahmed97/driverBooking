@@ -71,7 +71,6 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
         registrationButton = (Button) findViewById(R.id.registerDriverButton);
 
         addIDButton.setOnClickListener(new ImageButtonListener());
-        Log.d("showID", String.valueOf(R.id.addCnic));
         addCNICButton.setOnClickListener(new ImageButtonListener());
         addDrivLicButton.setOnClickListener(new ImageButtonListener());
 
