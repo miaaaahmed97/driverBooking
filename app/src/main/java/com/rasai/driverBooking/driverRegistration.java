@@ -53,9 +53,7 @@ public class driverRegistration extends Activity implements Serializable {
 
         //StringLangSelected = mLangSpinner.buildSelectedItemString();
         //mLangSpinner.onClick();
-        StringLangSelected = mLangSpinner.getSelectedItemsAsString();
 
-        Log.d("testing1", StringLangSelected);
 
         mCnic = (TextInputEditText) findViewById(R.id.cnic_field);
         mBday = (TextInputEditText) findViewById(R.id.birthday_field);
@@ -68,6 +66,10 @@ public class driverRegistration extends Activity implements Serializable {
         class MyOnClickListener implements View.OnClickListener, Serializable {
             @Override
             public void onClick(View view) {
+
+                StringLangSelected = mLangSpinner.getSelectedStrings().toString();
+
+                Log.d("testing1", StringLangSelected);
 
                 //set tripInformation
                 driverInformation.setPhoneNumber(phoneNumber);
