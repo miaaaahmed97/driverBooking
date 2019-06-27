@@ -86,7 +86,7 @@ public class vehicleRegistration extends Activity implements AdapterView.OnItemS
         seatsSpinner.setAdapter(seatsAdapter);
         //End - Spinner Layout Setup
 
-        registrationButton = (Button) findViewById(R.id.Register);
+        registrationButton = (Button) findViewById(R.id.RegisterVehicle);
         mModel = (TextInputEditText) findViewById(R.id.model_field);
         mRegistration = (TextInputEditText) findViewById(R.id.registration_field);
         Switch toggle = (Switch) findViewById(R.id.ac_switch);
