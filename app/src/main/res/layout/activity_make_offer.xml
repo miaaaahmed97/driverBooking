@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".makeOffer">
+
+    <!--<com.google.android.gms.maps.MapView
+        android:id="@+id/route"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:foregroundGravity="center_horizontal">
+
+    </com.google.android.gms.maps.MapView>-->
+    <ImageView
+        android:id="@+id/route"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/map_picture"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="fitXY"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:foregroundGravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/route"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp">
+
+                <TextView
+                    android:id="@+id/fromText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="From : "
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:paddingLeft="2sp"
+                    android:paddingRight="2sp"/>
+
+                <TextView
+                    android:id="@+id/startDateCd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="0dp"
+                    android:paddingLeft="2sp"
+                    android:paddingRight="2sp"
+                    android:text="17 July"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:typeface="normal"
+                    android:layout_marginStart="2dp" />
+
+                <TextView
+                    android:id="@+id/startTimeCd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="2sp"
+                    android:paddingRight="2sp"
+                    android:text="10 AM"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp">
+
+                <TextView
+                    android:id="@+id/toText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:paddingLeft="2sp"
+                    android:paddingRight="2sp"
+                    android:text="To : "
+                    android:textSize="18sp"
+                    android:typeface="normal"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/endDateCd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="0dp"
+                    android:paddingLeft="2sp"
+                    android:paddingRight="2sp"
+                    android:text="18 July"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:typeface="normal"
+                    android:layout_marginStart="2dp" />
+
+                <TextView
+                    android:id="@+id/endTimeCd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="2sp"
+                    android:paddingRight="2sp"
+                    android:text="10 PM"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginStart="5dp">
+
+                <TextView
+                    android:id="@+id/fromCd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:text="Islamabad"
+                    android:layout_marginStart="2dp"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/toText2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:text="to"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/toCd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:text="Murree"
+                    android:textSize="18sp"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp">
+                <TextView
+                    android:id="@+id/returnText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=" Return : "
+                    android:textSize="18sp"/>
+
+
+                <TextView
+                    android:id="@+id/returnCd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=" yes/no "
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/familyOrFriendsCd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Family Trip"
+                    android:paddingStart="5sp"
+                    android:paddingLeft="5sp"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="50dp"
+                android:orientation="horizontal"
+                android:layout_marginStart="5dp">
+
+                <TextView
+                    android:id="@+id/numSeatsCd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="8"
+                    android:textSize="18sp"
+                    android:layout_marginStart="5dp" />
+
+                <TextView
+                    android:id="@+id/seatsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="seats"
+                    android:paddingLeft="5sp"
+                    android:paddingRight="5sp"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/PKRText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PKR"
+                    android:paddingRight="5sp"
+                    android:paddingLeft="5sp"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/budgetMinCd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5sp"
+                    android:paddingRight="5sp"
+                    android:text="3000"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/toText3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5sp"
+                    android:paddingRight="5sp"
+                    android:textSize="18sp"
+                    android:text=" to " />
+
+                <TextView
+                    android:id="@+id/budgetMaxCd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:paddingRight="5sp"
+                    android:paddingLeft="5sp"
+                    android:text="4500" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/addDetailsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="12dp"
+                android:gravity="start"
+                android:padding="2dp"
+                android:text="Additional Details"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/additionalDetailsCd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:padding="2dp"
+                android:paddingTop="10sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:text="No extra details"
+                android:textSize="18sp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:hint="Your budget e.g. 4500">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/offeredBudget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/makeOfferButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginRight="16dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="make offer"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"
+                android:layout_marginEnd="16dp"
+                android:onClick="makeBudgetOffer"/>
+
+            <Button
+                android:id="@+id/changeBudgetButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="change budget"
+                android:layout_margin="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"
+                android:onClick="changeBudgetOffer"/>
+
+            <Button
+                android:id="@+id/doneBudgetButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="done"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"
+                android:onClick="doneOffer"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
