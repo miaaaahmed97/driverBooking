@@ -91,17 +91,4 @@ public class driverRegistration extends Activity implements Serializable {
         mnextButton.setOnClickListener(new MyOnClickListener());
 
     }
-
-
-    /*public void goToVehicleReg(View v){
-        if (v.getId()==R.id.continueDriverReg) {
-            Intent i = new Intent(driverRegistration.this, driverRegistration2.class);
-            startActivity(i);
-
-        }
-
-    }*/
-
-
-
 }

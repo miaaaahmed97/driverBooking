@@ -50,6 +50,8 @@ public class DriverHome extends AppCompatActivity implements Serializable{
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                postedTripsList.clear();
+
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
 
                 //Iterate through phone numbers
