@@ -12,8 +12,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.rasai.driverBooking.CustomObject.SecurityDeposit;
-import com.rasai.driverBooking.CustomObject.Vehicle;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -52,7 +50,7 @@ public class Driver implements Serializable {
 
     public void postDriverInfo(DatabaseReference myRef) { //add to database package
         myRef.child("Driver/"+phoneNumber).push().setValue(this);
-        databaseId = myRef.getKey();
+        //databaseId = myRef.getKey();
     }
 
     private Uri getImageUri(String imageName){

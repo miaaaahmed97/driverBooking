@@ -9,8 +9,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.rasai.driverBooking.CustomObject.Offer;
 import com.rasai.driverBooking.CustomObject.TripInformation;
 import com.rasai.driverBooking.TripTabsActivity.TripTabsActivity;
 
@@ -36,12 +39,12 @@ public class MakeOffer extends AppCompatActivity {
     TextInputEditText mBudgetField;
 
     TripInformation tripInfo;
+    Offer offer;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
-
-    Button mPostOffer;
-
+    private FirebaseAuth mauth = FirebaseAuth.getInstance();
+    private FirebaseUser user = mauth.getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +109,8 @@ public class MakeOffer extends AppCompatActivity {
         mChangeBudget.setVisibility(View.GONE);
         mDone.setVisibility(View.GONE);
 
+        offer = new Offer();
+
         mMakeOffer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,8 +124,16 @@ public class MakeOffer extends AppCompatActivity {
                 mBudgetField.setFocusable(false);
 
                 //store the value to tripInfo object
-                tripInfo.setDriverOffer(mBudgetField.getText().toString());
-                tripInfo.postOffer(myRef);
+                offer.setAmount(mBudgetField.getText().toString());
+
+                if(offer.getDatabaseId() != null){
+                    offer.changeOffer(myRef);
+                }
+                else{
+                    offer.setTripID(tripInfo.getDatabaseId());
+                    offer.setDriverPhoneNumber(user.getPhoneNumber());
+                    offer.makeOffer(myRef);
+                }
             }
         });
 

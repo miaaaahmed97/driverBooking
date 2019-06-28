@@ -28,7 +28,6 @@ public class TripInformation implements Serializable {
     private String extraDetails;
     private String isReturn = "no";
     private Boolean confirmed = false;
-    private String driverOffer = null;
     private String databaseId;
 
     public Boolean getConfirmed() {
@@ -45,14 +44,6 @@ public class TripInformation implements Serializable {
 
     public void setDatabaseId(String databaseId) {
         this.databaseId = databaseId;
-    }
-
-    public String getDriverOffer() {
-        return driverOffer;
-    }
-
-    public void setDriverOffer(String driverOffer) {
-        this.driverOffer = driverOffer;
     }
 
     public String getTo() {
@@ -163,12 +154,6 @@ public class TripInformation implements Serializable {
         myRef.child("Trips").child(phoneNumber).child(databaseId).setValue(this);
     }
 
-
-    public void postOffer(DatabaseReference myRef){
-        myRef.child("Trips").child(phoneNumber).child(databaseId).
-                child("driverOffer").setValue(driverOffer);
-    }
-
     @Override
     public String toString() {
         return "TripInformation{" +
@@ -186,7 +171,6 @@ public class TripInformation implements Serializable {
                 ", extraDetails='" + extraDetails + '\'' +
                 ", isReturn='" + isReturn + '\'' +
                 ", confirmed=" + confirmed +
-                ", driverOffer='" + driverOffer + '\'' +
                 ", databaseId='" + databaseId + '\'' +
                 '}';
     }
