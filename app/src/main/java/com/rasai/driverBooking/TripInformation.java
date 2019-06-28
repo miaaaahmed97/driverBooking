@@ -27,6 +27,33 @@ public class TripInformation implements Serializable {
     private String maxBudget;
     private String extraDetails;
     private String isReturn = "no";
+    private Boolean confirmed = false;
+    private String driverOffer = null;
+    private String databaseId;
+
+    public Boolean getConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(Boolean confirmed) {
+        this.confirmed = confirmed;
+    }
+
+    public String getDatabaseId() {
+        return databaseId;
+    }
+
+    public void setDatabaseId(String databaseId) {
+        this.databaseId = databaseId;
+    }
+
+    public String getDriverOffer() {
+        return driverOffer;
+    }
+
+    public void setDriverOffer(String driverOffer) {
+        this.driverOffer = driverOffer;
+    }
 
     public String getTo() {
         return to;
@@ -131,15 +158,37 @@ public class TripInformation implements Serializable {
     }
 
     public void postTrip(DatabaseReference myRef) { //add to database package
-        myRef.child("Trips/"+phoneNumber).push().setValue(this);
+        DatabaseReference myReference =  myRef.child("Trips/"+phoneNumber).push();
+        databaseId = myReference.getKey();
+        myRef.child("Trips").child(phoneNumber).child(databaseId).setValue(this);
     }
 
+
+    public void postOffer(DatabaseReference myRef){
+        myRef.child("Trips").child(phoneNumber).child(databaseId).
+                child("driverOffer").setValue(driverOffer);
+    }
+
+    @Override
     public String toString() {
-        return String.format(getClass().getSimpleName() + "[from=%s, to=%s, phoneNumber=%s, startDate=%s, startTime=%s, " +
-                        "endDate=%s, endTime=%s, tripType=%s, seats=%s, minBudget=%s, " +
-                        "maxBudget=%s, extraDetails=%s, isReturn=%s]",
-                getFrom(), getTo(), getPhoneNumber(), getStartDate(), getStartTime(), getEndDate(), getEndTime(),
-                getTripType(), getSeats(), getMinBudget(), getMaxBudget(), getExtraDetails(), getIsReturn());
+        return "TripInformation{" +
+                "phoneNumber='" + phoneNumber + '\'' +
+                ", to='" + to + '\'' +
+                ", from='" + from + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", tripType='" + tripType + '\'' +
+                ", seats='" + seats + '\'' +
+                ", minBudget='" + minBudget + '\'' +
+                ", maxBudget='" + maxBudget + '\'' +
+                ", extraDetails='" + extraDetails + '\'' +
+                ", isReturn='" + isReturn + '\'' +
+                ", confirmed=" + confirmed +
+                ", driverOffer='" + driverOffer + '\'' +
+                ", databaseId='" + databaseId + '\'' +
+                '}';
     }
 
     public String changeDateFormat(String date) {

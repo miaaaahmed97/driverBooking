@@ -118,7 +118,7 @@ public class SecurityDepositUpload extends AppCompatActivity {
                     navNext.putExtra("driverObject", driverInfo);
                     startActivity(navNext);
                 }else{
-                    Log.d("MyError", "selsct all images");
+                    Log.d("MyError", "select all images");
                     Toast.makeText(SecurityDepositUpload.this, "Please Upload all Images ", Toast.LENGTH_SHORT).show();
                 }
             }

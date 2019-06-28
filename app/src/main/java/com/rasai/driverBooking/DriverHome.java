@@ -3,11 +3,12 @@ package com.rasai.driverBooking;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -36,11 +37,18 @@ public class DriverHome extends AppCompatActivity implements Serializable{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_home);
         mListView = findViewById(R.id.list_view);
-        //setContentView(R.layout.activity_driver_home);
 
-        //minflater = this.getLayoutInflater();
-        //inflateView = minflater.inflate(R.layout.activity_driver_home,null,true);
-        //mListView = (ListView) inflateView.findViewById(R.id.list_view);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(DriverHome.this, MakeOffer.class);
+                //Log.d("testing list index", Integer.toString(position));
+                TripInformation tripSelected = postedTripsList.get(position);
+                intent.putExtra("TRIP_SELECTED", tripSelected);
+                startActivity(intent);
+            }
+        });
 
         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Trips");
 
@@ -81,6 +89,7 @@ public class DriverHome extends AppCompatActivity implements Serializable{
                             tripInfo.setExtraDetails(inner_child.child("extraDetails").getValue(String.class));
                             tripInfo.setPhoneNumber(inner_child.child("phoneNumber").getValue(String.class));
                             tripInfo.setIsReturn(inner_child.child("isReturn").getValue(String.class));
+                            tripInfo.setDatabaseId(inner_child.child("databaseId").getValue(String.class));
 
                             postedTripsList.add(tripInfo);
                             //Log.d("Testinglist in Homeloop", postedTripsList.toString());
