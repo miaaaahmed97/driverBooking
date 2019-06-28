@@ -1,6 +1,4 @@
-package com.rasai.driverBooking;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.rasai.driverBooking.Registration;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,13 +17,18 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputEditText;
+import com.rasai.driverBooking.CustomObject.Driver;
+import com.rasai.driverBooking.CustomObject.Vehicle;
+import com.rasai.driverBooking.R;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 
-public class vehicleRegistration extends Activity implements AdapterView.OnItemSelectedListener,Serializable {
+public class vehicleRegistration extends AppCompatActivity implements AdapterView.OnItemSelectedListener,Serializable {
 
     Intent buttonIntent;
     private static final int GET_FROM_GALLERY = 1;

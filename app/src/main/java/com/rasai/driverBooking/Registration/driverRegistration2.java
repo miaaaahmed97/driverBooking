@@ -1,4 +1,4 @@
-package com.rasai.driverBooking;
+package com.rasai.driverBooking.Registration;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +16,8 @@ import android.widget.ImageView;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.rasai.driverBooking.CustomObject.Driver;
+import com.rasai.driverBooking.R;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

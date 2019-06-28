@@ -1,4 +1,4 @@
-package com.rasai.driverBooking;
+package com.rasai.driverBooking.CustomObject;
 
 import android.net.Uri;
 import android.util.Log;
@@ -12,6 +12,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.rasai.driverBooking.CustomObject.SecurityDeposit;
+import com.rasai.driverBooking.CustomObject.Vehicle;
 
 import java.io.Serializable;
 import java.util.UUID;

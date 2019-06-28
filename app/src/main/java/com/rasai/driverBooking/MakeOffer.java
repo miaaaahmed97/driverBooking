@@ -6,12 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.rasai.driverBooking.CustomObject.TripInformation;
+import com.rasai.driverBooking.TripTabsActivity.TripTabsActivity;
 
 public class MakeOffer extends AppCompatActivity {
 

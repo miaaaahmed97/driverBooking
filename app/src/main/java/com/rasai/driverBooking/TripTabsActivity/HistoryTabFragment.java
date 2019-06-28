@@ -1,4 +1,4 @@
-package com.rasai.driverBooking;
+package com.rasai.driverBooking.TripTabsActivity;
 
 import androidx.fragment.app.Fragment;
 

@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.rasai.driverBooking.CustomObject.Driver;
+
 public class ImageDisplayer {
 
     Intent buttonIntent;

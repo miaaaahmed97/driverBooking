@@ -1,18 +1,20 @@
-package com.rasai.driverBooking;
+package com.rasai.driverBooking.Registration;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.AttributeSet;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatSpinner;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 
-public class MultiSelectionSpinner extends Spinner implements DialogInterface.OnMultiChoiceClickListener
+public class MultiSelectionSpinner extends AppCompatSpinner implements DialogInterface.OnMultiChoiceClickListener
 {
     String[] _items = null;
     boolean[] mSelection = null;

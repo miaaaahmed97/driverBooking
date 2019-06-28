@@ -1,4 +1,4 @@
-package com.rasai.driverBooking;
+package com.rasai.driverBooking.TripTabsActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -7,16 +7,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.google.android.material.tabs.TabLayout;
-
-import java.io.Serializable;
-
-import android.os.Bundle;
-import android.widget.ListView;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
-import com.google.android.material.tabs.TabLayout;
+import com.rasai.driverBooking.R;
 
 import java.io.Serializable;
 

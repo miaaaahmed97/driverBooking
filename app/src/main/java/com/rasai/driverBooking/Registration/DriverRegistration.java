@@ -1,6 +1,5 @@
-package com.rasai.driverBooking;
+package com.rasai.driverBooking.Registration;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,15 +7,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.rasai.driverBooking.CustomObject.Driver;
+import com.rasai.driverBooking.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class driverRegistration extends Activity implements Serializable {
+public class DriverRegistration extends AppCompatActivity implements Serializable {
 
     private TextInputEditText mCnic;
     private TextInputEditText mBday;
@@ -82,7 +85,7 @@ public class driverRegistration extends Activity implements Serializable {
 
                 //Log.d("testing3", driverInformation.toString());
 
-                Intent navNext = new Intent(driverRegistration.this, driverRegistration2.class);
+                Intent navNext = new Intent(DriverRegistration.this, driverRegistration2.class);
                 navNext.putExtra("driverObject", driverInformation);
                 startActivity(navNext);
             }
