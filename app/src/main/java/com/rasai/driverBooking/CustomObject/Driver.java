@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -14,6 +15,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.UUID;
 
 public class Driver implements Serializable {
@@ -29,7 +35,8 @@ public class Driver implements Serializable {
     private String idImage;
     private String drivingLicenseImage;
     private String databaseId;
-
+    private List<String> offersMade = new ArrayList<>();
+    private List<String> offerAccepted = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -45,11 +52,13 @@ public class Driver implements Serializable {
                 ", idImage='" + idImage + '\'' +
                 ", drivingLicenseImage='" + drivingLicenseImage + '\'' +
                 ", databaseId='" + databaseId + '\'' +
+                ", offersMade=" + offersMade +
+                ", offerAccepted=" + offerAccepted +
                 '}';
     }
 
     public void postDriverInfo(DatabaseReference myRef) { //add to database package
-        myRef.child("Driver/"+phoneNumber).push().setValue(this);
+        myRef.child("Driver/"+phoneNumber).setValue(this);
         //databaseId = myRef.getKey();
     }
 
@@ -240,5 +249,21 @@ public class Driver implements Serializable {
 
     public void setDatabaseId(String databaseId) {
         this.databaseId = databaseId;
+    }
+
+    public List<String> getOffersMade() {
+        return offersMade;
+    }
+
+    public void setOffersMade(List<String> offersMade) {
+        this.offersMade = offersMade;
+    }
+
+    public List<String> getOfferAccepted() {
+        return offerAccepted;
+    }
+
+    public void setOfferAccepted(List<String> offerAccepted) {
+        this.offerAccepted = offerAccepted;
     }
 }

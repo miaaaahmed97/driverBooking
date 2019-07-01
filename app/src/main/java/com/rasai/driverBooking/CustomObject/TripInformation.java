@@ -29,6 +29,15 @@ public class TripInformation implements Serializable {
     private String isReturn = "no";
     private Boolean confirmed = false;
     private String databaseId;
+    private String driverOffer = "";
+
+    public String getDriverOffer() {
+        return driverOffer;
+    }
+
+    public void setDriverOffer(String driverOffer) {
+        this.driverOffer = driverOffer;
+    }
 
     public Boolean getConfirmed() {
         return confirmed;

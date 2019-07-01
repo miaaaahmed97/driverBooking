@@ -3,6 +3,7 @@ package com.rasai.driverBooking.CustomObject;
 import com.google.firebase.database.DatabaseReference;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Offer implements Serializable {
 
@@ -11,6 +12,17 @@ public class Offer implements Serializable {
     private String tripID;
     private String databaseId;
     private String acceptanceStatus = "unconfirmed";
+    private String customerPhoneNumber;
+    List<String> offers;
+    private Driver driver = new Driver();
+
+    public String getCustomerPhoneNumber() {
+        return customerPhoneNumber;
+    }
+
+    public void setCustomerPhoneNumber(String customerPhoneNumber) {
+        this.customerPhoneNumber = customerPhoneNumber;
+    }
 
     public String getDatabaseId() {
         return databaseId;
@@ -60,16 +72,24 @@ public class Offer implements Serializable {
                 ", tripID='" + tripID + '\'' +
                 ", databaseId='" + databaseId + '\'' +
                 ", acceptanceStatus='" + acceptanceStatus + '\'' +
+                ", customerPhoneNumber='" + customerPhoneNumber + '\'' +
+                ", driver=" + driver +
                 '}';
     }
 
     public void makeOffer(DatabaseReference myRef){
-        DatabaseReference myReference =  myRef.child("Offer/").push();
+        myRef.child("Offer/"+"/"+tripID+"/"+driverPhoneNumber).setValue(this);
+        //offers.add(tripID);
+        myRef.child("Driver").child(driverPhoneNumber).child("offersMade/").push().setValue(tripID);
+
+
+        /*DatabaseReference myReference =  myRef.child("Offer/").push();
         databaseId = myReference.getKey();
-        myRef.child("Offer").child(databaseId).setValue(this);
+        myRef.child("Offer").child(databaseId).setValue(this);*/
     }
 
     public void changeOffer(DatabaseReference myRef){
-        myRef.child("Offer").child(databaseId).child("amount").setValue(amount);
+        myRef.child("Offer/"+"/"+tripID+"/"+driverPhoneNumber).child("amount").setValue(amount);
+        //myRef.child("Offer").child(databaseId).child("amount").setValue(amount);
     }
 }

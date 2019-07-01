@@ -125,12 +125,13 @@ public class MakeOffer extends AppCompatActivity {
 
                 //store the value to tripInfo object
                 offer.setAmount(mBudgetField.getText().toString());
+                offer.setTripID(tripInfo.getDatabaseId());
+                offer.setCustomerPhoneNumber(tripInfo.getPhoneNumber());
 
-                if(offer.getDatabaseId() != null){
+                if(offer.getDriverPhoneNumber() != null){
                     offer.changeOffer(myRef);
                 }
                 else{
-                    offer.setTripID(tripInfo.getDatabaseId());
                     offer.setDriverPhoneNumber(user.getPhoneNumber());
                     offer.makeOffer(myRef);
                 }
