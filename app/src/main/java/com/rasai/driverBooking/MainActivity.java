@@ -9,6 +9,7 @@ import com.firebase.client.Firebase;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.rasai.driverBooking.Registration.DriverRegistration;
 
 import java.util.Arrays;
 
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
 
         //new intent creation has to be inside a method
-        myIntent = new Intent(MainActivity.this, driverRegistration.class);
+        myIntent = new Intent(MainActivity.this, DriverRegistration.class);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             /*gets invoked in the UI thread on changes in the authentication state

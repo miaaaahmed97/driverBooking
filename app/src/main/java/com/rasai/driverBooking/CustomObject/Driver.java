@@ -1,4 +1,4 @@
-package com.rasai.driverBooking;
+package com.rasai.driverBooking.CustomObject;
 
 import android.net.Uri;
 import android.util.Log;
@@ -28,6 +28,8 @@ public class Driver implements Serializable {
     private String cnicImage;
     private String idImage;
     private String drivingLicenseImage;
+    private String databaseId;
+
 
     @Override
     public String toString() {
@@ -42,11 +44,13 @@ public class Driver implements Serializable {
                 ", cnicImage='" + cnicImage + '\'' +
                 ", idImage='" + idImage + '\'' +
                 ", drivingLicenseImage='" + drivingLicenseImage + '\'' +
+                ", databaseId='" + databaseId + '\'' +
                 '}';
     }
 
     public void postDriverInfo(DatabaseReference myRef) { //add to database package
         myRef.child("Driver/"+phoneNumber).push().setValue(this);
+        //databaseId = myRef.getKey();
     }
 
     private Uri getImageUri(String imageName){
@@ -228,5 +232,13 @@ public class Driver implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getDatabaseId() {
+        return databaseId;
+    }
+
+    public void setDatabaseId(String databaseId) {
+        this.databaseId = databaseId;
     }
 }

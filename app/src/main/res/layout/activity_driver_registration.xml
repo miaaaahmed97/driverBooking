@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".driverRegistration">
+    tools:context=".Registration.DriverRegistration">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/CNIC"
@@ -90,7 +90,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/address">
 
-        <com.rasai.driverBooking.MultiSelectionSpinner
+        <com.rasai.driverBooking.Registration.MultiSelectionSpinner
             android:id="@+id/lang_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

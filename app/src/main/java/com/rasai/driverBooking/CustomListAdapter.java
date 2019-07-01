@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.rasai.driverBooking.CustomObject.TripInformation;
+
 import java.util.List;
 
 public class CustomListAdapter extends ArrayAdapter<TripInformation> {

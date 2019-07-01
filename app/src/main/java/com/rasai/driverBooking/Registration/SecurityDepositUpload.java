@@ -1,4 +1,4 @@
-package com.rasai.driverBooking;
+package com.rasai.driverBooking.Registration;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +21,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.rasai.driverBooking.CustomObject.Driver;
+import com.rasai.driverBooking.DriverHome;
+import com.rasai.driverBooking.R;
+import com.rasai.driverBooking.CustomObject.SecurityDeposit;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -118,7 +122,7 @@ public class SecurityDepositUpload extends AppCompatActivity {
                     navNext.putExtra("driverObject", driverInfo);
                     startActivity(navNext);
                 }else{
-                    Log.d("MyError", "selsct all images");
+                    Log.d("MyError", "select all images");
                     Toast.makeText(SecurityDepositUpload.this, "Please Upload all Images ", Toast.LENGTH_SHORT).show();
                 }
             }
