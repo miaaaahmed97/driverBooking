@@ -41,6 +41,8 @@ public class MakeOffer extends AppCompatActivity {
     TripInformation tripInfo;
     Offer offer;
 
+    TripInformation mOffer;
+
     FirebaseDatabase database;
     DatabaseReference myRef;
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
@@ -53,6 +55,11 @@ public class MakeOffer extends AppCompatActivity {
 
         Intent i = getIntent();
         tripInfo = (TripInformation) i.getSerializableExtra("TRIP_SELECTED");
+
+        mOffer = (TripInformation) i.getSerializableExtra("OFFER_SELECTED");
+        if(mOffer!=null){
+            tripInfo = mOffer;
+        }
 
         //Start - Trip Details Display
 
@@ -127,12 +134,12 @@ public class MakeOffer extends AppCompatActivity {
                 offer.setAmount(mBudgetField.getText().toString());
                 offer.setTripID(tripInfo.getDatabaseId());
                 offer.setCustomerPhoneNumber(tripInfo.getPhoneNumber());
+                offer.setDriverPhoneNumber(user.getPhoneNumber());
 
-                if(offer.getDriverPhoneNumber() != null){
+                if(tripInfo.getDriverOffer().length() > 0){
                     offer.changeOffer(myRef);
                 }
                 else{
-                    offer.setDriverPhoneNumber(user.getPhoneNumber());
                     offer.makeOffer(myRef);
                 }
             }
