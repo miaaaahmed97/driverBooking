@@ -1,12 +1,11 @@
 package com.rasai.driverBooking.TripTabsActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -19,18 +18,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.rasai.driverBooking.CustomObject.Driver;
 import com.rasai.driverBooking.CustomObject.Offer;
 import com.rasai.driverBooking.CustomObject.TripInformation;
-import com.rasai.driverBooking.DriverHome;
-import com.rasai.driverBooking.MakeOffer;
 import com.rasai.driverBooking.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class OffersTabFragment extends Fragment {
 
@@ -69,7 +63,7 @@ public class OffersTabFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                offersList.clear();
+                //offersList.clear();
 
                 Log.d("testing", dataSnapshot.getValue().toString());
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
@@ -79,14 +73,12 @@ public class OffersTabFragment extends Fragment {
                 }
 
                offersCallback();
+                Log.d("TAG", "after offers callback");
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         }
-
-
-
 
         mRef.addValueEventListener(new MyValueEventListener());
 
@@ -96,14 +88,13 @@ public class OffersTabFragment extends Fragment {
     class MyOfferValueEventListener implements ValueEventListener, Serializable {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            Log.d("testing offers", dataSnapshot.toString());
+            //Log.d("testing offers", dataSnapshot.toString());
             m_offer = dataSnapshot.getValue(Offer.class);
             offerObjects.add(m_offer);
 
-            tripsCallback();
-
-            mAdapter = new CustomListAdapter(getActivity(),R.layout.fragment_one, offeredTripsList);
-            mListView.setAdapter(mAdapter);
+            if (offerObjects.size() == offersList.size()) {
+                tripsCallback();
+            }
 
         }
 
@@ -114,7 +105,7 @@ public class OffersTabFragment extends Fragment {
     }
 
     private void offersCallback(){
-        Log.d("pleasee", offersList.toString());
+        //Log.d("pleasee", offersList.toString());
         for(String offer: offersList){
             m_offer = new Offer();
             Log.d("testing in databasefor", "inside");
@@ -125,10 +116,10 @@ public class OffersTabFragment extends Fragment {
     }
 
     private void tripsCallback(){
-        Log.d("TAG", "trips callback");
-        for (final Offer offer: offerObjects){
+        for (Offer offer: offerObjects){
+            final Offer m_offer = offer; //might be useless
             m_trip = new TripInformation();
-            final DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().
+            DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().
                     child("Trips/"+offer.getCustomerPhoneNumber()+"/"+offer.getTripID()+"/");
 
             myRef.addValueEventListener(new ValueEventListener() {
@@ -137,8 +128,17 @@ public class OffersTabFragment extends Fragment {
                     //Log.d("testing_for", dataSnapshot.toString());
 
                     m_trip= dataSnapshot.getValue(TripInformation.class);
-                    m_trip.setDriverOffer(offer.getAmount());
+                    m_trip.setDriverOffer(m_offer.getAmount());
                     offeredTripsList.add(m_trip);
+                    Log.d("TAG", m_trip.toString()+" added");
+                    Log.d("TAG", offeredTripsList.toString());
+
+
+                    if (offeredTripsList.size() == offerObjects.size()) {
+                        Log.d("TAG", "calling adapter");
+                        mAdapter = new CustomListAdapter(getActivity(),R.layout.fragment_one, offeredTripsList);
+                        mListView.setAdapter(mAdapter);
+                    }
 
                 }
 
@@ -149,5 +149,4 @@ public class OffersTabFragment extends Fragment {
             });
         }
     }
-
 }
