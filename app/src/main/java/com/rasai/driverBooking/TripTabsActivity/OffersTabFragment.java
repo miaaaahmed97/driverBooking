@@ -79,7 +79,7 @@ public class OffersTabFragment extends Fragment {
 
                 offeredTripsList.clear();
 
-                Log.d("testing", dataSnapshot.getValue().toString());
+                Log.d("testing1", dataSnapshot.getValue().toString());
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for (DataSnapshot child: children){
                     offersList.add(child.getValue().toString());
@@ -102,7 +102,10 @@ public class OffersTabFragment extends Fragment {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             m_offer = dataSnapshot.getValue(Offer.class);
-            offerObjects.add(m_offer);
+            Log.d("testing3", m_offer.getAcceptanceStatus());
+            if (m_offer.getAcceptanceStatus().equals("unconfirmed")) {
+                offerObjects.add(m_offer);
+            }
 
             if (offerObjects.size() == offersList.size()) {
                 tripsCallback();
@@ -119,7 +122,7 @@ public class OffersTabFragment extends Fragment {
     private void offersCallback(){
         for(String offer: offersList){
             m_offer = new Offer();
-            Log.d("testing in databasefor", "inside");
+            Log.d("testing2 in databasefor", "inside");
             final DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Offer/"+offer+"/"+phone_Number+"/");
             myRef.addValueEventListener(new MyOfferValueEventListener());
 
@@ -139,7 +142,9 @@ public class OffersTabFragment extends Fragment {
 
                     m_trip= dataSnapshot.getValue(TripInformation.class);
                     m_trip.setDriverOffer(m_offer.getAmount());
-                    offeredTripsList.add(m_trip);
+                    if (m_trip.getConfirmed() == false ) {
+                        offeredTripsList.add(m_trip);
+                    }
 
 
                     if (offeredTripsList.size() == offerObjects.size()) {
