@@ -166,7 +166,7 @@ public class MakeOffer extends AppCompatActivity {
                                 break;
                             }
 
-                            if(added)
+                            if(!added)
                             {
                                 Log.d("testing makeOffer 8", "inside second if");
                                 offer.makeOffer(myRef);
