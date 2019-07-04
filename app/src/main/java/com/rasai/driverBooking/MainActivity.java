@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.firebase.client.Firebase;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.rasai.driverBooking.Registration.DriverRegistration;
 
 import java.util.Arrays;
@@ -16,7 +19,6 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
-    Intent myIntent;
 
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
     private FirebaseUser user = mauth.getCurrentUser();
@@ -29,9 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
         Firebase.setAndroidContext(this);
 
-        //new intent creation has to be inside a method
-        myIntent = new Intent(MainActivity.this, DriverRegistration.class);
 
+
+        final DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver/");
+
+        //Called when there is a change in the authentication state
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             /*gets invoked in the UI thread on changes in the authentication state
              * Right after the listener has been registered
@@ -42,16 +46,18 @@ public class MainActivity extends AppCompatActivity {
              */
             @Override
             public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
+
                 if (firebaseAuth.getCurrentUser() != null) {
                     // Sign in logic here.
-                    startActivity(myIntent);
+                    isRegistered(mRef, firebaseAuth.getCurrentUser());
                 }
             }
         };
 
         if( user != null){
             //already signed in
-            startActivity(myIntent);
+            //startActivity(myIntent);
+            isRegistered(mRef, user);
         }else{
             //create login options
             startActivityForResult(AuthUI.getInstance().
@@ -71,5 +77,22 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         mauth.addAuthStateListener(mAuthListener);
+    }
+
+    private void isRegistered(DatabaseReference myRef, FirebaseUser Myuser){
+
+        Log.d("testing", myRef.child(Myuser.getPhoneNumber()).toString());
+        if(myRef.child(Myuser.getPhoneNumber())!= null)
+        {
+            Intent intent = new Intent(MainActivity.this, DriverHome.class);
+            startActivity(intent);
+        }
+        else{
+            //new intent creation has to be inside a method
+            Intent intent = new Intent(MainActivity.this, DriverRegistration.class);
+            startActivity(intent);
+        }
+
+
     }
 }

@@ -79,6 +79,7 @@ public class OffersTabFragment extends Fragment {
 
                 offeredTripsList.clear();
 
+                //get all the unconfirmed offers made by the driver
                 Log.d("testing1", dataSnapshot.getValue().toString());
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for (DataSnapshot child: children){
