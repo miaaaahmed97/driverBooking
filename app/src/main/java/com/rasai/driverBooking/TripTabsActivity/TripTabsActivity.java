@@ -4,9 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.rasai.driverBooking.BottomNavigationViewHelper;
+import com.rasai.driverBooking.DriverHome;
 import com.rasai.driverBooking.R;
 
 import java.io.Serializable;
@@ -14,7 +20,7 @@ import java.io.Serializable;
 public class TripTabsActivity extends AppCompatActivity implements Serializable {
 
     private TabAdapter adapter;
-
+    private static final int ACTIVITY_NUM = 1;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ListView mListView;
@@ -40,5 +46,20 @@ public class TripTabsActivity extends AppCompatActivity implements Serializable 
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        //creating bottom navigation view
+        setupBottomNavigationView();
+    }
+
+    /**
+     * BottomNavigationView setup
+     */
+    private void setupBottomNavigationView() {
+        Log.d("TripTabs", "setupBottomNavigationView: setting up BottomNavigationView");
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavViewBar);
+        BottomNavigationViewHelper.enableNavigation(TripTabsActivity.this, bottomNavigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
+        menuItem.setChecked(true);
     }
 }
