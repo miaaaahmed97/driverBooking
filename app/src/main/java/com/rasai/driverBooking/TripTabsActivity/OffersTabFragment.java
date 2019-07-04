@@ -80,7 +80,6 @@ public class OffersTabFragment extends Fragment {
                 offeredTripsList.clear();
 
                 //get all the unconfirmed offers made by the driver
-                Log.d("testing1", dataSnapshot.getValue().toString());
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for (DataSnapshot child: children){
                     offersList.add(child.getValue().toString());
@@ -150,6 +149,7 @@ public class OffersTabFragment extends Fragment {
 
                     if (offeredTripsList.size() == offerObjects.size()) {
                         Log.d("TAG", "calling adapter");
+
                         mAdapter = new CustomListAdapter(getActivity(),R.layout.fragment_one, offeredTripsList);
                         mListView.setAdapter(mAdapter);
                     }

@@ -141,19 +141,20 @@ public class MakeOffer extends AppCompatActivity {
                 offer.setCustomerPhoneNumber(tripInfo.getPhoneNumber());
                 offer.setDriverPhoneNumber(user.getPhoneNumber());
 
+                final Boolean[] added = {false};
+
                 DatabaseReference mRef = FirebaseDatabase.getInstance().
                         getReference().child("Driver/"+offer.getDriverPhoneNumber()+"/offersMade");
                 mRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        Boolean added = false;
 
                         Log.d("testing makeOffer 4", dataSnapshot.toString());
                         if(dataSnapshot.getValue() == null){
                             Log.d("testing makeOffer 5", "inside if condition");
                             offer.makeOffer(myRef);
-                            added = true;
+                            added[0] = true;
                         }
 
                         Iterable<DataSnapshot> children = dataSnapshot.getChildren();
@@ -163,31 +164,21 @@ public class MakeOffer extends AppCompatActivity {
                             if( child.getValue().equals(offer.getTripID())){
                                 Log.d("testing makeOffer 7", "inside second if for");
                                 offer.changeOffer(myRef);
+                                added[0] = true;
                                 break;
                             }
 
-                            if(!added)
-                            {
-                                Log.d("testing makeOffer 8", "inside second if");
-                                offer.makeOffer(myRef);
-                            }
                         }
-
-
+                        if(!added[0])
+                        {   Log.d("testing makeOffer 8", "inside second if");
+                            offer.makeOffer(myRef);}
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
                 });
 
-                /*if(tripInfo.getDriverOffer().length() > 0){
-                    offer.changeOffer(myRef);
-                }
-                else{
-                    offer.makeOffer(myRef);
-                }*/
             }
         });
 
