@@ -79,7 +79,7 @@ public class OffersTabFragment extends Fragment {
 
                 offeredTripsList.clear();
 
-                Log.d("testing1", dataSnapshot.getValue().toString());
+                //Log.d("testing1", dataSnapshot.getValue().toString());
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for (DataSnapshot child: children){
                     offersList.add(child.getValue().toString());

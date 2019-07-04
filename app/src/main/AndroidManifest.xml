@@ -11,20 +11,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ProfileDisplay">
+
+        </activity>
         <activity android:name=".TripTabsActivity.TripTabsActivity">
+
+        </activity>
+        <activity android:name=".MakeOffer" />
+        <activity android:name=".DriverHome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".MakeOffer" />
-        <activity android:name=".DriverHome">
+
         </activity>
         <activity android:name=".Registration.SecurityDepositUpload" />
         <activity android:name=".Registration.driverRegistration2" />
         <activity android:name=".Registration.vehicleRegistration" />
         <activity android:name=".Registration.DriverRegistration" />
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity">
+
         </activity>
     </application>
 

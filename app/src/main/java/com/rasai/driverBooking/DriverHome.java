@@ -7,16 +7,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.rasai.driverBooking.CustomObject.TripInformation;
 
 import java.io.Serializable;
@@ -26,10 +28,10 @@ import java.util.List;
 public class DriverHome extends AppCompatActivity implements Serializable{
 
     private static final String TAG = "DriverHome";
+    private static final int ACTIVITY_NUM = 0;
     private ListView mListView;
     private CustomListAdapter mAdapter;
-    private View inflateView;
-    private LayoutInflater minflater;
+
 
     List<TripInformation> postedTripsList = new ArrayList<TripInformation>();
 
@@ -122,7 +124,10 @@ public class DriverHome extends AppCompatActivity implements Serializable{
      */
     private void setupBottomNavigationView() {
         Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavViewBar);
+        BottomNavigationViewHelper.enableNavigation(DriverHome.this,bottomNavigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
+        menuItem.setChecked(true);
     }
 }

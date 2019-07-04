@@ -1,29 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
 xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<com.google.android.material.tabs.TabLayout
-    android:id="@+id/tabLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?actionBarSize"
-    app:tabGravity="fill"
-    app:tabIndicatorColor="@color/white"
-    app:tabIndicatorHeight="4dp"
-    app:tabBackground="@color/colorPrimary"
-    app:tabMode="fixed"
-    app:tabSelectedTextColor="@color/white"
-    app:tabTextColor="@color/white">
+    <com.google.android.material.tabs.TabLayout
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?actionBarSize"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorHeight="4dp"
+        app:tabBackground="@color/colorPrimary"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="@color/white">
 
-</com.google.android.material.tabs.TabLayout>
+    </com.google.android.material.tabs.TabLayout>
 
-<androidx.viewpager.widget.ViewPager
-    android:id="@+id/viewPager"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-</androidx.viewpager.widget.ViewPager>
+    <androidx.viewpager.widget.ViewPager
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</LinearLayout>
+    </androidx.viewpager.widget.ViewPager>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomNavContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <include layout="@layout/layout_navbar" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
