@@ -64,11 +64,32 @@ public class OffersTabFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = new Intent(getActivity(), MakeOffer.class);
+                final Intent intent = new Intent(getActivity(), MakeOffer.class);
                 //Log.d("testing list index", Integer.toString(position));
-                TripInformation offerSelected = offeredTripsList.get(position);
-                intent.putExtra("OFFER_SELECTED", offerSelected);
-                startActivity(intent);
+                final TripInformation offerSelected = offeredTripsList.get(position);
+
+                DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Offer/"+
+                        offerSelected.getDatabaseId()+"/"+phone_Number);
+                mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        if (dataSnapshot.child("acceptanceStatus").getValue().equals("unavailable")) {
+                            intent.putExtra("OFFER_AVAILABLE", "unavailable");
+                        }
+
+                        intent.putExtra("OFFER_SELECTED", offerSelected);
+                        startActivity(intent);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
 

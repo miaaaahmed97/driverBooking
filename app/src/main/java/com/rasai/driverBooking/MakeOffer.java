@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -44,6 +45,7 @@ public class MakeOffer extends AppCompatActivity {
     TextInputEditText mBudgetField;
 
     TripInformation tripInfo;
+    String availability;;
     Offer offer;
 
     TripInformation mOffer;
@@ -53,6 +55,9 @@ public class MakeOffer extends AppCompatActivity {
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
     private FirebaseUser user = mauth.getCurrentUser();
 
+    //Delete offer widgets
+    Button mDeleteButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +65,8 @@ public class MakeOffer extends AppCompatActivity {
 
         Intent i = getIntent();
         tripInfo = (TripInformation) i.getSerializableExtra("TRIP_SELECTED");
+        availability = (String) i.getSerializableExtra("OFFER_AVAILABLE");
+
 
         mOffer = (TripInformation) i.getSerializableExtra("OFFER_SELECTED");
         if(mOffer!=null){
@@ -106,6 +113,30 @@ public class MakeOffer extends AppCompatActivity {
             mToText.setVisibility(TextView.GONE);
         }
         //End - Trip Details Display
+
+        //Start - Check if trip is still available
+
+        if (availability!=null) {
+            if(availability.equals("unavailable")){
+
+                LinearLayout makeOfferLayout = findViewById(R.id.makeOfferLinearLayout);
+                makeOfferLayout.setVisibility(View.GONE);
+
+
+                LinearLayout messageLayout = findViewById(R.id.messageLinearLayout);
+                messageLayout.setVisibility(View.VISIBLE);
+
+            }
+        }
+
+        mDeleteButton = (Button) findViewById(R.id.deleteOfferButton);
+        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                
+            }
+        });
+
+        //End - Check if trip is still available
 
         //Start - Budget Management
         database = FirebaseDatabase.getInstance();

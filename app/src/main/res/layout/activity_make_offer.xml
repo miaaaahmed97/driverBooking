@@ -300,6 +300,13 @@
                 android:text="No extra details"
                 android:textSize="18sp"/>
 
+            <LinearLayout
+                android:id="@+id/makeOfferLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -357,6 +364,36 @@
                 android:textColor="@color/white"
                 android:background="@color/colorPrimary"
                 android:onClick="doneOffer"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/messageLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="bottom|center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="This trip is no longer available. The user may have deleted this trip or assigned it to someone else."
+                    android:visibility="visible"
+                    android:textColor="#d0312e"/>
+
+                <Button
+                    android:id="@+id/deleteOfferButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:layout_gravity="right|bottom"
+                    android:text="Delete Offer"
+                    android:layout_margin="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:background="@color/colorPrimary"/>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
