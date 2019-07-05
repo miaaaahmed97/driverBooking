@@ -101,9 +101,13 @@ public class OffersTabFragment extends Fragment {
     class MyOfferValueEventListener implements ValueEventListener, Serializable {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
             m_offer = dataSnapshot.getValue(Offer.class);
             Log.d("testing3", m_offer.getAcceptanceStatus());
-            if (m_offer.getAcceptanceStatus().equals("unconfirmed")) {
+
+            if (m_offer.getAcceptanceStatus().equals("unconfirmed") ||
+                    m_offer.getAcceptanceStatus().equals("unavailable")) {
+
                 offerObjects.add(m_offer);
             }
 
@@ -142,9 +146,10 @@ public class OffersTabFragment extends Fragment {
 
                     m_trip= dataSnapshot.getValue(TripInformation.class);
                     m_trip.setDriverOffer(m_offer.getAmount());
-                    if (m_trip.getConfirmed() == false ) {
+                    /*if (m_trip.getConfirmed() == false ) {
                         offeredTripsList.add(m_trip);
-                    }
+                    }*/
+                    offeredTripsList.add(m_trip);
 
 
                     if (offeredTripsList.size() == offerObjects.size()) {
