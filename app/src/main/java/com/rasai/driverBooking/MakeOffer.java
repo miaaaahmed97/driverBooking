@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.CustomObject.Offer;
 import com.rasai.driverBooking.CustomObject.TripInformation;
+import com.rasai.driverBooking.TripTabsActivity.OffersTabFragment;
 import com.rasai.driverBooking.TripTabsActivity.TripTabsActivity;
 
 public class MakeOffer extends AppCompatActivity {
@@ -128,14 +129,6 @@ public class MakeOffer extends AppCompatActivity {
 
             }
         }
-
-        mDeleteButton = (Button) findViewById(R.id.deleteOfferButton);
-        mDeleteButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                
-            }
-        });
-
         //End - Check if trip is still available
 
         //Start - Budget Management
@@ -213,6 +206,49 @@ public class MakeOffer extends AppCompatActivity {
             }
         });
 
+        //Start -Delete Trip
+        mDeleteButton = (Button) findViewById(R.id.deleteOfferButton);
+        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                ///remove from driver node
+                DatabaseReference driverRef = FirebaseDatabase.getInstance().getReference().
+                        child("Driver").child(user.getPhoneNumber()).child("offersMade");
+                driverRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                        for (DataSnapshot child : children){
+                            Log.d("testing0", child.getValue().toString());
+                            Log.d("testing1", tripInfo.getDatabaseId());
+                            if(child.getValue().toString().equals(tripInfo.getDatabaseId())){
+                                child.getRef().removeValue();
+                            }
+                        }
+
+                        //remove from offers
+                        DatabaseReference offersRef = FirebaseDatabase.getInstance().getReference()
+                                .child("Offer").child(tripInfo.getDatabaseId()).child(user.getPhoneNumber());
+                        offersRef.removeValue();
+                        Log.d("testing2", "after removing from offers");
+
+                        Intent intent = new Intent(MakeOffer.this, TripTabsActivity.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+
+
+        });
+
+        //End - Delete Trip
     }
 
     public void changeBudgetOffer(View v) {
@@ -229,6 +265,7 @@ public class MakeOffer extends AppCompatActivity {
 
         }
     }
+
 
     public void doneOffer(View v){
         //go to next page

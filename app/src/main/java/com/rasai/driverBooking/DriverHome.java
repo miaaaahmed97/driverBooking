@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +32,9 @@ public class DriverHome extends AppCompatActivity implements Serializable{
     private static final int ACTIVITY_NUM = 0;
     private ListView mListView;
     private CustomListAdapter mAdapter;
+
+    private FirebaseAuth mauth = FirebaseAuth.getInstance();
+    private FirebaseUser user = mauth.getCurrentUser();
 
 
     List<TripInformation> postedTripsList = new ArrayList<TripInformation>();
@@ -68,8 +72,13 @@ public class DriverHome extends AppCompatActivity implements Serializable{
                 //Iterate through phone numbers
                 for(DataSnapshot child: children){
 
-                    Log.d("testing1", "Inside first for loop");
+                    Log.d("testing0", "Inside first for loop");
 
+                    Log.d("testing1", child.toString());
+                    Log.d("testing2", child.getKey());
+                    Log.d("testing3", child.getValue().toString());
+
+                    if (!child.getKey().equals(user.getPhoneNumber())) {
                         Iterable<DataSnapshot> inner_children = child.getChildren();
 
                         //Iterate through the trips of a given phone number
@@ -98,6 +107,7 @@ public class DriverHome extends AppCompatActivity implements Serializable{
                             //Log.d("Testinglist in Homeloop", postedTripsList.toString());
 
                         }
+                    }
                 }
                 mAdapter = new CustomListAdapter(DriverHome.this, R.layout.driver_home_list_item, postedTripsList);
                 mAdapter.notifyDataSetChanged();
@@ -114,10 +124,6 @@ public class DriverHome extends AppCompatActivity implements Serializable{
         setupBottomNavigationView();
 
     }
-
-    /*@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){}*/
 
     /**
      * BottomNavigationView setup

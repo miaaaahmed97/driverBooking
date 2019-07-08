@@ -94,6 +94,7 @@ public class OffersTabFragment extends Fragment {
         });
 
         final DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver/"+phone_Number+"/offersMade");
+        //First Database Reference called
         class MyValueEventListener implements ValueEventListener, Serializable {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -123,17 +124,20 @@ public class OffersTabFragment extends Fragment {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-            m_offer = dataSnapshot.getValue(Offer.class);
-            Log.d("testing3", m_offer.getAcceptanceStatus());
+            if (dataSnapshot.exists()) {
+                m_offer = dataSnapshot.getValue(Offer.class);
+                //Log.d("testing3", m_offer.getAcceptanceStatus());
 
-            if (m_offer.getAcceptanceStatus().equals("unconfirmed") ||
-                    m_offer.getAcceptanceStatus().equals("unavailable")) {
 
-                offerObjects.add(m_offer);
-            }
+                if (m_offer.getAcceptanceStatus().equals("unconfirmed") ||
+                        m_offer.getAcceptanceStatus().equals("unavailable")) {
 
-            if (offerObjects.size() == offersList.size()) {
-                tripsCallback();
+                    offerObjects.add(m_offer);
+                }
+
+                if (offerObjects.size() == offersList.size()) {
+                    tripsCallback();
+                }
             }
 
         }
