@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="32dp"
+    android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/badLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inappropriate Language"
+        android:textSize="20sp"
+        android:padding="16dp"/>
+
+    <CheckBox
+        android:id="@+id/paymentProblem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Payment problem"
+        android:textSize="20sp"
+        android:padding="16dp"/>
+
+    <CheckBox
+        android:id="@+id/promiseBreaker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Did not give food/lodging/petrol as promised"
+        android:textSize="20sp"
+        android:padding="16dp"/>
+
+    <CheckBox
+        android:id="@+id/punctualProblem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Was not punctual"
+        android:textSize="20sp"
+        android:padding="16dp"/>
+
+    <CheckBox
+        android:id="@+id/otherProblem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Other"
+        android:textSize="20sp"
+        android:padding="16dp"/>
+
+
+    <EditText
+        android:id="@+id/otherProblemDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16sp"
+        android:hint="Other problems"
+        android:background="@color/white"
+        android:gravity="start"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/submitProblemsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:layout_margin="16dp"
+        android:text="Submit"/>
+
+</LinearLayout>
