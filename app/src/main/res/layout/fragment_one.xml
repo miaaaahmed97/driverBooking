@@ -26,7 +26,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="start"
                 android:padding="2dp"
                 >
 
@@ -37,7 +37,6 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="2dp"
                     android:layout_marginTop="0dp"
-                    android:autoSizeTextType="uniform"
                     android:paddingLeft="2sp"
                     android:paddingRight="2sp"
                     android:text="17 July"
@@ -49,7 +48,6 @@
                     android:id="@+id/startTimeCd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:autoSizeTextType="uniform"
                     android:paddingLeft="2sp"
                     android:paddingRight="2sp"
                     android:text="10 AM"
@@ -62,7 +60,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:autoSizeTextType="uniform"
                     android:gravity="center_horizontal"
                     android:paddingLeft="2sp"
                     android:paddingRight="2sp"
@@ -76,19 +73,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
                     android:layout_marginTop="0dp"
-                    android:autoSizeTextType="uniform"
                     android:paddingLeft="2sp"
                     android:paddingRight="2sp"
                     android:text="18 July"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:typeface="normal" />
+                    android:typeface="normal"
+                    android:layout_marginStart="2dp" />
 
                 <TextView
                     android:id="@+id/endTimeCd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:autoSizeTextType="uniform"
                     android:paddingLeft="2sp"
                     android:paddingRight="2sp"
                     android:text="10 PM"
@@ -102,7 +98,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginRight="50dp"
-                android:padding="2dp">
+                android:padding="2dp"
+                android:layout_marginEnd="50dp">
 
                 <TextView
                     android:id="@+id/fromCd"
@@ -111,7 +108,8 @@
                     android:layout_marginLeft="2dp"
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
-                    android:text="Islamabad" />
+                    android:text="Islamabad"
+                    android:layout_marginStart="2dp" />
 
                 <TextView
                     android:id="@+id/toText2"
@@ -135,7 +133,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingLeft="10sp"
-                    android:text=" Return " />
+                    android:text=" Return "
+                    android:paddingStart="10sp" />
 
 
 
@@ -145,7 +144,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="50dp"
-                android:padding="2dp">
+                android:padding="2dp"
+                android:layout_marginEnd="50dp">
 
                 <TextView
                     android:id="@+id/familyOrFriendsCd"
@@ -153,7 +153,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingLeft="10sp"
-                    android:text="Family" />
+                    android:text="Family"
+                    android:paddingStart="10sp" />
 
 
                 <TextView
@@ -161,9 +162,10 @@
                     android:layout_width="63dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="end"
                     android:layout_marginRight="5dp"
-                    android:text="PKR" />
+                    android:text="PKR"
+                    android:layout_marginEnd="5dp" />
 
                 <TextView
                     android:id="@+id/offerMadeCd"
