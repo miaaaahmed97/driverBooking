@@ -199,7 +199,7 @@ public class ViewAssignedTrips extends AppCompatActivity {
 
     private  void getWidgetInfo(){
         final CheckBox mBadLanguage, mPaymentProblem, mPromiseBreaker, mPunctualProblem, mOtherProblem;
-        EditText mOtherProblemDetails;
+        final EditText mOtherProblemDetails;
         Button mSubmitProblems;
 
         mBadLanguage = mBadReviewPopup.findViewById(R.id.badLanguage);
@@ -219,25 +219,42 @@ public class ViewAssignedTrips extends AppCompatActivity {
             }
         });
 
-        /*if(mPaymentProblem.isChecked()){
-            paymentProblem = mPaymentProblem.getText().toString();
-            problemsList.add(paymentProblem);
-        }
+        mPaymentProblem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                paymentProblem = mPaymentProblem.getText().toString();
+                problemsList.add(paymentProblem);
+            }
+        });
 
-        if(mPromiseBreaker.isChecked()){
-            promiseBreaker = mPromiseBreaker.getText().toString();
-            problemsList.add(promiseBreaker);
-        }
+        mPromiseBreaker.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                promiseBreaker = mPromiseBreaker.getText().toString();
+                problemsList.add(promiseBreaker);
+            }
+        });
 
-        if(mPunctualProblem.isChecked()){
-            punctualProblem = mPunctualProblem.getText().toString();
-            problemsList.add(punctualProblem);
-        }
+        mPunctualProblem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                punctualProblem = mPunctualProblem.getText().toString();
+                problemsList.add(punctualProblem);
+            }
+        });
 
-        if (mOtherProblem.isChecked()) {
-            otherProblemDetails = mOtherProblemDetails.toString();
-            problemsList.add(mOtherProblemDetails.getText().toString());
-        }*/
+        mOtherProblem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                otherProblemDetails = mOtherProblemDetails.getText().toString();
+                problemsList.add(otherProblemDetails);
+            }
+        });
+
 
         Log.d("testing popup0", problemsList.toString());
         submitProblemsFunction(mSubmitProblems);
@@ -294,6 +311,12 @@ public class ViewAssignedTrips extends AppCompatActivity {
                         .child("Offer/" + tripInfo.getDatabaseId() + "/" + tripInfo.getDriverAssigned() + "/");
                 mOffersRef.child("acceptanceStatus").setValue("completed");
 
+
+                //Add trip to customer's completed trips
+                DatabaseReference myCustomerRef = FirebaseDatabase.getInstance().getReference()
+                        .child("Customer").child(tripInfo.getPhoneNumber());
+                myCustomerRef.child("tripsCompleted/").push().setValue(tripInfo.getDatabaseId());
+
                 //Add trip to driver's completed trips
                 DatabaseReference myDriverRef = FirebaseDatabase.getInstance().getReference()
                         .child("Driver").child(tripInfo.getDriverAssigned());
@@ -310,6 +333,9 @@ public class ViewAssignedTrips extends AppCompatActivity {
                                 child.getRef().removeValue();
                             }
                         }
+
+                        Intent intent = new Intent(ViewAssignedTrips.this, TripTabsActivity.class);
+                        startActivity(intent);
                     }
 
                     @Override
@@ -318,18 +344,6 @@ public class ViewAssignedTrips extends AppCompatActivity {
                     }
                 });
 
-
-                //TODO
-                /*REMOVE FROM Cutomer ASSIGNED TRIPS AND MOVE TO COMPLETED TRIPS
-                 *
-                 * */
-
-                Intent intent = new Intent(ViewAssignedTrips.this, TripTabsActivity.class);
-                startActivity(intent);
-                //TODO
-                /*
-                * open history fragment on tripTabsActivity start
-                * */
 
             }
         });

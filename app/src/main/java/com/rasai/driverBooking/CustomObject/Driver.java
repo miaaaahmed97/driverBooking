@@ -33,6 +33,7 @@ public class Driver implements Serializable {
     private String databaseId;
     private List<String> offersMade = new ArrayList<>();
     private List<String> offerAccepted = new ArrayList<>();
+    private List<String> tripsCompleted = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -50,6 +51,7 @@ public class Driver implements Serializable {
                 ", databaseId='" + databaseId + '\'' +
                 ", offersMade=" + offersMade +
                 ", offerAccepted=" + offerAccepted +
+                ", tripCompleted=" + tripsCompleted +
                 '}';
     }
 
@@ -261,5 +263,13 @@ public class Driver implements Serializable {
 
     public void setOfferAccepted(List<String> offerAccepted) {
         this.offerAccepted = offerAccepted;
+    }
+
+    public List<String> getTripsCompleted() {
+        return tripsCompleted;
+    }
+
+    public void setTripsCompleted(List<String> tripsCompleted) {
+        this.tripsCompleted = tripsCompleted;
     }
 }
