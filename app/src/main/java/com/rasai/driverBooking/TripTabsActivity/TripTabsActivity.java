@@ -12,8 +12,9 @@ import android.widget.ListView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.rasai.driverBooking.BottomNavigationViewHelper;
-import com.rasai.driverBooking.DriverHome;
 import com.rasai.driverBooking.R;
+import com.rasai.driverBooking.TripTabsActivity.AssignedTrips.AssisgnedTripsTabFragment;
+import com.rasai.driverBooking.TripTabsActivity.TripOffers.OffersTabFragment;
 
 import java.io.Serializable;
 

@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.CustomObject.TripInformation;
+import com.rasai.driverBooking.TripTabsActivity.TripOffers.MakeOffer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -86,25 +87,31 @@ public class DriverHome extends AppCompatActivity implements Serializable{
 
                             //Log.d("testing2", "Inside first for loop");
 
-                            TripInformation tripInfo = new TripInformation();
+                            try {
+                                if (inner_child.child("confirmed").getValue(Boolean.class) != true) {
+                                    TripInformation tripInfo = new TripInformation();
 
-                            tripInfo.setFrom(inner_child.child("from").getValue(String.class));
-                            tripInfo.setTo(inner_child.child("to").getValue(String.class));
-                            tripInfo.setStartDate(inner_child.child("startDate").getValue(String.class));
-                            tripInfo.setStartTime(inner_child.child("startTime").getValue(String.class));
-                            tripInfo.setEndDate(inner_child.child("endDate").getValue(String.class));
-                            tripInfo.setEndTime(inner_child.child("endTime").getValue(String.class));
-                            tripInfo.setMinBudget(inner_child.child("minBudget").getValue(String.class));
-                            tripInfo.setMaxBudget(inner_child.child("maxBudget").getValue(String.class));
-                            tripInfo.setTripType(inner_child.child("tripType").getValue(String.class));
-                            tripInfo.setSeats(inner_child.child("seats").getValue(String.class));
-                            tripInfo.setExtraDetails(inner_child.child("extraDetails").getValue(String.class));
-                            tripInfo.setPhoneNumber(inner_child.child("phoneNumber").getValue(String.class));
-                            tripInfo.setIsReturn(inner_child.child("isReturn").getValue(String.class));
-                            tripInfo.setDatabaseId(inner_child.child("databaseId").getValue(String.class));
+                                    tripInfo.setFrom(inner_child.child("from").getValue(String.class));
+                                    tripInfo.setTo(inner_child.child("to").getValue(String.class));
+                                    tripInfo.setStartDate(inner_child.child("startDate").getValue(String.class));
+                                    tripInfo.setStartTime(inner_child.child("startTime").getValue(String.class));
+                                    tripInfo.setEndDate(inner_child.child("endDate").getValue(String.class));
+                                    tripInfo.setEndTime(inner_child.child("endTime").getValue(String.class));
+                                    tripInfo.setMinBudget(inner_child.child("minBudget").getValue(String.class));
+                                    tripInfo.setMaxBudget(inner_child.child("maxBudget").getValue(String.class));
+                                    tripInfo.setTripType(inner_child.child("tripType").getValue(String.class));
+                                    tripInfo.setSeats(inner_child.child("seats").getValue(String.class));
+                                    tripInfo.setExtraDetails(inner_child.child("extraDetails").getValue(String.class));
+                                    tripInfo.setPhoneNumber(inner_child.child("phoneNumber").getValue(String.class));
+                                    tripInfo.setIsReturn(inner_child.child("isReturn").getValue(String.class));
+                                    tripInfo.setDatabaseId(inner_child.child("databaseId").getValue(String.class));
 
-                            postedTripsList.add(tripInfo);
-                            //Log.d("Testinglist in Homeloop", postedTripsList.toString());
+                                    postedTripsList.add(tripInfo);
+                                    //Log.d("Testinglist in Homeloop", postedTripsList.toString());
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
                         }
                     }

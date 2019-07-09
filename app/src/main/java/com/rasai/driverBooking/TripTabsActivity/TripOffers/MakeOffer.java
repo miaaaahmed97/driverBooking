@@ -1,4 +1,4 @@
-package com.rasai.driverBooking;
+package com.rasai.driverBooking.TripTabsActivity.TripOffers;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.CustomObject.Offer;
 import com.rasai.driverBooking.CustomObject.TripInformation;
-import com.rasai.driverBooking.TripTabsActivity.OffersTabFragment;
+import com.rasai.driverBooking.R;
 import com.rasai.driverBooking.TripTabsActivity.TripTabsActivity;
 
 public class MakeOffer extends AppCompatActivity {

@@ -30,6 +30,37 @@ public class TripInformation implements Serializable {
     private Boolean confirmed = false;
     private String databaseId;
     private String driverOffer = "";
+    private String driverAssigned;
+
+    @Override
+    public String toString() {
+        return "TripInformation{" +
+                "phoneNumber='" + phoneNumber + '\'' +
+                ", to='" + to + '\'' +
+                ", from='" + from + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", tripType='" + tripType + '\'' +
+                ", seats='" + seats + '\'' +
+                ", minBudget='" + minBudget + '\'' +
+                ", maxBudget='" + maxBudget + '\'' +
+                ", extraDetails='" + extraDetails + '\'' +
+                ", isReturn='" + isReturn + '\'' +
+                ", confirmed=" + confirmed +
+                ", databaseId='" + databaseId + '\'' +
+                ", driverAssigned='" + driverAssigned + '\'' +
+                '}';
+    }
+
+    public String getDriverAssigned() {
+        return driverAssigned;
+    }
+
+    public void setDriverAssigned(String driverAssigned) {
+        this.driverAssigned = driverAssigned;
+    }
 
     public String getDriverOffer() {
         return driverOffer;
@@ -161,27 +192,6 @@ public class TripInformation implements Serializable {
         DatabaseReference myReference =  myRef.child("Trips/"+phoneNumber).push();
         databaseId = myReference.getKey();
         myRef.child("Trips").child(phoneNumber).child(databaseId).setValue(this);
-    }
-
-    @Override
-    public String toString() {
-        return "TripInformation{" +
-                "phoneNumber='" + phoneNumber + '\'' +
-                ", to='" + to + '\'' +
-                ", from='" + from + '\'' +
-                ", startDate='" + startDate + '\'' +
-                ", startTime='" + startTime + '\'' +
-                ", endDate='" + endDate + '\'' +
-                ", endTime='" + endTime + '\'' +
-                ", tripType='" + tripType + '\'' +
-                ", seats='" + seats + '\'' +
-                ", minBudget='" + minBudget + '\'' +
-                ", maxBudget='" + maxBudget + '\'' +
-                ", extraDetails='" + extraDetails + '\'' +
-                ", isReturn='" + isReturn + '\'' +
-                ", confirmed=" + confirmed +
-                ", databaseId='" + databaseId + '\'' +
-                '}';
     }
 
     public String changeDateFormat(String date) {

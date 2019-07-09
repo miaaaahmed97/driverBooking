@@ -1,4 +1,4 @@
-package com.rasai.driverBooking.TripTabsActivity;
+package com.rasai.driverBooking.TripTabsActivity.AssignedTrips;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,8 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.CustomObject.Offer;
 import com.rasai.driverBooking.CustomObject.TripInformation;
-import com.rasai.driverBooking.MakeOffer;
 import com.rasai.driverBooking.R;
+import com.rasai.driverBooking.TripTabsActivity.CustomListAdapter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -63,10 +63,10 @@ public class AssisgnedTripsTabFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = new Intent(getActivity(), MakeOffer.class);
+                Intent intent = new Intent(getActivity(), ViewAssignedTrips.class);
                 //Log.d("testing list index", Integer.toString(position));
-                TripInformation offerSelected = offeredTripsList.get(position);
-                intent.putExtra("OFFER_SELECTED", offerSelected);
+                TripInformation tripSelected = offeredTripsList.get(position);
+                intent.putExtra("TRIP_SELECTED", tripSelected);
                 startActivity(intent);
             }
         });

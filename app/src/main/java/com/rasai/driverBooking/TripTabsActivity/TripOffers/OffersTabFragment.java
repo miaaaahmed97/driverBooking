@@ -1,4 +1,4 @@
-package com.rasai.driverBooking.TripTabsActivity;
+package com.rasai.driverBooking.TripTabsActivity.TripOffers;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,8 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.CustomObject.Offer;
 import com.rasai.driverBooking.CustomObject.TripInformation;
-import com.rasai.driverBooking.MakeOffer;
 import com.rasai.driverBooking.R;
+import com.rasai.driverBooking.TripTabsActivity.CustomListAdapter;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,5 +1,6 @@
 package com.rasai.driverBooking;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,8 +11,11 @@ import com.firebase.client.Firebase;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.Registration.DriverRegistration;
 
 import java.util.Arrays;
@@ -31,10 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
         Firebase.setAndroidContext(this);
 
-
-
-        final DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver/");
-
         //Called when there is a change in the authentication state
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             /*gets invoked in the UI thread on changes in the authentication state
@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
 
+                DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver");
+
+                Log.d("testing0 MainActvity", "inside authlistener");
                 if (firebaseAuth.getCurrentUser() != null) {
                     // Sign in logic here.
                     isRegistered(mRef, firebaseAuth.getCurrentUser());
@@ -55,11 +58,14 @@ public class MainActivity extends AppCompatActivity {
         };
 
         if( user != null){
+            Log.d("testing1 MainActvity", "inside if");
             //already signed in
             //startActivity(myIntent);
+            DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver");
             isRegistered(mRef, user);
         }else{
             //create login options
+            Log.d("testing2 MainActvity", "inside else");
             startActivityForResult(AuthUI.getInstance().
                             createSignInIntentBuilder().
                             setAvailableProviders
@@ -81,17 +87,39 @@ public class MainActivity extends AppCompatActivity {
 
     private void isRegistered(DatabaseReference myRef, FirebaseUser Myuser){
 
-        Log.d("testing", myRef.child(Myuser.getPhoneNumber()).toString());
-        if(myRef.child(Myuser.getPhoneNumber())!= null)
-        {
-            Intent intent = new Intent(MainActivity.this, DriverHome.class);
-            startActivity(intent);
-        }
-        else{
-            //new intent creation has to be inside a method
-            Intent intent = new Intent(MainActivity.this, DriverRegistration.class);
-            startActivity(intent);
-        }
+        final FirebaseUser mUser = Myuser;
+
+        myRef.addValueEventListener(new ValueEventListener() {
+
+            Boolean controller = true;
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                for(DataSnapshot child: children){
+
+                    if(child.getKey().equals(mUser.getPhoneNumber())){
+
+                        Intent intentHome = new Intent(MainActivity.this, DriverHome.class);
+                        startActivity(intentHome);
+                        controller = false;
+                    }
+                }
+
+                if (controller) {
+                    //new intent creation has to be inside a method
+                    Intent intentReg = new Intent(MainActivity.this, DriverRegistration.class);
+                    startActivity(intentReg);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
     }
