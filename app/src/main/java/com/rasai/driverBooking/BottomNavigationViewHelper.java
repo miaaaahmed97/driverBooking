@@ -20,20 +20,28 @@ public class BottomNavigationViewHelper {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.ic_house:
-                        Intent intent0 = new Intent(context, DriverHome.class);//ACTIVITY_NUM = 0
-                        context.startActivity(intent0);
+                        if (!(context instanceof DriverHome)){
+                            Intent intent0 = new Intent(context, DriverHome.class);//ACTIVITY_NUM = 0
+                            context.startActivity(intent0);
+                        }
                         break;
                     case R.id.ic_car:
-                        Intent intent1 = new Intent(context, TripTabsActivity.class);//ACTIVITY_NUM = 1
-                        context.startActivity(intent1);
+                        if (!(context instanceof TripTabsActivity)) {
+                            Intent intent1 = new Intent(context, TripTabsActivity.class);//ACTIVITY_NUM = 1
+                            context.startActivity(intent1);
+                        }
                         break;
                     case R.id.ic_chat:
-                        Intent intent2 = new Intent(context, DriverHome.class);//ACTIVITY_NUM = 2
-                        context.startActivity(intent2);
+                        if (!(context instanceof DriverHome)) {
+                            Intent intent2 = new Intent(context, DriverHome.class);//ACTIVITY_NUM = 2
+                            context.startActivity(intent2);
+                        }
                         break;
                     case R.id.ic_avatar:
-                        Intent intent3 = new Intent(context, ProfileDisplay.class);//ACTIVITY_NUM = 3
-                        context.startActivity(intent3);
+                        if (!(context instanceof ProfileDisplay)) {
+                            Intent intent3 = new Intent(context, ProfileDisplay.class);//ACTIVITY_NUM = 3
+                            context.startActivity(intent3);
+                        }
                         break;
                 }
                 return false;
