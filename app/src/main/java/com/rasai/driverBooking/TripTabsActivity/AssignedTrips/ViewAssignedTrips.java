@@ -152,6 +152,7 @@ public class ViewAssignedTrips extends AppCompatActivity {
                 }
                 else{
                     setHighReviewInfo();
+                    submitProblemsFunction(mSubmitReview);
                 }
             }
         });
