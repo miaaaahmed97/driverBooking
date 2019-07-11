@@ -62,6 +62,11 @@
                     android:id="@+id/driverMobile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:isIndicator="true"
+                    app:errorTextColor="@color/darkgrey"
+                    android:focusableInTouchMode="false"
+                    android:focusable="false"
                     android:hint="Mobile"
                     android:text="03104567890" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -75,6 +80,11 @@
                     android:id="@+id/driverCNIC"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:isIndicator="true"
+                    app:errorTextColor="@color/darkgrey"
+                    android:focusableInTouchMode="false"
+                    android:focusable="false"
                     android:hint="CNIC"
                     android:text="9140034567228" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -140,7 +150,6 @@
                 android:dropDownSelector="@android:drawable/arrow_down_float" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/model"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp">

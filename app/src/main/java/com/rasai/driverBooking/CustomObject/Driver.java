@@ -20,6 +20,7 @@ import java.util.UUID;
 
 public class Driver implements Serializable {
 
+    private String name;
     private String phoneNumber;
     private String cnic;
     private String birthday;
@@ -38,7 +39,8 @@ public class Driver implements Serializable {
     @Override
     public String toString() {
         return "Driver{" +
-                "phoneNumber='" + phoneNumber + '\'' +
+                "name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", cnic='" + cnic + '\'' +
                 ", birthday='" + birthday + '\'' +
                 ", address='" + address + '\'' +
@@ -51,7 +53,7 @@ public class Driver implements Serializable {
                 ", databaseId='" + databaseId + '\'' +
                 ", offersMade=" + offersMade +
                 ", offerAccepted=" + offerAccepted +
-                ", tripCompleted=" + tripsCompleted +
+                ", tripsCompleted=" + tripsCompleted +
                 '}';
     }
 
@@ -271,5 +273,13 @@ public class Driver implements Serializable {
 
     public void setTripsCompleted(List<String> tripsCompleted) {
         this.tripsCompleted = tripsCompleted;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
