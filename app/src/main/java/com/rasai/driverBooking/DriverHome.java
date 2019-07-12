@@ -44,6 +44,10 @@ public class DriverHome extends AppCompatActivity implements Serializable{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_home);
+
+        //Set tht title
+        setTitle("HOME");
+
         mListView = findViewById(R.id.list_view);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -130,6 +134,12 @@ public class DriverHome extends AppCompatActivity implements Serializable{
         //creating bottom navigation view
         setupBottomNavigationView();
 
+    }
+
+    //cannot go back to previous activity, closes down app to background
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 
     /**

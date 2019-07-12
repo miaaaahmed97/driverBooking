@@ -64,6 +64,11 @@ public class MakeOffer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_offer);
 
+        //set activity title
+        assert getSupportActionBar() != null;   //null check
+        setTitle("MY OFFER");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+
         Intent i = getIntent();
         tripInfo = (TripInformation) i.getSerializableExtra("TRIP_SELECTED");
         availability = (String) i.getSerializableExtra("OFFER_AVAILABLE");
@@ -249,6 +254,13 @@ public class MakeOffer extends AppCompatActivity {
         });
 
         //End - Delete Trip
+    }
+
+    //on clicking back button finish activity and go back
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 
     public void changeBudgetOffer(View v) {

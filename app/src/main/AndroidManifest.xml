@@ -30,7 +30,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProfileDisplay">
-
         </activity>
     </application>
 

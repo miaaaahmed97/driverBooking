@@ -49,6 +49,7 @@
                     android:id="@+id/driverName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="textPersonName|textCapWords"
                     android:hint="Name"
                     android:text="Muhammad Sarfaraz" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -98,6 +99,7 @@
                     android:id="@+id/driverDOB"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="date"
                     android:hint="Date of Birth"
                     android:text="23/04/1970" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -128,6 +130,7 @@
                     android:id="@+id/driverAddress"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="textPostalAddress"
                     android:hint="Address"
                     android:text="NUST" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -158,6 +161,7 @@
                     android:id="@+id/model_field"
                     android:hint="Model"
                     android:text="2017"
+                    android:inputType="date"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -173,6 +177,7 @@
                     android:id="@+id/registration_field"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="textCapCharacters"
                     android:text="AFY 654"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -299,8 +304,13 @@
                 android:id="@+id/addSecurityButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:elevation="5dp"
+                android:textColor="@color/black"
                 android:text="Upload New Slip Picture"
-                android:background="@color/lightgrey"
+                android:textAllCaps="false"
+                android:background="@drawable/button_rounded_edges"
                 android:layout_marginLeft="12dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginBottom="8dp"/>
@@ -308,9 +318,11 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:layout_margin="8dp"
-                android:background="@color/colorPrimaryDark"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:text="LOG OUT"
+                android:elevation="5dp"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

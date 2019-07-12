@@ -1,12 +1,10 @@
 package com.rasai.driverBooking.TripTabsActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -152,7 +150,7 @@ public class HistoryTabFragment extends Fragment {
 
                     if (completedTripsList.size() == offerObjects.size()) {
                         Log.d("TAG", "calling adapter");
-                        mAdapter = new CustomListAdapter(getActivity(),R.layout.fragment_one, completedTripsList);
+                        mAdapter = new CustomListAdapter(getActivity(),R.layout.offers_list_item, completedTripsList);
                         mListView.setAdapter(mAdapter);
                     }
 

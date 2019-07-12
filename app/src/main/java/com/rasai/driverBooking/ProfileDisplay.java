@@ -54,6 +54,11 @@ public class ProfileDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_display);
 
+        assert getSupportActionBar() != null;   //null check
+        setTitle("PROFILE");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+
+
         phone_Number = user.getPhoneNumber();
 
         mIDImage = findViewById(R.id.userPicture);
@@ -94,6 +99,13 @@ public class ProfileDisplay extends AppCompatActivity {
         seatsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         seatsSpinner.setAdapter(seatsAdapter);
         //End - Spinner Layout Setup
+    }
+
+    //on clicking back button finish activity and go back
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 
     class MyValueEventListener implements ValueEventListener, Serializable {

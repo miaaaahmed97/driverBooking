@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="8dp"
+    android:paddingTop="16dp"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
@@ -133,17 +134,19 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:paddingEnd="10sp"
                     android:text=" Return "
                     android:paddingStart="10sp" />
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/familyOrFriendsCd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingLeft="10sp"
                     android:text="Family"
-                    android:paddingStart="10sp" />
+                    android:paddingStart="10sp" />-->
 
             </LinearLayout>
 
