@@ -57,8 +57,10 @@ public class MessageListActivity extends AppCompatActivity {
         mMessageAdapter = new MessageListAdapter(MessageListActivity.this, messageList);
         mMessageRecycler.setAdapter(mMessageAdapter);
         mMessageRecycler.setHasFixedSize(true);
-        mMessageRecycler.setLayoutManager(new LinearLayoutManager(MessageListActivity.this, RecyclerView.VERTICAL,false));
-
+        final LinearLayoutManager mManager = new
+                LinearLayoutManager(MessageListActivity.this, RecyclerView.VERTICAL,false);
+        mManager.setStackFromEnd(true);
+        mMessageRecycler.setLayoutManager(mManager);
         sendMessage(mSendButton);
 
         //creating bottom navigation view

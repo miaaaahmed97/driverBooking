@@ -64,6 +64,15 @@ public class MainChat extends AppCompatActivity {
             startActivity(chatIntent);
         });
 
+        //popup box with actions such as deleting, archiving chat
+        mListView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                return true;
+            }
+        });
+
         class MyDriverValueEventListener implements ValueEventListener, Serializable{
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
