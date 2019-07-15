@@ -180,7 +180,7 @@ public class OffersTabFragment extends Fragment {
                     if (offeredTripsList.size() == offerObjects.size()) {
                         Log.d("TAG", "calling adapter");
 
-                        mAdapter = new CustomListAdapter(getActivity(),R.layout.fragment_one, offeredTripsList);
+                        mAdapter = new CustomListAdapter(getActivity(),R.layout.offers_list_item, offeredTripsList);
                         mListView.setAdapter(mAdapter);
                     }
 

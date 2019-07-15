@@ -51,7 +51,7 @@ public class CustomListAdapter extends ArrayAdapter<TripInformation> {
         mETime = (TextView) customView.findViewById(R.id.endTimeCd);
         mMinBudget= (TextView) customView.findViewById(R.id.budgetMinCd);
         mMaxBudget = (TextView) customView.findViewById(R.id.budgetMaxCd);
-        mTripType = (TextView) customView.findViewById(R.id.familyOrFriendsCd);
+        //mTripType = (TextView) customView.findViewById(R.id.familyOrFriendsCd);
         mSeats = (TextView) customView.findViewById(R.id.numSeatsCd);
         mIsReturn = (TextView) customView.findViewById(R.id.returnCd);
 
@@ -64,7 +64,7 @@ public class CustomListAdapter extends ArrayAdapter<TripInformation> {
         mSTime.setText(getItem(position).getStartTime());
         mMinBudget.setText(getItem(position).getMinBudget());
         mMaxBudget.setText(getItem(position).getMaxBudget());
-        mTripType.setText(getItem(position).getTripType());
+        //mTripType.setText(getItem(position).getTripType());
         mSeats.setText(getItem(position).getSeats());
         mIsReturn.setText(getItem(position).getIsReturn());
 

@@ -38,10 +38,11 @@ public class BottomNavigationViewHelper {
                         }
                         break;
                     case R.id.ic_avatar:
-                        if (!(context instanceof ProfileDisplay)) {
+                        //not needed unless profile display has navigattion bar
+                        //if (!(context instanceof ProfileDisplay)) {
                             Intent intent3 = new Intent(context, ProfileDisplay.class);//ACTIVITY_NUM = 3
                             context.startActivity(intent3);
-                        }
+                        //}
                         break;
                 }
                 return false;

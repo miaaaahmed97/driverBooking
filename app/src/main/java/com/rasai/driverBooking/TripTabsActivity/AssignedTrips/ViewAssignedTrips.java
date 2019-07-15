@@ -75,6 +75,11 @@ public class ViewAssignedTrips extends AppCompatActivity {
         setContentView(R.layout.activity_view_assigned_trip);
         setTitle("Assigned Trip");
 
+        //set title Bar
+        assert getSupportActionBar() != null;   //null check
+        setTitle("ASSIGNED TRIP");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+
         //Get trip info of the trip selected from previous activity
         Intent i = getIntent();
         tripInfo = (TripInformation) i.getSerializableExtra("TRIP_SELECTED");
@@ -348,6 +353,13 @@ public class ViewAssignedTrips extends AppCompatActivity {
 
             }
         });
+    }
+
+    //on clicking back button finish activity and go back
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 
     private void setLowReviewInfo(){
