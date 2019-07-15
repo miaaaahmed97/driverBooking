@@ -1,5 +1,7 @@
 package com.rasai.driverBooking.MessageActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,6 +70,34 @@ public class MainChat extends AppCompatActivity {
         mListView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                // setup the alert builder
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainChat.this);
+                //builder.setTitle("Choose an option");
+
+                // add a list
+                String[] animals = {"Archive", "Delete", "Block", "Report"};
+                builder.setItems(animals, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0: // Archive
+                                break;
+                            case 1: // Delete
+                                break;
+                            case 2: // Block
+                                break;
+                            case 3: // Report
+                                break;
+
+                                default:
+                                    break;
+                        }
+                    }
+                });
+
+                // create and show the alert dialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
 
                 return true;
             }
