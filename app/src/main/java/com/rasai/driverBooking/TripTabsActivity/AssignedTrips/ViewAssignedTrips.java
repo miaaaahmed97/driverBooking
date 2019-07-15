@@ -353,6 +353,7 @@ public class ViewAssignedTrips extends AppCompatActivity {
     private void setLowReviewInfo(){
 
         review = new Review();
+
         review.setDriverPhoneNumber(tripInfo.getDriverAssigned());
         review.setCustomerPhoneNumber(tripInfo.getPhoneNumber());
         review.setRating(ratingNumber);
