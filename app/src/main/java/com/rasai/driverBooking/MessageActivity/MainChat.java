@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.BottomNavigationViewHelper;
 import com.rasai.driverBooking.CustomObject.ChatListItem;
@@ -44,8 +45,8 @@ public class MainChat extends AppCompatActivity {
     List<String> tripList = new ArrayList<>();
     List<ChatListItem> chatsList = new ArrayList<ChatListItem>();
 
-    ChatListItem currentChat;
-    int counter = 0;
+    int tripsCounter = 0;
+    int chatCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,25 +59,29 @@ public class MainChat extends AppCompatActivity {
         mAdapter = new ChatListAdapter(MainChat.this, R.layout.activity_chats_main, chatsList);
         mListView.setAdapter(mAdapter);
 
-        mListView.setOnItemClickListener((adapterView, view, i, l) -> {
-
-            Intent chatIntent = new Intent(MainChat.this, MessageListActivity.class);
-            chatIntent.putExtra("CHAT", chatsList.get(i));
-            Log.d("testing5 MainChat",  chatsList.get(i).toString());
-            startActivity(chatIntent);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent chatIntent = new Intent(MainChat.this, MessageListActivity.class);
+                chatIntent.putExtra("CHAT", chatsList.get(i));
+                Log.d("testing5 MainChat",  chatsList.get(i).toString());
+                startActivity(chatIntent);
+            }
         });
 
         //popup box with actions such as deleting, archiving chat
-        mListView.setOnLongClickListener(new View.OnLongClickListener() {
+        mListView.setLongClickable(true);
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onLongClick(View view) {
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 // setup the alert builder
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainChat.this);
                 //builder.setTitle("Choose an option");
 
                 // add a list
-                String[] animals = {"Archive", "Delete", "Block", "Report"};
-                builder.setItems(animals, new DialogInterface.OnClickListener() {
+                String[] actions = {"Archive", "Delete", "Block", "Report"};
+                builder.setItems(actions, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
@@ -89,8 +94,8 @@ public class MainChat extends AppCompatActivity {
                             case 3: // Report
                                 break;
 
-                                default:
-                                    break;
+                            default:
+                                break;
                         }
                     }
                 });
@@ -98,6 +103,7 @@ public class MainChat extends AppCompatActivity {
                 // create and show the alert dialog
                 AlertDialog dialog = builder.create();
                 dialog.show();
+
 
                 return true;
             }
@@ -107,17 +113,17 @@ public class MainChat extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Iterable<DataSnapshot> offersConfirmed = dataSnapshot.child("offerConfirmed").getChildren();
+                Iterable<DataSnapshot> offersConfirmed = dataSnapshot.child("chatThreads").getChildren();
 
                 for(DataSnapshot child: offersConfirmed){
                     tripList.add(child.getValue(String.class));
                 }
 
-                Iterable<DataSnapshot> tripsCompleted = dataSnapshot.child("tripsCompleted").getChildren();
+                /*Iterable<DataSnapshot> tripsCompleted = dataSnapshot.child("tripsCompleted").getChildren();
 
                 for(DataSnapshot child: tripsCompleted){
                     tripList.add(child.getValue(String.class));
-                }
+                }*/
 
                 driverCallback();
             }
@@ -146,7 +152,7 @@ public class MainChat extends AppCompatActivity {
 
             chat.setDriverPhone(phone_Number);
             chat.setCustomerPhone(dataSnapshot.child("customerPhoneNumber").getValue(String.class));
-            chat.setChatId(createChatID(chat.getCustomerPhone(), phone_Number));
+            //chat.setChatId(createChatID(chat.getCustomerPhone(), phone_Number));
 
             chatsList.add(chat);
 
@@ -166,18 +172,52 @@ public class MainChat extends AppCompatActivity {
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
             ChatListItem chat;
-            chat = chatsList.get(counter);
+            chat = chatsList.get(tripsCounter);
 
             chat.setFrom(dataSnapshot.child("from").getValue(String.class));
             chat.setTo(dataSnapshot.child("to").getValue(String.class));
+            chat.setName(dataSnapshot.child("customerName").getValue(String.class));
+            chat.setChatId(dataSnapshot.child("databaseId").getValue(String.class));
 
-            counter +=1 ;
+            DatabaseReference mChatRef = FirebaseDatabase.getInstance().getReference();
+            Query query = mChatRef.child("Chat").child(chat.getChatId()).orderByKey().limitToLast(1);
+            query.addListenerForSingleValueEvent(new MyChatValueEventListener());
 
-            if(counter == chatsList.size()){
-                mAdapter.notifyDataSetChanged();
-            }
+            tripsCounter +=1 ;
 
             Log.d("testing2 mainChat", chatsList.toString());
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    }
+
+    class MyChatValueEventListener implements ValueEventListener, Serializable{
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            Log.d("testing4 mainChat", dataSnapshot.toString());
+
+            ChatListItem chat;
+            chat = chatsList.get(chatCounter);
+
+            Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+            for (DataSnapshot child: children){
+
+                chat.setMsgPreview(child.child("textMessage").getValue(String.class));
+
+            }
+
+            chatCounter +=1 ;
+
+            if(chatCounter == chatsList.size()){
+
+                Log.d("testing3 mainChat", chatsList.toString());
+                mAdapter.notifyDataSetChanged();
+            }
         }
 
         @Override
@@ -210,14 +250,14 @@ public class MainChat extends AppCompatActivity {
 
     }
 
-    private String createChatID(String customerPhone, String driverPhone){
+    /*private String createChatID(String customerPhone, String driverPhone){
         String chatThreadId = "";
 
         /*
          * compareTo() returns a positive number if customer number is lexically smaller than
          * the driver number
          * and negative number if customer number is lexically greater than the driver number
-         * */
+         *
         if(customerPhone.compareTo(driverPhone) > 0)
         {
             chatThreadId = driverPhone+customerPhone;
@@ -231,7 +271,7 @@ public class MainChat extends AppCompatActivity {
         }
 
         return chatThreadId;
-    }
+    }*/
 
 
     /**

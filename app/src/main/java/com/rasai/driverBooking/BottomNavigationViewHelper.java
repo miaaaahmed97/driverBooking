@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.rasai.driverBooking.MessageActivity.MainChat;
 import com.rasai.driverBooking.TripTabsActivity.TripTabsActivity;
 
 public class BottomNavigationViewHelper {
@@ -33,7 +34,7 @@ public class BottomNavigationViewHelper {
                         break;
                     case R.id.ic_chat:
                         if (!(context instanceof DriverHome)) {
-                            Intent intent2 = new Intent(context, DriverHome.class);//ACTIVITY_NUM = 2
+                            Intent intent2 = new Intent(context, MainChat.class);//ACTIVITY_NUM = 2
                             context.startActivity(intent2);
                         }
                         break;

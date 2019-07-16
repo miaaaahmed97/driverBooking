@@ -3,8 +3,6 @@ package com.rasai.driverBooking.MessageActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,13 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.rasai.driverBooking.BottomNavigationViewHelper;
+
 import com.rasai.driverBooking.CustomObject.ChatListItem;
 import com.rasai.driverBooking.CustomObject.Message;
 import com.rasai.driverBooking.R;
@@ -49,6 +46,9 @@ public class MessageListActivity extends AppCompatActivity {
         Intent i = getIntent();
         chat = (ChatListItem) i.getSerializableExtra("CHAT");
 
+        //Display name of customer at the top
+        setTitle(chat.getName());
+
         mMessageRecycler = (RecyclerView) findViewById(R.id.reyclerview_message_list);
 
         mSendButton = (Button) findViewById(R.id.button_chatbox_send);
@@ -63,8 +63,6 @@ public class MessageListActivity extends AppCompatActivity {
         mMessageRecycler.setLayoutManager(mManager);
         sendMessage(mSendButton);
 
-        //creating bottom navigation view
-        setupBottomNavigationView();
 
         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Chat").child(chat.getChatId());
         mRef.addValueEventListener(new ValueEventListener() {
@@ -91,18 +89,6 @@ public class MessageListActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    /**
-     * BottomNavigationView setup
-     */
-    private void setupBottomNavigationView() {
-        Log.d("MessageListActivity", "setupBottomNavigationView: setting up BottomNavigationView");
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.enableNavigation(MessageListActivity.this,bottomNavigationView);
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
-        menuItem.setChecked(true);
     }
 
     private void sendMessage(Button button){
