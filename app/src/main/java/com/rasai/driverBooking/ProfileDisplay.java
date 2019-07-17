@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -45,6 +47,7 @@ public class ProfileDisplay extends AppCompatActivity {
     private FirebaseUser user = mauth.getCurrentUser();
     private ImageView mIDImage;
     private Switch mACSwitch;
+    private Button mSignOut;
 
     private TextView mDriverName, mPhoneNumber, mDriverMobile, mDriverCNIC,mDriverDOB, mDriverAddress, mRegField, mSecurityAmount, mModel;
 
@@ -57,7 +60,6 @@ public class ProfileDisplay extends AppCompatActivity {
         assert getSupportActionBar() != null;   //null check
         setTitle("PROFILE");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
-
 
         phone_Number = user.getPhoneNumber();
 
@@ -99,6 +101,9 @@ public class ProfileDisplay extends AppCompatActivity {
         seatsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         seatsSpinner.setAdapter(seatsAdapter);
         //End - Spinner Layout Setup
+
+        mSignOut = (Button) findViewById(R.id.logout);
+        signOut(mSignOut);
     }
 
     //on clicking back button finish activity and go back
@@ -153,6 +158,22 @@ public class ProfileDisplay extends AppCompatActivity {
             mACSwitch.setChecked(false);
         //todo image display
         mSecurityAmount.setText(driver.getSecurityDeposit().getAmount());
+    }
+
+    private void signOut(Button button){
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // [START auth_sign_out]
+                FirebaseAuth.getInstance().signOut();
+                // [END auth_sign_out]
+
+                finish();
+
+                Intent intent = new Intent(ProfileDisplay.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

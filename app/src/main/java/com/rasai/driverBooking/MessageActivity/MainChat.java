@@ -80,20 +80,22 @@ public class MainChat extends AppCompatActivity {
                 //builder.setTitle("Choose an option");
 
                 // add a list
-                String[] actions = {"Archive", "Delete", "Block", "Report"};
+                String[] actions = {"Archive", "Delete", "Block"};
                 builder.setItems(actions, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0: // Archive
+                                archive(chatsList.get(i).getChatId());
                                 break;
                             case 1: // Delete
+                                delete(chatsList.get(i).getChatId());
                                 break;
                             case 2: // Block
+                                block(chatsList.get(i).getChatId(), chatsList.get(i).getCustomerPhone());
                                 break;
-                            case 3: // Report
-                                break;
-
+                            /*case 3: // Report
+                                break;*/
                             default:
                                 break;
                         }
@@ -118,12 +120,6 @@ public class MainChat extends AppCompatActivity {
                 for(DataSnapshot child: offersConfirmed){
                     tripList.add(child.getValue(String.class));
                 }
-
-                /*Iterable<DataSnapshot> tripsCompleted = dataSnapshot.child("tripsCompleted").getChildren();
-
-                for(DataSnapshot child: tripsCompleted){
-                    tripList.add(child.getValue(String.class));
-                }*/
 
                 driverCallback();
             }
@@ -272,6 +268,49 @@ public class MainChat extends AppCompatActivity {
 
         return chatThreadId;
     }*/
+
+    private void delete(String id){
+        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver")
+                .child(phone_Number).child("chatThreads");
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                for(DataSnapshot child : children){
+                    if(child.getValue().toString().equals(id)){
+                        child.getRef().removeValue();
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void archive(String id){
+
+        delete(id);
+
+        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver")
+                .child(phone_Number).child("chatArchive");
+        mRef.push().setValue(id);
+
+    }
+
+    private void block(String id, String contactNumber){
+
+        delete(id);
+
+        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver")
+                .child(phone_Number).child("blockedNumbers");
+        mRef.push().setValue(contactNumber);
+
+    }
 
 
     /**
