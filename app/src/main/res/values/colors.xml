@@ -8,4 +8,11 @@
     <color name="red">#e50000</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="maroon">#BF0000</color>
+    <color name="dimgray">#696969</color>
+    <color name="lightslategray">#778899</color>
+    <color name="slategray">#D3D3D3</color>
+    <color name="orange">#ECA400</color>
+    <color name="green">#00A82A</color>
+    <color name="blue">#00B2FF</color>
 </resources>

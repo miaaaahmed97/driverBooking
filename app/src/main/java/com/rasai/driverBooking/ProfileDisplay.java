@@ -46,7 +46,7 @@ public class ProfileDisplay extends AppCompatActivity {
     private ImageView mIDImage;
     private Switch mACSwitch;
 
-    private TextView mDriverName, mPhoneNumber, mDriverMobile, mDriverCNIC,mDriverDOB, mDriverAddress, mRegField, mSecurityAmount, mModel;
+    private TextView mDriverName, mDriverMobile, mDriverCNIC,mDriverDOB, mDriverAddress, mRegField, mSecurityAmount, mModel;
 
 
     @Override
@@ -63,7 +63,6 @@ public class ProfileDisplay extends AppCompatActivity {
 
         mIDImage = findViewById(R.id.userPicture);
         mDriverName = (TextView)findViewById(R.id.driverName);
-        mPhoneNumber= findViewById(R.id.driverMobile);
 
         mLangSpinner = findViewById(R.id.lang_spinner);
         List<String> languageList = new ArrayList<String>();
@@ -137,7 +136,7 @@ public class ProfileDisplay extends AppCompatActivity {
         //todo mIDImage.setImageURI();
         //todo setRating(driver.getRating());
         mDriverName.setText(driver.getName());
-        mPhoneNumber.setText(driver.getPhoneNumber());
+        mDriverMobile.setText(driver.getPhoneNumber());
         mDriverCNIC.setText(driver.getCnic());
         mDriverDOB.setText(driver.getBirthday());
         //todo StringLangSelected = mLangSpinner.getSelectedItemsAsString();
