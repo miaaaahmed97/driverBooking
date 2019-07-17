@@ -23,13 +23,13 @@
         <activity android:name=".Registration.driverRegistration2" />
         <activity android:name=".Registration.vehicleRegistration" />
         <activity android:name=".Registration.DriverRegistration" />
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".MessageActivity.MainChat">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MessageActivity.MainChat"></activity>
         <activity android:name=".MessageActivity.MessageListActivity"></activity>
         <activity android:name=".ProfileDisplay" />
     </application>

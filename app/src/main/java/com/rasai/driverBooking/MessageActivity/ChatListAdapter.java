@@ -1,7 +1,6 @@
 package com.rasai.driverBooking.MessageActivity;
 
 import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.rasai.driverBooking.CustomObject.ChatListItem;
 import com.rasai.driverBooking.R;
 
@@ -22,6 +19,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatListItem> {
     TextView mFrom;
     TextView mTo;
     TextView mName;
+    TextView mPreview;
     ImageView mId;
 
     public ChatListAdapter(Context context, int resource, List<ChatListItem> objects) {
@@ -38,16 +36,18 @@ public class ChatListAdapter extends ArrayAdapter<ChatListItem> {
 
         mFrom = (TextView) customView.findViewById(R.id.fromCd);
         mTo = (TextView) customView.findViewById(R.id.toCd);
-        //mName = (TextView) customView.findViewById(R.id.name_chat);
+        mName = (TextView) customView.findViewById(R.id.name_chat);
+        mPreview = (TextView) customView.findViewById(R.id.lastMessage);
         //mId = (ImageView) customView.findViewById(R.id.pictureChat);
 
 
 
         mFrom.setText(getItem(position).getFrom());
         mTo.setText(getItem(position).getTo());
-        /*mName.setText(getItem(position).getName());
+        mName.setText(getItem(position).getName());
+        mPreview.setText(getItem(position).getMsgPreview());
 
-        if (getItem(position).getPictureUri()!= null) {
+        /*if (getItem(position).getPictureUri()!= null) {
 
             Log.d("testing ChatAdapter", "inside if");
             Glide.with(getContext()).load(Uri.parse(getItem(position).

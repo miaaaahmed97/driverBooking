@@ -1,5 +1,8 @@
 package com.rasai.driverBooking.CustomObject;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.Serializable;
 
 public class ChatListItem implements Serializable {
@@ -99,5 +102,11 @@ public class ChatListItem implements Serializable {
 
     public void setMsgPreview(String msgPreview) {
         this.msgPreview = msgPreview;
+    }
+
+    public void deleteChat(){
+        DatabaseReference mDriverRef = FirebaseDatabase.getInstance().getReference().child("Chat")
+                .child(chatId);
+        mDriverRef.removeValue();
     }
 }
