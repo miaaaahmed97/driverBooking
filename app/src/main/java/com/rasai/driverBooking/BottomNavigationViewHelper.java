@@ -33,7 +33,7 @@ public class BottomNavigationViewHelper {
                         }
                         break;
                     case R.id.ic_chat:
-                        if (!(context instanceof DriverHome)) {
+                        if (!(context instanceof MainChat)) {
                             Intent intent2 = new Intent(context, MainChat.class);//ACTIVITY_NUM = 2
                             context.startActivity(intent2);
                         }

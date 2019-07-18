@@ -9,29 +9,46 @@
     2. remove fullBackupContent-->
     <application
         android:allowBackup="false"
+        android:screenOrientation="portrait"
         android:fullBackupContent="false"
         android:icon="@drawable/ic_rasai_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TripTabsActivity.AssignedTrips.ViewAssignedTrips"></activity>
-        <activity android:name=".TripTabsActivity.TripTabsActivity" />
-        <activity android:name=".TripTabsActivity.TripOffers.MakeOffer" />
-        <activity android:name=".DriverHome" />
-        <activity android:name=".Registration.SecurityDepositUpload" />
-        <activity android:name=".Registration.driverRegistration2" />
-        <activity android:name=".Registration.vehicleRegistration" />
-        <activity android:name=".Registration.DriverRegistration" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".TripTabsActivity.AssignedTrips.ViewAssignedTrips"
+            android:screenOrientation="portrait"            ></activity>
+        <activity android:name=".TripTabsActivity.TripTabsActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".TripTabsActivity.TripOffers.MakeOffer"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".DriverHome"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".Registration.SecurityDepositUpload"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".Registration.driverRegistration2"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".Registration.vehicleRegistration"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".Registration.DriverRegistration"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MessageActivity.MainChat"></activity>
-        <activity android:name=".MessageActivity.MessageListActivity"></activity>
-        <activity android:name=".ProfileDisplay" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".MessageActivity.MainChat"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".MessageActivity.MessageListActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".ProfileDisplay"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.util.AttributeSet;
 import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatSpinner;
@@ -25,7 +26,7 @@ public class MultiSelectionSpinner extends AppCompatSpinner implements DialogInt
     {
         super(context);
 
-        simple_adapter = new ArrayAdapter<String>(context,
+        simple_adapter = new ArrayAdapter<>(context,
                 android.R.layout.simple_spinner_item);
         super.setAdapter(simple_adapter);
     }
@@ -33,7 +34,7 @@ public class MultiSelectionSpinner extends AppCompatSpinner implements DialogInt
     public MultiSelectionSpinner(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        simple_adapter = new ArrayAdapter<String>(context,
+        simple_adapter = new ArrayAdapter<>(context,
                 android.R.layout.simple_spinner_item);
         super.setAdapter(simple_adapter);
     }
@@ -59,7 +60,7 @@ public class MultiSelectionSpinner extends AppCompatSpinner implements DialogInt
             @Override
             public void onClick(DialogInterface arg0, int arg1)
             {
-
+                DriverRegistration.disappear();
             }
         });
 

@@ -38,7 +38,7 @@ public class MainChat extends AppCompatActivity {
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
     private FirebaseUser user = mauth.getCurrentUser();
 
-    private static final int ACTIVITY_NUM = 1;
+    private static final int ACTIVITY_NUM = 2;
     private ListView mListView;
     private ChatListAdapter mAdapter;
 
@@ -52,6 +52,10 @@ public class MainChat extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chats_main);
+
+        //Set the title
+        assert getSupportActionBar() != null;   //null check
+        setTitle("HOME");
 
         phone_Number = user.getPhoneNumber();
 
@@ -317,11 +321,11 @@ public class MainChat extends AppCompatActivity {
      * BottomNavigationView setup
      */
     private void setupBottomNavigationView() {
-        //Log.d("TripTabsActivity", "setupBottomNavigationView: setting up BottomNavigationView");
+        Log.d("mmmccc", "setupBottomNavigationView: setting up BottomNavigationView");
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.enableNavigation(MainChat.this,bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
-        //get the item 0 as we're on page 0
+        //get the item 2 as we're on page 2
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         //select it
         menuItem.setChecked(true);

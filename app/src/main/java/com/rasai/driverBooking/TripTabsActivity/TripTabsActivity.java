@@ -31,6 +31,9 @@ public class TripTabsActivity extends AppCompatActivity implements Serializable 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_tabs);
 
+        //hide the top bar
+        getSupportActionBar().hide();
+
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mListView = (ListView) findViewById(R.id.list_view);

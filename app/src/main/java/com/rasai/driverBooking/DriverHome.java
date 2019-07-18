@@ -46,6 +46,7 @@ public class DriverHome extends AppCompatActivity implements Serializable{
         setContentView(R.layout.activity_driver_home);
 
         //Set tht title
+        assert getSupportActionBar() != null;   //null check
         setTitle("HOME");
 
         mListView = findViewById(R.id.list_view);

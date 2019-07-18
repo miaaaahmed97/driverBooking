@@ -65,7 +65,7 @@
                     android:layout_height="match_parent"
                     android:clickable="false"
                     android:isIndicator="true"
-                    app:textColor="@color/lightslategray"
+                    android:textColor="@color/lightslategray"
                     android:focusableInTouchMode="false"
                     android:focusable="false"
                     android:hint="Mobile"
