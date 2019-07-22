@@ -5,14 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -29,7 +30,7 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
     //ImageDisplayer imageDisplayer;
 
     private static final int GET_FROM_GALLERY = 1;
-    ImageButton addIDButton, addCNICButton, addDrivLicButton;
+    TextView addIDText, addCNICText, addDrivLicText;
     Button registrationButton;
 
     private StorageReference mStorageRef;
@@ -44,7 +45,7 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
         this.driverInformation = driverInformation;
     }
 
-    class ImageButtonListener implements View.OnClickListener, Serializable {
+    class TextViewListener implements View.OnClickListener, Serializable {
         @Override
         public void onClick(View v) {
             //calls gallery
@@ -61,20 +62,30 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_registration2);
 
+        //Set tht title
+        assert getSupportActionBar() != null;   //null check
+        setTitle("IDENTITY CONFIRMATION");
+
         //get firebase storage reference
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
         Intent i = getIntent();
         setDriverInformation((Driver) i.getSerializableExtra("driverObject"));
 
-        addIDButton = findViewById(R.id.addExterior);
-        addCNICButton=findViewById(R.id.addCnic);
-        addDrivLicButton = findViewById(R.id.addDrivingLicense);
-        registrationButton = (Button) findViewById(R.id.registerDriverButton);
+        addIDText = findViewById(R.id.addDisplayPicture);
+        addIDText.setPaintFlags(addIDText.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-        addIDButton.setOnClickListener(new ImageButtonListener());
-        addCNICButton.setOnClickListener(new ImageButtonListener());
-        addDrivLicButton.setOnClickListener(new ImageButtonListener());
+        addCNICText =findViewById(R.id.addCnic);
+        addCNICText.setPaintFlags(addCNICText.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        addDrivLicText = findViewById(R.id.addDrivingLicense);
+        addDrivLicText.setPaintFlags(addDrivLicText.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        registrationButton = findViewById(R.id.registerDriverButton);
+
+        addIDText.setOnClickListener(new TextViewListener());
+        addCNICText.setOnClickListener(new TextViewListener());
+        addDrivLicText.setOnClickListener(new TextViewListener());
 
         class MyOnClickListener implements View.OnClickListener, Serializable {
             @Override
@@ -86,9 +97,7 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
                 startActivity(navNext);
             }
         }
-
         registrationButton.setOnClickListener(new MyOnClickListener());
-
     }
 
     //called automatically after any button is clicked and gallery intent is made
@@ -128,8 +137,8 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
         String stringID= buttonIntent.getExtras().getString("EXTRA");
         int intID =Integer.parseInt(stringID);
         switch (intID){
-            case R.id.addExterior:
-                imageView = findViewById(R.id.showIDPicture);
+            case R.id.addDisplayPicture:
+                imageView = findViewById(R.id.showDisplayPicture);
                 getDriverInformation().setIdImage(uri.toString());
                 break;
             case R.id.addCnic:
@@ -137,14 +146,14 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
                 getDriverInformation().setCnicImage(uri.toString());
                 break;
             case R.id.addDrivingLicense:
-                imageView = findViewById(R.id.showDeposit);
+                imageView = findViewById(R.id.showDrivingLicense);
                 getDriverInformation().setDrivingLicenseImage(uri.toString());
                 break;
             default:
-                imageView = findViewById(R.id.showDeposit);
+                imageView = findViewById(R.id.showDrivingLicense);
                 break;
         }
-        Log.d("pleasee", getDriverInformation().toString());
+        //Log.d("pleasee", getDriverInformation().toString());
         imageView.setImageBitmap(bmp);
     }
 

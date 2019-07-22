@@ -15,4 +15,5 @@
     <color name="orange">#ECA400</color>
     <color name="green">#00A82A</color>
     <color name="blue">#00B2FF</color>
+    <color name="standardBlue"> #0000EE</color>
 </resources>

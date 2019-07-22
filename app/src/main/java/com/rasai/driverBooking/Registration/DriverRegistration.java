@@ -55,8 +55,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
 
         driverInformation = new Driver();
 
-        //phoneNumber = user.getPhoneNumber();
-        phoneNumber = "+923105907927";
+        phoneNumber = user.getPhoneNumber();
         mLangSpinner = findViewById(R.id.lang_spinner);
         mSelectLanguages = findViewById(R.id.LanguagesText);
 
@@ -155,13 +154,13 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
             }
 
             if (length <= 4) {
-                String month = digits.substring(0, 2);
-                String day = digits.substring(2);
+                String day = digits.substring(0, 2);
+                String month = digits.substring(2);
 
                 updatedText = String.format(Locale.US, "%s/%s",day,month);
             } else {
-                String month = digits.substring(0, 2);
-                String day = digits.substring(2, 4);
+                String day = digits.substring(0, 2);
+                String month = digits.substring(2, 4);
                 String year = digits.substring(4);
 
                 updatedText = String.format(Locale.US, "%s/%s/%s",day, month, year);

@@ -1,163 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
     tools:context=".Registration.driverRegistration2">
-
-    <ImageButton
-        android:id="@+id/addExterior"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginLeft="84dp"
-        android:layout_marginTop="84dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
-
-    <ImageButton
-        android:id="@+id/addCnic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginLeft="84dp"
-        android:layout_marginTop="52dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scanIDtext"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
-
-    <ImageButton
-        android:id="@+id/addDrivingLicense"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginLeft="92dp"
-        android:layout_marginTop="68dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scanCNICText"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
-
     <ImageView
-        android:id="@+id/showIDPicture"
-        android:layout_width="150dp"
-        android:layout_height="91dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toEndOf="@+id/addExterior"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_report_image" />
+        android:id="@+id/showDisplayPicture"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="24dp"
+        android:padding="4dp"
+        android:src="@drawable/man"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:id="@+id/addDisplayPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan ID Picture"
+        android:textColor="@color/standardBlue"
+        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/showCNIC"
-        android:layout_width="152dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginLeft="52dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.118"
-        app:layout_constraintStart_toEndOf="@+id/addCnic"
-        app:layout_constraintTop_toBottomOf="@+id/showIDPicture"
-        app:srcCompat="@android:drawable/ic_menu_report_image" />
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_margin="8dp"
+        android:padding="4dp"
+        android:src="@drawable/cnic"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:id="@+id/addCnic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan CNIC"
+        android:textSize="16sp"
+        android:textColor="@color/standardBlue"
+        android:clickable="true" />
+
 
     <ImageView
-        android:id="@+id/showDeposit"
-        android:layout_width="150dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toEndOf="@+id/addDrivingLicense"
-        app:layout_constraintTop_toBottomOf="@+id/showCNIC"
-        app:srcCompat="@android:drawable/ic_menu_report_image" />
+        android:id="@+id/showDrivingLicense"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_margin="8dp"
+        android:padding="4dp"
+        android:src="@drawable/driving_license"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:id="@+id/addDrivingLicense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan Driving License"
+        android:textColor="@color/standardBlue"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/registerDriverButton"
-        android:layout_width="279dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.551"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/showDeposit"
-       android:text="register" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="register"
+        android:layout_margin="8dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        style="@style/Widget.AppCompat.Button.Colored"/>
 
-    <EditText
-        android:id="@+id/scanIDtext"
-        android:layout_width="138dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginLeft="44dp"
-        android:layout_marginTop="4dp"
-        android:background="@null"
-        android:editable="false"
-        android:ems="10"
-        android:focusable="auto"
-        android:focusableInTouchMode="false"
-        android:gravity="center"
-        android:inputType="none"
-        android:text="Scan ID Picture"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="@+id/showIDPicture"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addExterior" />
 
-    <EditText
-        android:id="@+id/scanCNICText"
-        android:layout_width="158dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@null"
-        android:editable="false"
-        android:ems="10"
-        android:focusableInTouchMode="false"
-        android:gravity="center"
-        android:inputType="none"
-        android:selectAllOnFocus="false"
-        android:text="Scan CNIC"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="@+id/showCNIC"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addCnic"
-        app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
-        android:id="@+id/scanDrivLicText"
-        android:layout_width="171dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginBottom="8dp"
-        android:background="@null"
-        android:editable="false"
-        android:ems="10"
-        android:focusableInTouchMode="false"
-        android:gravity="center"
-        android:inputType="none"
-        android:text="Scan Driving License"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="@+id/showDeposit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addDrivingLicense"
-        app:layout_constraintVertical_bias="1.0" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

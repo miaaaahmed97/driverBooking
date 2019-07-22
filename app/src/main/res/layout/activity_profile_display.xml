@@ -87,7 +87,8 @@
                     android:focusableInTouchMode="false"
                     android:focusable="false"
                     android:hint="CNIC"
-                    android:text="9140034567228" />
+                    android:text="9140034567228"
+                    android:maxLength="13"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -101,25 +102,38 @@
                     android:layout_height="match_parent"
                     android:inputType="date"
                     android:hint="Date of Birth"
-                    android:text="23/04/1970" />
+                    android:text="23/04/1970"
+                    android:maxLength="10" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/Languages"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                app:helperText="Select Languages"
-                app:hintAnimationEnabled="true">
+                android:layout_margin="8dp">
+
+                <TextView
+                    android:id="@+id/LanguagesText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Select Languages"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <com.rasai.driverBooking.Registration.MultiSelectionSpinner
                     android:id="@+id/lang_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="clip_vertical|end|top|fill_vertical"
-                    android:layout_margin="1dp"
-                    android:foregroundGravity="top" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:scaleY="1"
+                    android:scaleX="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -130,9 +144,10 @@
                     android:id="@+id/driverAddress"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPostalAddress"
                     android:hint="Address"
-                    android:text="NUST" />
+                    android:text="NUST"
+                    android:inputType="textPostalAddress|textMultiLine|textCapWords"
+                    android:maxLines="3"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
