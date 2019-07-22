@@ -3,7 +3,9 @@ package com.rasai.driverBooking;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,6 +18,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -108,9 +112,11 @@ public class ProfileDisplay extends AppCompatActivity {
         seatsSpinner.setAdapter(seatsAdapter);
         //End - Spinner Layout Setup
 
+        displayProfilePicture(this);
+
         //user chooses to edit
         edit(mEdit);
-        //save(mSave);
+        save(mSave);
 
         mSignOut = (Button) findViewById(R.id.logout);
         signOut(mSignOut);
@@ -139,7 +145,7 @@ public class ProfileDisplay extends AppCompatActivity {
             driver.setSecurityDeposit(dataSnapshot.child("securityDeposit").getValue(SecurityDeposit.class));
             //Log.d("vehicle",driver.getVehicle().getManufacturer());
 
-            displayValues(driver);
+            setWidgets(driver);
         }
 
         @Override
@@ -148,14 +154,20 @@ public class ProfileDisplay extends AppCompatActivity {
         }
     }
 
-    private void displayValues(Driver driver) {
-        //todo mIDImage.setImageURI();
+    private void setWidgets(Driver driver) {
+
         //todo setRating(driver.getRating());
+
         mDriverName.setText(driver.getName());
         mDriverMobile.setText(driver.getPhoneNumber());
         mDriverCNIC.setText(driver.getCnic());
         mDriverDOB.setText(driver.getBirthday());
+
+
         //todo StringLangSelected = mLangSpinner.getSelectedItemsAsString();
+
+
+
         mDriverAddress.setText(driver.getAddress());
 
         //todo manufacturerSpinner.set
@@ -168,6 +180,30 @@ public class ProfileDisplay extends AppCompatActivity {
             mACSwitch.setChecked(false);
         //todo image display
         mSecurityAmount.setText(driver.getSecurityDeposit().getAmount());
+    }
+
+    private void displayProfilePicture(final Context context){
+
+        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference()
+                .child("Driver").child(phone_Number).child("idImage");
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue()!=null){
+
+                    Glide.with(context).
+                            load(Uri.parse(dataSnapshot.getValue(String.class))).
+                            apply(RequestOptions.circleCropTransform()).into(mIDImage);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private void edit(Button button){
@@ -274,6 +310,8 @@ public class ProfileDisplay extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 }
