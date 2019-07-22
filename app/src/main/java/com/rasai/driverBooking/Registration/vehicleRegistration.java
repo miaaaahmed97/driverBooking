@@ -12,10 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,9 +33,10 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
     Intent buttonIntent;
     private static final int GET_FROM_GALLERY = 1;
 
-    ImageButton addExteriorButton;
-    ImageButton addInteriorButton;
+    TextView addExteriorText;
+    TextView addInteriorText;
     private Button registrationButton;
+    private TextInputEditText mManufacturer;
     private TextInputEditText mModel;
     private TextInputEditText mRegistration;
 
@@ -76,14 +77,14 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
         setContentView(R.layout.activity_vehicle_registration);
 
         assert getSupportActionBar() != null;   //null check
-        setTitle("SECURITY DEPOSIT");
+        setTitle("VEHICLE REGISTRATION");
 
         //Start - Spinner Layout Setup
-        Spinner manufacturerSpinner = (Spinner) findViewById(R.id.manufacturerSpinner);
+        /*Spinner manufacturerSpinner = (Spinner) findViewById(R.id.manufacturerSpinner);
         ArrayAdapter<CharSequence> manufacturerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.manufacturer_array, android.R.layout.simple_spinner_item);
         manufacturerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        manufacturerSpinner.setAdapter(manufacturerAdapter);
+        manufacturerSpinner.setAdapter(manufacturerAdapter);*/
 
         Spinner seatsSpinner = (Spinner) findViewById(R.id.seatsSpinner);
         ArrayAdapter<CharSequence> seatsAdapter = ArrayAdapter.createFromResource(this,
@@ -92,16 +93,17 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
         seatsSpinner.setAdapter(seatsAdapter);
         //End - Spinner Layout Setup
 
-        registrationButton = (Button) findViewById(R.id.RegisterVehicle);
-        mModel = (TextInputEditText) findViewById(R.id.model_field);
-        mRegistration = (TextInputEditText) findViewById(R.id.registration_field);
-        Switch toggle = (Switch) findViewById(R.id.ac_switch);
-        addExteriorButton = (ImageButton) findViewById(R.id.addExterior);
-        addInteriorButton= (ImageButton) findViewById(R.id.addInterior);
+        registrationButton =  findViewById(R.id.RegisterVehicle);
+        mManufacturer = findViewById(R.id.manufacturer_field);
+        mModel =  findViewById(R.id.model_field);
+        mRegistration =  findViewById(R.id.registration_field);
+        Switch toggle =  findViewById(R.id.ac_switch);
+        addExteriorText =  findViewById(R.id.exterior_textview);
+        addInteriorText =  findViewById(R.id.interior_textview);
 
-        addExteriorButton.setOnClickListener(new ImageButtonListener());
-        Log.d("showID", String.valueOf(R.id.addExterior));
-        addInteriorButton.setOnClickListener(new ImageButtonListener());
+        addExteriorText.setOnClickListener(new ImageButtonListener());
+        Log.d("showID", String.valueOf(R.id.exterior_textview));
+        addInteriorText.setOnClickListener(new ImageButtonListener());
 
         //Get Driver Object from driverRegistration2
         Intent i = getIntent();
@@ -111,7 +113,7 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
         setVehicleInformation(new Vehicle());
 
         //spinner listeners
-        manufacturerSpinner.setOnItemSelectedListener(this);
+        //manufacturerSpinner.setOnItemSelectedListener(this);
         seatsSpinner.setOnItemSelectedListener(this);
 
         //Strat AC switch listener
@@ -135,6 +137,7 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
             public void onClick(View view) {
                 //Log.d("testing3", driverInformation.toString());
 
+                vehicleInformation.setManufacturer(mManufacturer.getText().toString());
                 vehicleInformation.setModel(mModel.getText().toString());
                 vehicleInformation.setRegistration(mRegistration.getText().toString());
                 getDriverInformation().setVehicle(vehicleInformation);
@@ -152,7 +155,7 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
     {
-        if(parent.getId() == R.id.manufacturerSpinner)
+        if(parent.getId() == R.id.manufacturer_field)
         {
             getVehicleInformation().setManufacturer(parent.getSelectedItem().toString());
         }
@@ -199,11 +202,12 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
         String stringID= buttonIntent.getExtras().getString("EXTRA");
         int intID =Integer.parseInt(stringID);
         switch (intID){
-            case R.id.addExterior:
+            case R.id.exterior_textview:
+                //todo show images in remaining showExterior images
                 imageView = findViewById(R.id.showExterior);
                 getVehicleInformation().setExteriorImage(uri.toString());
                 break;
-            case R.id.addInterior:
+            case R.id.interior_textview:
                 imageView = findViewById(R.id.showInterior);
                 getVehicleInformation().setInteriorImage(uri.toString());
                 break;

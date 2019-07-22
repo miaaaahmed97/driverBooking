@@ -177,7 +177,7 @@
                 android:textStyle="bold" />
 
             <Spinner
-                android:id="@+id/manufacturerSpinner"
+                android:id="@+id/manufacturer_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"

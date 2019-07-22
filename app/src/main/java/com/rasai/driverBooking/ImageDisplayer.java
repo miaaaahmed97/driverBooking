@@ -44,7 +44,7 @@ public class ImageDisplayer {
             switch(resources){
                 case R.layout.activity_driver_registration2:
                     switch (intID){
-                        case R.id.addExterior:
+                        case R.id.exterior_textview:
                             imageView = customView.findViewById(R.id.showDisplayPicture);
                             driver.setIdImage(uri.toString());
                             break;

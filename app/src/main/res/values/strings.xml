@@ -13,7 +13,11 @@
     </string-array>
 
     <string-array name="seats_array">
+        <item>4</item>
+        <item>6</item>
         <item>8</item>
+        <item>10</item>
+        <item>12</item>
         <item>16</item>
     </string-array>
 
@@ -21,5 +25,7 @@
     <string name="add_cnic"><u>Add CNIC Image</u></string>
     <string name="add_id_picture"><u>Add ID Picture</u></string>
     <string name="add_bank_slip"><u>Upload Picture of Bank Deposit Slip</u></string>
+    <string name="upload_exterior"><u>Upload Vehicle Exterior Pictures</u></string>
+    <string name="upload_interior"><u>Upload Vehicle Interior Pictures</u></string>
 
 </resources>

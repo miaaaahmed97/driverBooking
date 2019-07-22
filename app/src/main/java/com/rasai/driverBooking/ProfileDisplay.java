@@ -23,9 +23,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +32,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.rasai.driverBooking.CustomObject.Driver;
@@ -100,7 +97,7 @@ public class ProfileDisplay extends AppCompatActivity {
         mDriverDOB = findViewById(R.id.driverDOB);
         mDriverAddress = findViewById(R.id.driverAddress);
 
-        manufacturerSpinner = (Spinner) findViewById(R.id.manufacturerSpinner);
+        manufacturerSpinner = (Spinner) findViewById(R.id.manufacturer_field);
         seatsSpinner = (Spinner) findViewById(R.id.seatsSpinner);
         mRegField = findViewById(R.id.registration_field);
         mACSwitch = findViewById(R.id.ac_switch);

@@ -48,8 +48,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp">
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp">
 
                 <TextView
                     android:id="@+id/fromText"
@@ -92,8 +92,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp">
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp">
 
                 <TextView
                     android:id="@+id/toText"
@@ -138,9 +138,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="50dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginEnd="50dp"
-                android:layout_marginStart="5dp">
+                android:layout_marginStart="8dp">
 
                 <TextView
                     android:id="@+id/fromCd"
@@ -179,8 +179,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:orientation="vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp">
                 <!--<TextView
@@ -206,9 +206,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Family Trip"
-                    android:paddingStart="5sp"
-                    android:paddingEnd="5sp"
-                    android:paddingLeft="5sp"
+                    android:paddingStart="8sp"
+                    android:paddingEnd="8sp"
+                    android:paddingLeft="8sp"
                     android:textSize="18sp"/>
             </LinearLayout>
 
@@ -216,10 +216,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="50dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginEnd="50dp"
                 android:orientation="horizontal"
-                android:layout_marginStart="5dp">
+                android:layout_marginStart="8dp">
 
                 <TextView
                     android:id="@+id/seatsText"
@@ -227,8 +227,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Seats:"
-                    android:paddingLeft="5sp"
-                    android:paddingRight="5sp"
+                    android:paddingLeft="8sp"
+                    android:paddingRight="8sp"
                     android:textSize="18sp"/>
 
                 <TextView
@@ -248,8 +248,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="50dp"
             android:layout_marginRight="50dp">
 
@@ -258,8 +258,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PKR"
-                android:paddingRight="5sp"
-                android:paddingLeft="5sp"
+                android:paddingRight="8sp"
+                android:paddingLeft="8sp"
                 android:textSize="18sp"/>
 
             <TextView
@@ -295,8 +295,8 @@
                 android:id="@+id/addDetailsText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="12dp"
                 android:gravity="start"
                 android:padding="2dp"
@@ -311,8 +311,8 @@
                 android:gravity="start"
                 android:padding="2dp"
                 android:paddingTop="10sp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:text="No extra details"
                 android:textSize="18sp"/>
 
@@ -326,8 +326,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:hint="Your budget e.g. 4500">
 
                 <com.google.android.material.textfield.TextInputEditText

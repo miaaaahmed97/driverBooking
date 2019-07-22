@@ -1,205 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".Registration.vehicleRegistration">
 
-    <Spinner
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="Car Name Eg. SUZUKI BOLAN">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/manufacturer_field"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPersonName|textCapWords"
+            android:text=""
+            android:textSize="14sp"
+            android:maxLength="30"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--<Spinner
         android:id="@+id/manufacturerSpinner"
-        android:layout_width="363dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:dropDownSelector="@android:drawable/arrow_down_float"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vehicleRegText" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:dropDownSelector="@android:drawable/arrow_down_float"/>-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/model"
-        android:layout_width="363dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:hint="Model"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/manufacturerSpinner">
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="Model Eg. 2015">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/model_field"
-            android:layout_width="309dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:inputType="number"
+            android:maxLength="4"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/registration"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:hint="Registration Field"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/model">
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="Registration Field Eg. ASK 768">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/registration_field"
-            android:layout_width="291dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:inputType="textCapCharacters"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/numberSeats"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
-        android:editable="false"
-        android:text="Number of Seats"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registration" />
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="start">
 
-    <Spinner
-        android:id="@+id/seatsSpinner"
-        android:layout_width="79dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:dropDownSelector="@android:drawable/arrow_down_float"
-        app:layout_constraintBottom_toBottomOf="@+id/numberSeats"
-        app:layout_constraintStart_toEndOf="@+id/numberSeats" />
+        <TextView
+            android:id="@+id/numberSeats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Number of Seats"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
+        <Spinner
+            android:id="@+id/seatsSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:dropDownSelector="@android:drawable/arrow_down_float"
+            app:layout_constraintBottom_toBottomOf="@+id/numberSeats"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/ac_textview"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
-        android:editable="false"
-        android:text="AC"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numberSeats" />
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="start">
+        <TextView
+            android:id="@+id/ac_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="AC"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Switch
-        android:id="@+id/ac_switch"
-        android:layout_width="wrap_content"
+        <Switch
+            android:id="@+id/ac_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/ac_textview"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ac_textview"
-        app:layout_constraintStart_toEndOf="@+id/ac_textview" />
+        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/showExterior"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            app:layout_constraintEnd_toStartOf="@+id/showInterior"
+            android:src="@drawable/car_side"/>
+        <ImageView
+            android:id="@+id/showExterior2"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            app:layout_constraintEnd_toStartOf="@+id/showInterior"
+            android:src="@drawable/car_front"/>
+        <ImageView
+            android:id="@+id/showExterior3"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            app:layout_constraintEnd_toStartOf="@+id/showInterior"
+            android:src="@drawable/car_back"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/exterior_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="16dp"
-        android:editable="false"
-        android:text="Upload Vehicle Exterior Pictures"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ac_textview" />
+        android:text="@string/upload_exterior"
+        android:textColor="@color/standardBlue"/>
+
+    <!--<ImageButton
+        android:id="@+id/addExterior"
+        android:layout_width="40dp"
+        android:layout_height="36dp"
+        app:srcCompat="@android:drawable/ic_menu_camera" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/showInterior"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/interior" />
+        <ImageView
+            android:id="@+id/showInterior2"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/interior2" />
+        <ImageView
+            android:id="@+id/showInterior3"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/interior3" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/interior_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="16dp"
-        android:editable="false"
-        android:text="Upload Vehicle Exterior Pictures"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exterior_textview" />
+        android:textColor="@color/standardBlue"
+        android:text="@string/upload_interior" />
 
-    <ImageButton
-        android:id="@+id/addExterior"
-        android:layout_width="40dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        app:layout_constraintBottom_toBottomOf="@+id/exterior_textview"
-        app:layout_constraintStart_toEndOf="@+id/exterior_textview"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
-
-    <ImageButton
+    <!--<ImageButton
         android:id="@+id/addInterior"
         android:layout_width="40dp"
         android:layout_height="36dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        app:layout_constraintBottom_toBottomOf="@+id/interior_textview"
-        app:layout_constraintStart_toEndOf="@+id/interior_textview"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
-
-    <ImageView
-        android:id="@+id/showInterior"
-        android:layout_width="118dp"
-        android:layout_height="68dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/showExterior"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/showExterior"
-        app:srcCompat="@android:drawable/ic_menu_report_image" />
-
-    <ImageView
-        android:id="@+id/showExterior"
-        android:layout_width="118dp"
-        android:layout_height="68dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="34dp"
-        android:layout_marginRight="34dp"
-        app:layout_constraintEnd_toStartOf="@+id/showInterior"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/interior_textview"
-        app:srcCompat="@android:drawable/ic_menu_report_image" />
+        app:srcCompat="@android:drawable/ic_menu_camera" />-->
 
     <Button
         android:id="@+id/RegisterVehicle"
-        android:layout_width="279dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="register"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/showInterior" />
-
-    <TextView
-        android:id="@+id/vehicleRegText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="VEHICLE REGISTRATION"
-        android:textColor="#0A0A0A"
-        android:textSize="24sp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_margin="16dp"
+        android:text="register"
+        android:visibility="visible" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
