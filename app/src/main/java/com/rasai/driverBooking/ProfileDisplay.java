@@ -3,11 +3,14 @@ package com.rasai.driverBooking;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,8 +19,6 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,8 +30,10 @@ import com.rasai.driverBooking.CustomObject.Driver;
 import com.rasai.driverBooking.CustomObject.SecurityDeposit;
 import com.rasai.driverBooking.CustomObject.Vehicle;
 import com.rasai.driverBooking.Registration.MultiSelectionSpinner;
-import com.rasai.driverBooking.TripTabsActivity.TripTabsActivity;
+import com.rasai.driverBooking.TripTabsActivity.AssignedTrips.ViewAssignedTrips;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,19 +44,27 @@ public class ProfileDisplay extends AppCompatActivity {
     private MultiSelectionSpinner mLangSpinner;
     private Spinner manufacturerSpinner, seatsSpinner;
 
+    private static final int GET_FROM_GALLERY = 1;
+    Intent imageIntent;
+    private View mSecurityDepositPopup;
+
     //get current user
     private String phone_Number,StringLangSelected, mHasAC;
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
     private FirebaseUser user = mauth.getCurrentUser();
-    private ImageView mIDImage;
+    private ImageView mIDImage, mSecurityDepositImage;
     private Switch mACSwitch;
 
+    private Button mAddSecurityDeposit;
     private Button mSignOut;
     private Button mEdit;
     private Button mSave;
+    private Button mSubmitSecurityPopupButton;
+
 
 
     private TextView mDriverName, mDriverMobile, mDriverCNIC,mDriverDOB, mDriverAddress, mRegField, mSecurityAmount, mModel;
+    private TextView mSecurityDepositAmount;
 
 
     @Override
@@ -65,7 +76,8 @@ public class ProfileDisplay extends AppCompatActivity {
         setTitle("PROFILE");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
 
-        phone_Number = user.getPhoneNumber();
+        //phone_Number = user.getPhoneNumber();
+        phone_Number = "+923105907927";
 
         mIDImage = findViewById(R.id.userPicture);
         mDriverName = (TextView)findViewById(R.id.driverName);
@@ -83,6 +95,7 @@ public class ProfileDisplay extends AppCompatActivity {
         mRegField = findViewById(R.id.registration_field);
         mACSwitch = findViewById(R.id.ac_switch);
         mModel = findViewById(R.id.model_field);
+        mAddSecurityDeposit = findViewById(R.id.addSecurityButton);
         mSecurityAmount = findViewById(R.id.securityDepositAmount);
 
         mEdit = findViewById(R.id.edit);
@@ -108,6 +121,11 @@ public class ProfileDisplay extends AppCompatActivity {
         seatsSpinner.setAdapter(seatsAdapter);
         //End - Spinner Layout Setup
 
+        //adding change image code to ID image
+        mIDImage.setOnClickListener(new addImageListener());
+        //adding select image code to security deposit button
+        mAddSecurityDeposit.setOnClickListener(new addImageListener());
+
         //user chooses to edit
         edit(mEdit);
         //save(mSave);
@@ -123,6 +141,84 @@ public class ProfileDisplay extends AppCompatActivity {
         return true;
     }
 
+    //called automatically after ID image is clicked and gallery intent is made
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //Detects request codes
+        if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
+            Uri selectedImage = data.getData();
+            try {
+                Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                //image display
+                processImage(bmp, selectedImage);
+            } catch (FileNotFoundException e) {
+                // T/ODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // T/ODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    private void processImage(Bitmap bmp, Uri uri) {
+        //get ID of calling view
+        String stringID= imageIntent.getExtras().getString("EXTRA");
+        int intID =Integer.parseInt(stringID);
+        switch (intID){
+            case R.id.userPicture:
+                mIDImage.setImageBitmap(bmp);
+                //getDriverInformation().setIdImage(uri.toString());
+                //todo store in database?
+                break;
+            case R.id.addSecurityButton:
+                //getSecurityDeposit().setDepositImage(uri.toString());
+                //creating the review popup
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ProfileDisplay.this);
+                alertDialogBuilder.setTitle("Security Deposit");
+                alertDialogBuilder.setCancelable(true);
+                // Init popup dialog view and it's ui controls.
+                initSecurityDepositPopup();
+                // Set the inflated layout view object to the AlertDialog builder.
+                alertDialogBuilder.setView(mSecurityDepositPopup);
+                mSecurityDepositImage.setImageBitmap(bmp);
+                // Create AlertDialog and show.
+                final AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void initSecurityDepositPopup() {
+        // Get layout inflater object.
+        LayoutInflater layoutInflater = LayoutInflater.from(ProfileDisplay.this);
+
+        // Inflate the popup dialog from a layout xml file.
+        mSecurityDepositPopup = layoutInflater.inflate(R.layout.security_deposit_alert_pd, null);
+        mSecurityDepositImage = mSecurityDepositPopup.findViewById(R.id.newSecurityDepositImage);
+        mSecurityDepositAmount = mSecurityDepositPopup.findViewById(R.id.newSecurityDepositAmount);
+        mSubmitSecurityPopupButton = mSecurityDepositPopup.findViewById(R.id.submitNewSecurityButton);
+
+        //todo add a listener for the button
+    }
+
+    class addImageListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View view) {
+            //calls gallery
+            imageIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+            startActivityForResult(imageIntent, GET_FROM_GALLERY);
+            //get ID of calling button
+            String viewID= String.valueOf(view.getId());
+            imageIntent.putExtra("EXTRA",viewID);
+        }
+    }
     class MyValueEventListener implements ValueEventListener, Serializable {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

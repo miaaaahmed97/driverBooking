@@ -17,4 +17,8 @@
         <item>16</item>
     </string-array>
 
+    <string name="add_driving_license"><u>Add Driving License</u></string>
+    <string name="add_cnic"><u>Add CNIC Image</u></string>
+    <string name="add_id_picture"><u>Add ID Picture</u></string>
+
 </resources>

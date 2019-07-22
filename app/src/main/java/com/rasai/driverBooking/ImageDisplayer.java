@@ -38,7 +38,7 @@ public class ImageDisplayer {
 
             ImageView imageView;
             //get ID of calling button
-            //String stringID= buttonIntent.getExtras().getString("EXTRA");
+            //String stringID= imageIntent.getExtras().getString("EXTRA");
             int intID =Integer.parseInt(stringID);
 
             switch(resources){
