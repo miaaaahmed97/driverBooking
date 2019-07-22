@@ -75,6 +75,9 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle_registration);
 
+        assert getSupportActionBar() != null;   //null check
+        setTitle("SECURITY DEPOSIT");
+
         //Start - Spinner Layout Setup
         Spinner manufacturerSpinner = (Spinner) findViewById(R.id.manufacturerSpinner);
         ArrayAdapter<CharSequence> manufacturerAdapter = ArrayAdapter.createFromResource(this,

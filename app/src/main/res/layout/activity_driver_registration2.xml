@@ -7,66 +7,76 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     tools:context=".Registration.driverRegistration2">
-    <ImageView
-        android:id="@+id/showDisplayPicture"
-        android:layout_width="250dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="24dp"
-        android:padding="4dp"
-        android:src="@drawable/man"
-        android:scaleType="fitCenter"/>
 
-    <TextView
-        android:id="@+id/addDisplayPicture"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_id_picture"
-        android:textColor="@color/standardBlue"
-        android:textSize="16sp" />
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_weight="1">
 
-    <ImageView
-        android:id="@+id/showCNIC"
-        android:layout_width="250dp"
-        android:layout_height="100dp"
-        android:layout_margin="8dp"
-        android:padding="4dp"
-        android:src="@drawable/cnic"
-        android:scaleType="fitCenter"/>
+        <ImageView
+            android:id="@+id/showDisplayPicture"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="24dp"
+            android:padding="4dp"
+            android:src="@drawable/man"
+            android:scaleType="fitCenter"/>
 
-    <TextView
-        android:id="@+id/addCnic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_cnic"
-        android:textSize="16sp"
-        android:textColor="@color/standardBlue"
-        android:clickable="true" />
+        <TextView
+            android:id="@+id/addDisplayPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_id_picture"
+            android:textColor="@color/standardBlue"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/showCNIC"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:padding="4dp"
+            android:src="@drawable/cnic"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            android:id="@+id/addCnic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_cnic"
+            android:textSize="16sp"
+            android:textColor="@color/standardBlue"
+            android:clickable="true" />
 
 
-    <ImageView
-        android:id="@+id/showDrivingLicense"
-        android:layout_width="250dp"
-        android:layout_height="100dp"
-        android:layout_margin="8dp"
-        android:padding="4dp"
-        android:src="@drawable/driving_license"
-        android:scaleType="fitCenter" />
+        <ImageView
+            android:id="@+id/showDrivingLicense"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:padding="4dp"
+            android:src="@drawable/driving_license"
+            android:scaleType="fitCenter" />
 
-    <TextView
-        android:id="@+id/addDrivingLicense"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_driving_license"
-        android:textColor="@color/standardBlue"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/addDrivingLicense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_driving_license"
+            android:textColor="@color/standardBlue"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/registerDriverButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="register"
-        android:layout_margin="8dp"
+        android:layout_margin="16dp"
         android:textColor="@color/white"
         android:textStyle="bold"
         style="@style/Widget.AppCompat.Button.Colored"/>

@@ -20,5 +20,6 @@
     <string name="add_driving_license"><u>Add Driving License</u></string>
     <string name="add_cnic"><u>Add CNIC Image</u></string>
     <string name="add_id_picture"><u>Add ID Picture</u></string>
+    <string name="add_bank_slip"><u>Upload Picture of Bank Deposit Slip</u></string>
 
 </resources>

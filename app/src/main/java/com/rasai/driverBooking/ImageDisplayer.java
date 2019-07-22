@@ -53,11 +53,11 @@ public class ImageDisplayer {
                             driver.setCnicImage(uri.toString());
                             break;
                         case R.id.addDrivingLicense:
-                            imageView = customView.findViewById(R.id.showDeposit);
+                            imageView = customView.findViewById(R.id.showCNIC);
                             driver.setDrivingLicenseImage(uri.toString());
                             break;
                         default:
-                            imageView = customView.findViewById(R.id.showDeposit);
+                            imageView = customView.findViewById(R.id.showCNIC);
                             break;
                     }
                     Log.d("pleasee", driver.toString());

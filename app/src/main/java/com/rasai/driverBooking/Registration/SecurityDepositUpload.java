@@ -38,7 +38,7 @@ public class SecurityDepositUpload extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageReference;
 
-    ImageButton addDepositButton;
+    ImageView addDepositButton;
     private Button registrationButton;
     private TextInputEditText mDate;
     private TextInputEditText mAmount;
@@ -78,14 +78,16 @@ public class SecurityDepositUpload extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_security_deposit_upload);
 
+        assert getSupportActionBar() != null;   //null check
+        setTitle("SECURITY DEPOSIT");
+
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
         registrationButton = (Button) findViewById(R.id.Done);
         mDate = (TextInputEditText) findViewById(R.id.date_field);
         mAmount = (TextInputEditText) findViewById(R.id.amount_field);
-        addDepositButton = (ImageButton) findViewById(R.id.addSlip);
-
+        addDepositButton = findViewById(R.id.bankDepositSlip);
         addDepositButton.setOnClickListener(new ImageButtonListener());
 
         //Get Driver Object from driverRegistration2
@@ -125,15 +127,6 @@ public class SecurityDepositUpload extends AppCompatActivity {
         registrationButton.setOnClickListener(new MyOnClickListener());
     }
 
-    public void displayImage(Bitmap bmp, Uri uri){
-        ImageView imageView;
-        testURI = uri;
-        imageView = findViewById(R.id.showDeposit);
-        getSecurityDeposit().setDepositImage(uri.toString());
-        Log.d("pleasee", getSecurityDeposit().toString());
-        imageView.setImageBitmap(bmp);
-    }
-
     //called automatically after any button is clicked and gallery intent is made
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -141,12 +134,14 @@ public class SecurityDepositUpload extends AppCompatActivity {
 
         //Detects request codes
         if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
-            Uri selectedImage = data.getData();
+            Uri uri = data.getData();
 
             try {
-                Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
                 //image display
-                displayImage(bmp, selectedImage);
+                getSecurityDeposit().setDepositImage(uri.toString());
+                Log.d("pleasee", getSecurityDeposit().toString());
+                addDepositButton.setImageBitmap(bmp);
 
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
