@@ -55,7 +55,7 @@ public class MainChat extends AppCompatActivity {
 
         //Set the title
         assert getSupportActionBar() != null;   //null check
-        setTitle("HOME");
+        setTitle("CHAT");
 
         phone_Number = user.getPhoneNumber();
 

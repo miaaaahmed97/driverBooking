@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +21,10 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -76,8 +82,7 @@ public class ProfileDisplay extends AppCompatActivity {
         setTitle("PROFILE");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
 
-        //phone_Number = user.getPhoneNumber();
-        phone_Number = "+923105907927";
+        phone_Number = user.getPhoneNumber();
 
         mIDImage = findViewById(R.id.userPicture);
         mDriverName = (TextView)findViewById(R.id.driverName);
@@ -126,9 +131,11 @@ public class ProfileDisplay extends AppCompatActivity {
         //adding select image code to security deposit button
         mAddSecurityDeposit.setOnClickListener(new addImageListener());
 
+        displayProfilePicture(this);
+
         //user chooses to edit
         edit(mEdit);
-        //save(mSave);
+        save(mSave);
 
         mSignOut = (Button) findViewById(R.id.logout);
         signOut(mSignOut);
@@ -235,7 +242,7 @@ public class ProfileDisplay extends AppCompatActivity {
             driver.setSecurityDeposit(dataSnapshot.child("securityDeposit").getValue(SecurityDeposit.class));
             //Log.d("vehicle",driver.getVehicle().getManufacturer());
 
-            displayValues(driver);
+            setWidgets(driver);
         }
 
         @Override
@@ -244,14 +251,20 @@ public class ProfileDisplay extends AppCompatActivity {
         }
     }
 
-    private void displayValues(Driver driver) {
-        //todo mIDImage.setImageURI();
+    private void setWidgets(Driver driver) {
+
         //todo setRating(driver.getRating());
+
         mDriverName.setText(driver.getName());
         mDriverMobile.setText(driver.getPhoneNumber());
         mDriverCNIC.setText(driver.getCnic());
         mDriverDOB.setText(driver.getBirthday());
+
+
         //todo StringLangSelected = mLangSpinner.getSelectedItemsAsString();
+
+
+
         mDriverAddress.setText(driver.getAddress());
 
         //todo manufacturerSpinner.set
@@ -264,6 +277,30 @@ public class ProfileDisplay extends AppCompatActivity {
             mACSwitch.setChecked(false);
         //todo image display
         mSecurityAmount.setText(driver.getSecurityDeposit().getAmount());
+    }
+
+    private void displayProfilePicture(final Context context){
+
+        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference()
+                .child("Driver").child(phone_Number).child("idImage");
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue()!=null){
+
+                    Glide.with(context).
+                            load(Uri.parse(dataSnapshot.getValue(String.class))).
+                            apply(RequestOptions.circleCropTransform()).into(mIDImage);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private void edit(Button button){
@@ -370,6 +407,8 @@ public class ProfileDisplay extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 }
