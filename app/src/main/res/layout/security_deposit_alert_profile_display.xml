@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    
+    <ImageView
+        android:id="@+id/newSecurityDepositImage"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="center"
+        android:layout_margin="8dp"
+        android:adjustViewBounds="true"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:helperText="Eg. 3000">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/newSecurityDepositAmount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Security added in PKR"
+            android:inputType="number"
+            android:maxLength="5"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/submitNewSecurityButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="done"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        style="@style/Widget.AppCompat.Button.Colored"/>
+
+
+</LinearLayout>
