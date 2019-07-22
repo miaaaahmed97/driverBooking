@@ -17,7 +17,7 @@
         android:foregroundGravity="center_horizontal">
 
     </com.google.android.gms.maps.MapView>-->
-    <ImageView
+    <!--<ImageView
         android:contentDescription="Map"
         android:id="@+id/route"
         android:layout_width="match_parent"
@@ -27,14 +27,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY"/>-->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:foregroundGravity="center_horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/route"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -178,17 +178,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
+                android:orientation="vertical"
                 android:layout_marginLeft="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp">
-                <TextView
+                <!--<TextView
                     android:id="@+id/returnText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text=" Return : "
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"/>-->
 
 
                 <TextView
@@ -221,6 +222,16 @@
                 android:layout_marginStart="5dp">
 
                 <TextView
+                    android:id="@+id/seatsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Seats:"
+                    android:paddingLeft="5sp"
+                    android:paddingRight="5sp"
+                    android:textSize="18sp"/>
+
+                <TextView
                     android:id="@+id/numSeatsCd"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -230,52 +241,55 @@
                     android:textSize="18sp"
                     android:layout_marginStart="5dp" />
 
-                <TextView
-                    android:id="@+id/seatsText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="seats"
-                    android:paddingLeft="5sp"
-                    android:paddingRight="5sp"
-                    android:textSize="18sp"/>
 
-                <TextView
-                    android:id="@+id/PKRText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PKR"
-                    android:paddingRight="5sp"
-                    android:paddingLeft="5sp"
-                    android:textSize="18sp"/>
-
-                <TextView
-                    android:id="@+id/budgetMinCd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="5sp"
-                    android:paddingRight="5sp"
-                    android:text="3000"
-                    android:textSize="18sp"/>
-
-                <TextView
-                    android:id="@+id/toText3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="5sp"
-                    android:paddingRight="5sp"
-                    android:textSize="18sp"
-                    android:text=" to " />
-
-                <TextView
-                    android:id="@+id/budgetMaxCd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:paddingRight="5sp"
-                    android:paddingLeft="5sp"
-                    android:text="4500" />
             </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp">
+
+            <TextView
+                android:id="@+id/PKRText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PKR"
+                android:paddingRight="5sp"
+                android:paddingLeft="5sp"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/budgetMinCd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5sp"
+                android:paddingRight="5sp"
+                android:text="3000"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/toText3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5sp"
+                android:paddingRight="5sp"
+                android:textSize="18sp"
+                android:text=" to " />
+
+            <TextView
+                android:id="@+id/budgetMaxCd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:paddingRight="5sp"
+                android:paddingLeft="5sp"
+                android:text="4500" />
+
+        </LinearLayout>
 
             <TextView
                 android:id="@+id/addDetailsText"

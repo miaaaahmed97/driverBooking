@@ -31,6 +31,9 @@ public class MessageListActivity extends AppCompatActivity {
 
     private RecyclerView mMessageRecycler;
     private MessageListAdapter mMessageAdapter;
+
+    LinearLayoutManager mManager;
+
     private Button mSendButton;
     private EditText mTextbox;
 
@@ -56,11 +59,14 @@ public class MessageListActivity extends AppCompatActivity {
 
         mMessageAdapter = new MessageListAdapter(MessageListActivity.this, messageList);
         mMessageRecycler.setAdapter(mMessageAdapter);
+        //mMessageRecycler.scrollToPosition(messageList.size() - 1);
+        mMessageRecycler.smoothScrollToPosition(messageList.size()-1);
         mMessageRecycler.setHasFixedSize(true);
-        final LinearLayoutManager mManager = new
+        mManager = new
                 LinearLayoutManager(MessageListActivity.this, RecyclerView.VERTICAL,false);
         mManager.setStackFromEnd(true);
         mMessageRecycler.setLayoutManager(mManager);
+
         sendMessage(mSendButton);
 
 
@@ -106,6 +112,7 @@ public class MessageListActivity extends AppCompatActivity {
                     FirebaseDatabase.getInstance().getReference().child("Chat").child(chat.getChatId()).push().setValue(newMessage);
 
                     mTextbox.setText("");
+
                 }
             }
         });

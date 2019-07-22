@@ -9,9 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -23,8 +23,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,17 +33,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.rasai.driverBooking.CustomObject.Driver;
 import com.rasai.driverBooking.CustomObject.SecurityDeposit;
 import com.rasai.driverBooking.CustomObject.Vehicle;
 import com.rasai.driverBooking.Registration.MultiSelectionSpinner;
-import com.rasai.driverBooking.TripTabsActivity.AssignedTrips.ViewAssignedTrips;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class ProfileDisplay extends AppCompatActivity {
@@ -67,7 +72,7 @@ public class ProfileDisplay extends AppCompatActivity {
     private Button mSave;
     private Button mSubmitSecurityPopupButton;
 
-
+    private Uri DepositUri;
 
     private TextView mDriverName, mDriverMobile, mDriverCNIC,mDriverDOB, mDriverAddress, mRegField, mSecurityAmount, mModel;
     private TextView mSecurityDepositAmount;
@@ -87,7 +92,7 @@ public class ProfileDisplay extends AppCompatActivity {
         mIDImage = findViewById(R.id.userPicture);
         mDriverName = (TextView)findViewById(R.id.driverName);
 
-        mLangSpinner = findViewById(R.id.lang_spinner);
+        //mLangSpinner = findViewById(R.id.lang_spinner);
         List<String> languageList = new ArrayList<String>();
 
         mDriverMobile = findViewById(R.id.driverMobile);
@@ -112,7 +117,7 @@ public class ProfileDisplay extends AppCompatActivity {
         languageList.add("English");
         languageList.add("Urdu");
         languageList.add("Punjabi");
-        mLangSpinner.setItems(languageList);
+        //mLangSpinner.setItems(languageList);
 
         //Start - Spinner Layout Setup
         ArrayAdapter<CharSequence> manufacturerAdapter = ArrayAdapter.createFromResource(this,
@@ -190,6 +195,7 @@ public class ProfileDisplay extends AppCompatActivity {
                 initSecurityDepositPopup();
                 // Set the inflated layout view object to the AlertDialog builder.
                 alertDialogBuilder.setView(mSecurityDepositPopup);
+                DepositUri = uri;
                 mSecurityDepositImage.setImageBitmap(bmp);
                 // Create AlertDialog and show.
                 final AlertDialog alertDialog = alertDialogBuilder.create();
@@ -212,6 +218,51 @@ public class ProfileDisplay extends AppCompatActivity {
         mSubmitSecurityPopupButton = mSecurityDepositPopup.findViewById(R.id.submitNewSecurityButton);
 
         //todo add a listener for the button
+        mSubmitSecurityPopupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DatabaseReference mDriverRef = FirebaseDatabase.getInstance()
+                        .getReference().child("Driver").
+                                child(phone_Number).child("securityDeposit").child("amount");
+                mDriverRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        Log.d("ProfileDisplay", dataSnapshot.toString());
+                        int currentAmount = dataSnapshot.getValue(Integer.class);
+                        currentAmount += Integer.parseInt(mSecurityDepositAmount.getText().toString());
+                        dataSnapshot.getRef().setValue(currentAmount);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                if(DepositUri != null)
+                {
+                    String imageid="Driver/"+ phone_Number +"/"+ "SecurityDepositSlips/" + UUID.randomUUID().toString();
+                    Log.d("imagelink",imageid);
+
+                    StorageReference ref = FirebaseStorage.getInstance().getReference().child(imageid);
+                    ref.putFile(DepositUri)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            Log.d("Driver Upload", "onSuccess: uri= "+ uri.toString());
+
+                                        }
+                                    });
+                                }
+                            });
+                }
+            }
+        });
     }
 
     class addImageListener implements View.OnClickListener{
@@ -276,7 +327,7 @@ public class ProfileDisplay extends AppCompatActivity {
         else
             mACSwitch.setChecked(false);
         //todo image display
-        mSecurityAmount.setText(driver.getSecurityDeposit().getAmount());
+        //mSecurityAmount.setText(driver.getSecurityDeposit().getAmount());
     }
 
     private void displayProfilePicture(final Context context){

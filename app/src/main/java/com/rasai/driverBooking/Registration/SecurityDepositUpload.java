@@ -17,8 +17,6 @@ import android.widget.Toast;
 
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.rasai.driverBooking.CustomObject.Driver;
@@ -104,7 +102,7 @@ public class SecurityDepositUpload extends AppCompatActivity {
             public void onClick(View view) {
                 //Log.d("testing3", driverInfo.toString());
 
-                getSecurityDeposit().setAmount(mAmount.getText().toString());
+                getSecurityDeposit().setAmount(Integer.parseInt(mAmount.getText().toString()));
                 getSecurityDeposit().setDepositDate(mDate.getText().toString());
                 getDriverInfo().setSecurityDeposit(getSecurityDeposit());
 

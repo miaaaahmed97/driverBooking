@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class SecurityDeposit implements Serializable {
 
     private String depositDate;
-    private String amount;
+    private int amount;
     private String depositImage;
 
     public String getDepositDate() {
@@ -16,11 +16,11 @@ public class SecurityDeposit implements Serializable {
         this.depositDate = depositDate;
     }
 
-    public String getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
