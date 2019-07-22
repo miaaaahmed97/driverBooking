@@ -47,7 +47,11 @@ public class ProfileDisplay extends AppCompatActivity {
     private FirebaseUser user = mauth.getCurrentUser();
     private ImageView mIDImage;
     private Switch mACSwitch;
+
     private Button mSignOut;
+    private Button mEdit;
+    private Button mSave;
+
 
     private TextView mDriverName, mDriverMobile, mDriverCNIC,mDriverDOB, mDriverAddress, mRegField, mSecurityAmount, mModel;
 
@@ -81,6 +85,9 @@ public class ProfileDisplay extends AppCompatActivity {
         mModel = findViewById(R.id.model_field);
         mSecurityAmount = findViewById(R.id.securityDepositAmount);
 
+        mEdit = findViewById(R.id.edit);
+        mSave = findViewById(R.id.save);
+
         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver").child(phone_Number);
         mRef.addValueEventListener(new MyValueEventListener());
 
@@ -100,6 +107,10 @@ public class ProfileDisplay extends AppCompatActivity {
         seatsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         seatsSpinner.setAdapter(seatsAdapter);
         //End - Spinner Layout Setup
+
+        //user chooses to edit
+        edit(mEdit);
+        //save(mSave);
 
         mSignOut = (Button) findViewById(R.id.logout);
         signOut(mSignOut);
@@ -157,6 +168,95 @@ public class ProfileDisplay extends AppCompatActivity {
             mACSwitch.setChecked(false);
         //todo image display
         mSecurityAmount.setText(driver.getSecurityDeposit().getAmount());
+    }
+
+    private void edit(Button button){
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDriverName.setClickable(true);
+                mDriverName.setFocusableInTouchMode(true);
+                mDriverName.setEnabled(true);
+                mDriverName.setTextColor(getResources().getColor(R.color.black));
+
+                mDriverAddress.setClickable(true);
+                mDriverAddress.setFocusableInTouchMode(true);
+                mDriverAddress.setEnabled(true);
+                mDriverAddress.setTextColor(getResources().getColor(R.color.black));
+
+                mModel.setClickable(true);
+                mModel.setFocusableInTouchMode(true);
+                mModel.setEnabled(true);
+                mModel.setTextColor(getResources().getColor(R.color.black));
+
+                mRegField.setClickable(true);
+                mRegField.setFocusableInTouchMode(true);
+                mRegField.setEnabled(true);
+                mRegField.setTextColor(getResources().getColor(R.color.black));
+
+                //hide edit button and show save button
+                mEdit.setVisibility(View.GONE);
+                mSave.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void save(Button button){
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mDriverName.setClickable(false);
+                mDriverName.setFocusable(false);
+                mDriverName.setFocusableInTouchMode(false);
+                mDriverName.setEnabled(false);
+                mDriverName.setTextColor(getResources().getColor(R.color.darkgrey2));
+
+                mDriverAddress.setClickable(false);
+                mDriverAddress.setFocusable(false);
+                mDriverAddress.setFocusableInTouchMode(false);
+                mDriverAddress.setEnabled(false);
+                mDriverAddress.setTextColor(getResources().getColor(R.color.darkgrey2));
+
+                mModel.setClickable(false);
+                mModel.setFocusable(false);
+                mModel.setFocusableInTouchMode(false);
+                mModel.setEnabled(false);
+                mModel.setTextColor(getResources().getColor(R.color.darkgrey2));
+
+                mRegField.setClickable(false);
+                mRegField.setFocusable(false);
+                mRegField.setFocusableInTouchMode(false);
+                mRegField.setEnabled(false);
+                mRegField.setTextColor(getResources().getColor(R.color.darkgrey2));
+
+                //hide save button and show edit button
+                mEdit.setVisibility(View.VISIBLE);
+                mSave.setVisibility(View.GONE);
+
+                String name = mDriverName.getText().toString();
+                String address = mDriverAddress.getText().toString();
+                String model = mModel.getText().toString();
+                String registration =  mRegField.getText().toString();
+
+
+                DatabaseReference mDriverRef = FirebaseDatabase.getInstance().getReference().child("Driver")
+                        .child(phone_Number);
+                /*if(name.length()>0){
+                    mDriverRef.child("name").setValue(name);
+                }
+                if(address.length()>0){
+                    mDriverRef.child("address").setValue(address);
+                }
+                if(model.length()>0){
+                    mDriverRef.child("vehicle").child("model").setValue(address);
+                }
+                if(registration.length()>0){
+                    mDriverRef.child("vehicle").child("registration").setValue(registration);
+                }*/
+
+            }
+        });
     }
 
     private void signOut(Button button){

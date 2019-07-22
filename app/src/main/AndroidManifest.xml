@@ -29,12 +29,7 @@
         <activity android:name=".Registration.SecurityDepositUpload"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".Registration.driverRegistration2"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".Registration.vehicleRegistration"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".Registration.DriverRegistration"
@@ -42,6 +37,10 @@
         </activity>
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".MessageActivity.MainChat"
             android:screenOrientation="portrait"></activity>

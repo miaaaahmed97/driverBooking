@@ -35,7 +35,6 @@ public class SecurityDepositUpload extends AppCompatActivity {
     Intent buttonIntent;
     private static final int GET_FROM_GALLERY = 1;
 
-    FirebaseDatabase database;
     FirebaseStorage storage;
     StorageReference storageReference;
 
@@ -79,7 +78,6 @@ public class SecurityDepositUpload extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_security_deposit_upload);
 
-        database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
@@ -114,9 +112,6 @@ public class SecurityDepositUpload extends AppCompatActivity {
 
                 if (imageNames.length ==6){
                     getDriverInfo().uploadImage(storageReference, imageNames);
-
-                    DatabaseReference mDriver = database.getReference();
-                    getDriverInfo().postDriverInfo(mDriver);
 
                     Intent navNext = new Intent(SecurityDepositUpload.this, DriverHome.class);
                     navNext.putExtra("driverObject", driverInfo);
