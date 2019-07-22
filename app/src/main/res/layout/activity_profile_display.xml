@@ -51,7 +51,10 @@
                     android:layout_height="match_parent"
                     android:inputType="textPersonName|textCapWords"
                     android:hint="Name"
-                    android:text="Muhammad Sarfaraz" />
+                    android:text="Muhammad Sarfaraz"
+                    android:focusableInTouchMode="false"
+                    android:isIndicator="true"
+                    android:clickable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -101,7 +104,10 @@
                     android:layout_height="match_parent"
                     android:inputType="date"
                     android:hint="Date of Birth"
-                    android:text="23/04/1970" />
+                    android:text="23/04/1970"
+                    android:focusableInTouchMode="false"
+                    android:isIndicator="true"
+                    android:clickable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -132,7 +138,10 @@
                     android:layout_height="match_parent"
                     android:inputType="textPostalAddress"
                     android:hint="Address"
-                    android:text="NUST" />
+                    android:text="NUST"
+                    android:focusableInTouchMode="false"
+                    android:isIndicator="true"
+                    android:clickable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -163,7 +172,10 @@
                     android:text="2017"
                     android:inputType="date"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:focusableInTouchMode="false"
+                    android:isIndicator="true"
+                    android:clickable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -178,7 +190,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="textCapCharacters"
-                    android:text="AFY 654"/>
+                    android:text="AFY 654"
+                    android:focusableInTouchMode="false"
+                    android:isIndicator="true"
+                    android:clickable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -197,7 +212,9 @@
                 android:focusableInTouchMode="false"
                 android:text="Number of Seats"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/registration" />
+                app:layout_constraintTop_toBottomOf="@+id/registration"
+                android:isIndicator="true"
+                android:clickable="false"/>
 
             <Spinner
                 android:id="@+id/seatsSpinner"
@@ -227,7 +244,10 @@
                 android:id="@+id/ac_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"/>
+                android:layout_gravity="start"
+                android:focusableInTouchMode="false"
+                android:isIndicator="true"
+                android:clickable="false"/>
             </LinearLayout>
 
             <ImageView
@@ -313,7 +333,29 @@
                 android:background="@drawable/button_rounded_edges"
                 android:layout_marginLeft="12dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="8dp"
+                />
+
+            <Button
+                android:id="@+id/edit"
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="edit"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/addSecurityButton"/>
+
+            <Button
+                android:id="@+id/save"
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="save"
+                android:visibility="gone"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@color/white"/>
 
             <Button
                 android:id="@+id/logout"

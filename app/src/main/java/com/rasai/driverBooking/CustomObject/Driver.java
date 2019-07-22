@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -91,25 +92,28 @@ public class Driver implements Serializable {
         return  filePath;
     }
 
-    private void setImageUrl(String imageName, String url){
+    private void setImageUrl(int imageCount, String url){
 
-        switch(imageName){
-            case "cnicImage":
+        Log.d("Driver Upload", "inside setImageUrl() with imageCount : "+imageCount);
+        Log.d("Driver Upload", "inside setImageUrl() with url: "+ url);
+
+        switch(imageCount){
+            case 0:
                 cnicImage = url;
                 break;
-            case "idImage":
+            case 1:
                 idImage = url;
                 break;
-            case "drivingLicenseImage":
+            case 2:
                 drivingLicenseImage =url;
                 break;
-            case "exteriorImage":
+            case 3:
                 vehicle.setExteriorImage(url);
                 break;
-            case "interiorImage":
+            case 4:
                 vehicle.setInteriorImage(url);
                 break;
-            case "depositImage":
+            case 5:
                 securityDeposit.setDepositImage(url);
                 break;
             default:
@@ -120,12 +124,14 @@ public class Driver implements Serializable {
 
     public void uploadImage(StorageReference storageReference, final String[] imageNameArray) {
 
+        final int[] counter = {0};
+
         for(final String image_Name: imageNameArray){
+
             final String imageName = image_Name;
             Uri filePath = getImageUri(imageName);
+
             final String imageid;
-            final String[] imagelink = new String[1];
-            final Uri[] download_url = new Uri[1];
 
             if(filePath != null)
             {
@@ -137,15 +143,28 @@ public class Driver implements Serializable {
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        Log.d("Driver Upload", "onSuccess: uri= "+ uri.toString());
+                                        setImageUrl(counter[0], uri.toString());
+                                        counter[0] +=1;
+
+                                        if (counter[0] == imageNameArray.length) {
+                                            DatabaseReference mDriver = FirebaseDatabase.getInstance().getReference();
+                                            postDriverInfo(mDriver);
+                                        }
+                                    }
+                                });
                                 Task<Uri> urlTask=taskSnapshot.getStorage().getDownloadUrl();
 
                                 while(!urlTask.isSuccessful()){
                                 }
-                                download_url[0] = urlTask.getResult();
+                                /*download_url[0] = urlTask.getResult();
                                 imagelink[0] = String.valueOf(download_url[0]);
                                 setImageUrl(imageName, imagelink[0]);
 
-                                Log.d("imagelink", imagelink[0]);
+                                Log.d("imagelink", imagelink[0]);*/
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

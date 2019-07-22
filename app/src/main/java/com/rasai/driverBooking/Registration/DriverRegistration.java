@@ -99,10 +99,6 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
                 driverInformation.setAddress(mAddress.getText().toString());
                 driverInformation.setLanguages(StringLangSelected);
 
-                //Log.d("testing2", StringLangSelected);
-
-                //Log.d("testing3", driverInformation.toString());
-
                 Intent navNext = new Intent(DriverRegistration.this, driverRegistration2.class);
                 navNext.putExtra("driverObject", driverInformation);
                 startActivity(navNext);
