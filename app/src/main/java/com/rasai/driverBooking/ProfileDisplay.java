@@ -178,9 +178,8 @@ public class ProfileDisplay extends AppCompatActivity {
         int intID =Integer.parseInt(stringID);
         switch (intID){
             case R.id.userPicture:
-                mIDImage.setImageBitmap(bmp);
-                //getDriverInformation().setIdImage(uri.toString());
-                //todo store in database?
+                //mIDImage.setImageBitmap(bmp);
+                uploadProfilePicture(bmp, uri);
                 break;
             case R.id.addSecurityButton:
                 //getSecurityDeposit().setDepositImage(uri.toString());
@@ -197,7 +196,6 @@ public class ProfileDisplay extends AppCompatActivity {
                 // Create AlertDialog and show.
                 final AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
-
                 break;
             default:
                 break;
@@ -349,6 +347,48 @@ public class ProfileDisplay extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void uploadProfilePicture(Bitmap bitmap, Uri uri){
+
+        try {
+            Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+
+            //image display
+            mIDImage.setImageBitmap(bmp);
+
+            String imageid;
+
+            if(uri != null)
+            {
+                imageid="Driver/"+ phone_Number +"/"+ "Profile Picture/"+ UUID.randomUUID().toString();
+                Log.d("imagelink",imageid);
+
+                final StorageReference ref = FirebaseStorage.getInstance().getReference().child(imageid);
+                ref.putFile(uri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        Log.d("Driver Upload", "onSuccess: uri= "+ uri.toString());
+
+                                        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver");
+                                        mRef.child(phone_Number).child("idImage").setValue(uri.toString());
+                                    }
+                                });
+                            }
+                        });
+            }
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     private void edit(Button button){

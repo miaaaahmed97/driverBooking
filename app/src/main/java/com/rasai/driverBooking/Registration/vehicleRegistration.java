@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -39,6 +38,7 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
     private TextInputEditText mManufacturer;
     private TextInputEditText mModel;
     private TextInputEditText mRegistration;
+    Spinner seatsSpinner;
 
     private Vehicle vehicleInformation;
     private Driver driverInformation;
@@ -86,68 +86,44 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
         manufacturerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         manufacturerSpinner.setAdapter(manufacturerAdapter);*/
 
-        Spinner seatsSpinner = (Spinner) findViewById(R.id.seatsSpinner);
-        ArrayAdapter<CharSequence> seatsAdapter = ArrayAdapter.createFromResource(this,
+        seatsSpinner = (Spinner) findViewById(R.id.seatsSpinner);
+        ArrayAdapter<CharSequence> seatsAdapter = ArrayAdapter.createFromResource(getBaseContext(),
                 R.array.seats_array, android.R.layout.simple_spinner_item);
         seatsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         seatsSpinner.setAdapter(seatsAdapter);
         //End - Spinner Layout Setup
 
-        registrationButton =  findViewById(R.id.RegisterVehicle);
-        mManufacturer = findViewById(R.id.manufacturer_field);
-        mModel =  findViewById(R.id.model_field);
-        mRegistration =  findViewById(R.id.registration_field);
-        Switch toggle =  findViewById(R.id.ac_switch);
-        addExteriorText =  findViewById(R.id.exterior_textview);
-        addInteriorText =  findViewById(R.id.interior_textview);
+        new Thread(){
+            @Override
+            public void run(){
+                mManufacturer = findViewById(R.id.manufacturer_field);
+                mModel =  findViewById(R.id.model_field);
+                mRegistration =  findViewById(R.id.registration_field);
+               Switch toggle =  findViewById(R.id.ac_switch);
+                addExteriorText =  findViewById(R.id.exterior_textview);
+                addInteriorText =  findViewById(R.id.interior_textview);
 
-        addExteriorText.setOnClickListener(new ImageButtonListener());
-        Log.d("showID", String.valueOf(R.id.exterior_textview));
-        addInteriorText.setOnClickListener(new ImageButtonListener());
+                addExteriorText.setOnClickListener(new ImageButtonListener());
+                Log.d("showID", String.valueOf(R.id.exterior_textview));
+                addInteriorText.setOnClickListener(new ImageButtonListener());
+            }
+        };
 
-        //Get Driver Object from driverRegistration2
-        Intent i = getIntent();
-        setDriverInformation((Driver) i.getSerializableExtra("driverObject"));
+        new Thread(){
+            @Override
+            public void run(){
+                //Get Driver Object from driverRegistration2
+                Intent i = getIntent();
+                setDriverInformation((Driver) i.getSerializableExtra("driverObject"));
 
-        //initialize vehicle
-        setVehicleInformation(new Vehicle());
+                //initialize vehicle
+                setVehicleInformation(new Vehicle());
+            }
+        };
 
         //spinner listeners
         //manufacturerSpinner.setOnItemSelectedListener(this);
         seatsSpinner.setOnItemSelectedListener(this);
-
-        //Strat AC switch listener
-        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // The toggle is enabled
-                    getVehicleInformation().setHasAc("yes");
-                } else {
-                    // The toggle is disabled
-                    getVehicleInformation().setHasAc("no");
-                }
-            }
-        });
-        //End AC switch listener
-
-        //Register Button Listener
-        class MyOnClickListener implements View.OnClickListener, Serializable
-        {
-            @Override
-            public void onClick(View view) {
-                //Log.d("testing3", driverInformation.toString());
-
-                vehicleInformation.setManufacturer(mManufacturer.getText().toString());
-                vehicleInformation.setModel(mModel.getText().toString());
-                vehicleInformation.setRegistration(mRegistration.getText().toString());
-                getDriverInformation().setVehicle(vehicleInformation);
-
-                Intent navNext = new Intent(vehicleRegistration.this, SecurityDepositUpload.class);
-                navNext.putExtra("driverObject", driverInformation);
-                startActivity(navNext);
-            }
-        }
-        registrationButton.setOnClickListener(new MyOnClickListener());
 
     }
 
@@ -155,14 +131,19 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
     {
-        if(parent.getId() == R.id.manufacturer_field)
-        {
-            getVehicleInformation().setManufacturer(parent.getSelectedItem().toString());
-        }
-        else if(parent.getId() == R.id.seatsSpinner)
-        {
-            getVehicleInformation().setVehicleSeats(parent.getSelectedItem().toString());
-        }
+        new Thread(){
+            @Override
+            public void run(){
+                if(parent.getId() == R.id.manufacturer_field)
+                {
+                    getVehicleInformation().setManufacturer(parent.getSelectedItem().toString());
+                }
+                else if(parent.getId() == R.id.seatsSpinner)
+                {
+                    getVehicleInformation().setVehicleSeats(parent.getSelectedItem().toString());
+                }
+            }
+        };
     }
 
     @Override
@@ -197,26 +178,67 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
 
     //displays the uploaded image next to the upload icon
     public void displayImage(Bitmap bmp, Uri uri){
-        ImageView imageView;
-        //get ID of calling button
-        String stringID= buttonIntent.getExtras().getString("EXTRA");
-        int intID =Integer.parseInt(stringID);
-        switch (intID){
-            case R.id.exterior_textview:
-                //todo show images in remaining showExterior images
-                imageView = findViewById(R.id.showExterior);
-                getVehicleInformation().setExteriorImage(uri.toString());
-                break;
-            case R.id.interior_textview:
-                imageView = findViewById(R.id.showInterior);
-                getVehicleInformation().setInteriorImage(uri.toString());
-                break;
-            default:
-                imageView = findViewById(R.id.showInterior);
-                break;
-        }
-        Log.d("pleasee", getVehicleInformation().toString());
-        imageView.setImageBitmap(bmp);
+
+        new Thread(){
+            @Override
+            public void run(){
+
+                ImageView imageView;
+                //get ID of calling button
+                String stringID= buttonIntent.getExtras().getString("EXTRA");
+                int intID =Integer.parseInt(stringID);
+                switch (intID){
+                    case R.id.exterior_textview:
+                        //todo show images in remaining showExterior images
+                        imageView = findViewById(R.id.showExterior);
+                        getVehicleInformation().setExteriorImage(uri.toString());
+                        break;
+                    case R.id.interior_textview:
+                        imageView = findViewById(R.id.showInterior);
+                        getVehicleInformation().setInteriorImage(uri.toString());
+                        break;
+                    default:
+                        imageView = findViewById(R.id.showInterior);
+                        break;
+                }
+                Log.d("pleasee", getVehicleInformation().toString());
+                imageView.setImageBitmap(bmp);
+            }
+        };
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        //Call separate thread to avoid application doing too much work on its main thread
+        new Thread(){
+            @Override
+            public void run(){
+
+                registrationButton =  findViewById(R.id.RegisterVehicle);
+
+                //Register Button Listener
+                class MyOnClickListener implements View.OnClickListener, Serializable
+                {
+                    @Override
+                    public void onClick(View view) {
+                        //Log.d("testing3", driverInformation.toString());
+
+                        vehicleInformation.setManufacturer(mManufacturer.getText().toString());
+                        vehicleInformation.setModel(mModel.getText().toString());
+                        vehicleInformation.setRegistration(mRegistration.getText().toString());
+                        getDriverInformation().setVehicle(vehicleInformation);
+
+                        Intent navNext = new Intent(vehicleRegistration.this, SecurityDepositUpload.class);
+                        navNext.putExtra("driverObject", driverInformation);
+                        startActivity(navNext);
+                    }
+                }
+
+                registrationButton.setOnClickListener(new MyOnClickListener());
+            }
+        }.start();
+
+    }
 }

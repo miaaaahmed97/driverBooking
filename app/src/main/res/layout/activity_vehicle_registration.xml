@@ -154,12 +154,12 @@
             android:layout_height="70dp"
             app:layout_constraintEnd_toStartOf="@+id/showInterior"
             android:src="@drawable/car_front"/>
-        <ImageView
+        <!--<ImageView
             android:id="@+id/showExterior3"
             android:layout_width="120dp"
             android:layout_height="70dp"
             app:layout_constraintEnd_toStartOf="@+id/showInterior"
-            android:src="@drawable/car_back"/>
+            android:src="@drawable/car_back"/>-->
 
     </LinearLayout>
 
@@ -193,7 +193,7 @@
             android:layout_height="70dp"
             android:scaleType="centerInside"
             android:src="@drawable/interior" />
-        <ImageView
+        <!--<ImageView
             android:id="@+id/showInterior2"
             android:layout_width="120dp"
             android:layout_height="70dp"
@@ -204,7 +204,7 @@
             android:layout_width="120dp"
             android:layout_height="70dp"
             android:scaleType="centerInside"
-            android:src="@drawable/interior3" />
+            android:src="@drawable/interior3" />-->
     </LinearLayout>
 
     <TextView

@@ -25,7 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.CustomObject.Review;
 import com.rasai.driverBooking.CustomObject.TripInformation;
 import com.rasai.driverBooking.R;
-import com.rasai.driverBooking.TripTabsActivity.HistoryTabFragment;
 import com.rasai.driverBooking.TripTabsActivity.TripTabsActivity;
 
 import java.util.ArrayList;
@@ -61,9 +60,7 @@ public class ViewAssignedTrips extends AppCompatActivity {
     String paymentProblem;
     String promiseBreaker;
     String punctualProblem;
-    String otherProblem;
     String otherProblemDetails;
-    String submitProblems;
     List<String> problemsList = new ArrayList<>();
 
     TripInformation tripInfo;
