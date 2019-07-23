@@ -11,8 +11,8 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -36,7 +36,8 @@ public class SecurityDepositUpload extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageReference;
 
-    ImageView addDepositButton;
+    TextView addDepositText;
+    ImageView depositSlipImage;
     private Button registrationButton;
     private TextInputEditText mDate;
     private TextInputEditText mAmount;
@@ -82,11 +83,12 @@ public class SecurityDepositUpload extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
+        depositSlipImage = findViewById(R.id.bankDepositSlip);
         registrationButton = (Button) findViewById(R.id.Done);
         mDate = (TextInputEditText) findViewById(R.id.date_field);
         mAmount = (TextInputEditText) findViewById(R.id.amount_field);
-        addDepositButton = findViewById(R.id.bankDepositSlip);
-        addDepositButton.setOnClickListener(new ImageButtonListener());
+        addDepositText = findViewById(R.id.uploadPictureText);
+        addDepositText.setOnClickListener(new ImageButtonListener());
 
         //Get Driver Object from driverRegistration2
         Intent i = getIntent();
@@ -139,7 +141,7 @@ public class SecurityDepositUpload extends AppCompatActivity {
                 //image display
                 getSecurityDeposit().setDepositImage(uri.toString());
                 Log.d("pleasee", getSecurityDeposit().toString());
-                addDepositButton.setImageBitmap(bmp);
+                depositSlipImage.setImageBitmap(bmp);
 
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block

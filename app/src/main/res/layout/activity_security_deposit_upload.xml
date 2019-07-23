@@ -61,13 +61,16 @@
             android:layout_marginRight="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp">
+            android:layout_marginStart="16dp"
+            app:helperText="Eg. 3000">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/amount_field"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Add deposit amount"/>
+                android:hint="Deposit amount"
+                android:inputType="number"
+                android:maxLength="5"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -79,19 +82,20 @@
             android:layout_marginRight="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp">
+            android:layout_marginStart="16dp"
+            app:helperText="eg. 04/06/2019">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/date_field"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Add deposit date"/>
+                android:hint="Deposit date"
+                android:inputType="date"
+                android:maxLength="10"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
-
-
 
     <Button
         android:id="@+id/Done"
@@ -101,6 +105,5 @@
         android:text="Done"
         android:layout_gravity="bottom|end"
         style="@style/Widget.AppCompat.Button.Colored"/>
-
 
 </LinearLayout>
