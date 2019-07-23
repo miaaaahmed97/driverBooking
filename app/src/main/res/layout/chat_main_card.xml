@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:paddingTop="16dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv"
@@ -19,7 +19,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="8dp">
 
             <!--<ImageView
                 android:id="@+id/pictureChat"
@@ -31,12 +32,12 @@
                     android:id="@+id/name_chat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
                     android:paddingLeft="2sp"
                     android:paddingRight="2sp"
                     android:text="Ali Haider"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     />
 
                 <TextView
@@ -44,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/name_chat"
-                    android:layout_margin="3dp"
+                    android:textColor="@color/colorPrimaryDark"
                     android:paddingLeft="2sp"
                     android:paddingRight="2sp"
                     android:text="Islamabad" />
@@ -56,7 +57,7 @@
                     android:layout_toRightOf="@id/fromCd"
                     android:layout_toEndOf="@id/fromCd"
                     android:layout_below="@id/name_chat"
-                    android:layout_margin="3dp"
+                    android:textColor="@color/colorPrimaryDark"
                     android:paddingLeft="2sp"
                     android:paddingRight="2sp"
                     android:text="to" />
@@ -68,7 +69,7 @@
                     android:layout_toRightOf="@id/toText2"
                     android:layout_toEndOf="@id/toText2"
                     android:layout_below="@id/name_chat"
-                    android:layout_margin="3dp"
+                    android:textColor="@color/colorPrimaryDark"
                     android:paddingLeft="2sp"
                     android:paddingRight="2sp"
                     android:text="Murree" />
@@ -78,7 +79,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_margin="3dp"
                 android:paddingLeft="2sp"
                 android:paddingRight="2sp"
                 android:text="See you tomorrow!"

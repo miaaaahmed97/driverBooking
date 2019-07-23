@@ -97,8 +97,6 @@
 
     </LinearLayout>
 
-
-
     <Button
         android:id="@+id/Done"
         android:layout_width="match_parent"
@@ -107,6 +105,5 @@
         android:text="Done"
         android:layout_gravity="bottom|end"
         style="@style/Widget.AppCompat.Button.Colored"/>
-
 
 </LinearLayout>
