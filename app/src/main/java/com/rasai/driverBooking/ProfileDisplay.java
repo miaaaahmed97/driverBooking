@@ -50,7 +50,7 @@ import java.util.UUID;
 public class ProfileDisplay extends AppCompatActivity {
 
     private MultiSelectionSpinner mLangSpinner;
-    private Spinner manufacturerSpinner, seatsSpinner;
+    private Spinner seatsSpinner;
 
     private static final int GET_FROM_GALLERY = 1;
     Intent imageIntent;
@@ -71,7 +71,7 @@ public class ProfileDisplay extends AppCompatActivity {
 
     private Uri DepositUri;
 
-    private TextView mDriverName, mDriverMobile, mDriverCNIC,mDriverDOB, mDriverAddress, mRegField, mSecurityAmount, mModel;
+    private TextView mDriverName, mDriverMobile, mDriverCNIC,mDriverDOB, mDriverAddress, mRegField, mSecurityAmount, mModel, mManufacturer;
     private TextView mSecurityDepositAmount;
 
 
@@ -97,8 +97,8 @@ public class ProfileDisplay extends AppCompatActivity {
         mDriverDOB = findViewById(R.id.driverDOB);
         mDriverAddress = findViewById(R.id.driverAddress);
 
-        manufacturerSpinner = (Spinner) findViewById(R.id.manufacturer_field);
-        seatsSpinner = (Spinner) findViewById(R.id.seatsSpinner);
+        mManufacturer =  findViewById(R.id.manufacturer_field);
+        seatsSpinner =  findViewById(R.id.seatsSpinner);
         mRegField = findViewById(R.id.registration_field);
         mACSwitch = findViewById(R.id.ac_switch);
         mModel = findViewById(R.id.model_field);
@@ -117,10 +117,10 @@ public class ProfileDisplay extends AppCompatActivity {
         //mLangSpinner.setItems(languageList);
 
         //Start - Spinner Layout Setup
-        ArrayAdapter<CharSequence> manufacturerAdapter = ArrayAdapter.createFromResource(this,
+        /*ArrayAdapter<CharSequence> manufacturerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.manufacturer_array, android.R.layout.simple_spinner_item);
         manufacturerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        manufacturerSpinner.setAdapter(manufacturerAdapter);
+        manufacturerSpinner.setAdapter(manufacturerAdapter);*/
 
         ArrayAdapter<CharSequence> seatsAdapter = ArrayAdapter.createFromResource(this,
                 R.array.seats_array, android.R.layout.simple_spinner_item);
@@ -313,7 +313,7 @@ public class ProfileDisplay extends AppCompatActivity {
 
         mDriverAddress.setText(driver.getAddress());
 
-        //todo manufacturerSpinner.set
+        mManufacturer.setText(driver.getVehicle().getManufacturer());
         mModel.setText(driver.getVehicle().getModel());
         mRegField.setText(driver.getVehicle().getRegistration());
         //todo number of seats
@@ -353,10 +353,8 @@ public class ProfileDisplay extends AppCompatActivity {
 
         try {
             Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-
             //image display
             mIDImage.setImageBitmap(bmp);
-
             String imageid;
 
             if(uri != null)
@@ -405,6 +403,11 @@ public class ProfileDisplay extends AppCompatActivity {
                 mDriverAddress.setEnabled(true);
                 mDriverAddress.setTextColor(getResources().getColor(R.color.black));
 
+                mManufacturer.setClickable(true);
+                mManufacturer.setFocusableInTouchMode(true);
+                mManufacturer.setEnabled(true);
+                mManufacturer.setTextColor(getResources().getColor(R.color.black));
+
                 mModel.setClickable(true);
                 mModel.setFocusableInTouchMode(true);
                 mModel.setEnabled(true);
@@ -439,6 +442,12 @@ public class ProfileDisplay extends AppCompatActivity {
                 mDriverAddress.setEnabled(false);
                 mDriverAddress.setTextColor(getResources().getColor(R.color.darkgrey2));
 
+                mManufacturer.setClickable(false);
+                mManufacturer.setFocusable(false);
+                mManufacturer.setFocusableInTouchMode(false);
+                mManufacturer.setEnabled(false);
+                mManufacturer.setTextColor(getResources().getColor(R.color.darkgrey2));
+
                 mModel.setClickable(false);
                 mModel.setFocusable(false);
                 mModel.setFocusableInTouchMode(false);
@@ -457,6 +466,7 @@ public class ProfileDisplay extends AppCompatActivity {
 
                 String name = mDriverName.getText().toString();
                 String address = mDriverAddress.getText().toString();
+                String manudacturer = mManufacturer.getText().toString();
                 String model = mModel.getText().toString();
                 String registration =  mRegField.getText().toString();
 
