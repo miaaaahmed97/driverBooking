@@ -130,7 +130,7 @@ public class DriverHome extends AppCompatActivity implements Serializable{
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         }
-        mRef.addValueEventListener(new MyValueEventListener());
+        mRef.addListenerForSingleValueEvent(new MyValueEventListener());
         //Log.d("Testing list in Home", postedTripsList.toString());
 
         //creating bottom navigation view

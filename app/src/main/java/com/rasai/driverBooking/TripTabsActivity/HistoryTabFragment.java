@@ -1,10 +1,12 @@
 package com.rasai.driverBooking.TripTabsActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.CustomObject.Offer;
 import com.rasai.driverBooking.CustomObject.TripInformation;
 import com.rasai.driverBooking.R;
+import com.rasai.driverBooking.TripTabsActivity.AssignedTrips.ViewAssignedTrips;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -56,17 +59,17 @@ public class HistoryTabFragment extends Fragment {
 
         phone_Number = user.getPhoneNumber();
 
-        /*mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent intent = new Intent(getActivity(), ViewAssignedTrips.class);
                 //Log.d("testing list index", Integer.toString(position));
-                TripInformation tripSelected = offeredTripsList.get(position);
+                TripInformation tripSelected = completedTripsList.get(position);
                 intent.putExtra("TRIP_SELECTED", tripSelected);
                 startActivity(intent);
             }
-        });*/
+        });
 
         final DatabaseReference mRef = FirebaseDatabase.getInstance().
                 getReference().child("Driver/"+phone_Number+"/tripsCompleted");

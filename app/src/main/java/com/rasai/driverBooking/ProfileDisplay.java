@@ -306,7 +306,6 @@ public class ProfileDisplay extends AppCompatActivity {
         mDriverCNIC.setText(driver.getCnic());
         mDriverDOB.setText(driver.getBirthday());
 
-
         //todo StringLangSelected = mLangSpinner.getSelectedItemsAsString();
 
 
@@ -322,7 +321,8 @@ public class ProfileDisplay extends AppCompatActivity {
         else
             mACSwitch.setChecked(false);
         //todo image display
-        //mSecurityAmount.setText(driver.getSecurityDeposit().getAmount());
+        Log.d("ProfileDisplay", String.valueOf(driver.getSecurityDeposit().getAmount()));
+        mSecurityAmount.setText(String.valueOf(driver.getSecurityDeposit().getAmount()));
     }
 
     private void displayProfilePicture(final Context context){
