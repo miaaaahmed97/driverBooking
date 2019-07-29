@@ -13,8 +13,17 @@ public class Offer implements Serializable {
     private String databaseId;
     private String acceptanceStatus = "unconfirmed";
     private String customerPhoneNumber;
+    private String token_id;
     List<String> offers;
     private Driver driver = new Driver();
+
+    public String getToken_id() {
+        return token_id;
+    }
+
+    public void setToken_id(String token_id) {
+        this.token_id = token_id;
+    }
 
     public String getCustomerPhoneNumber() {
         return customerPhoneNumber;
@@ -73,6 +82,8 @@ public class Offer implements Serializable {
                 ", databaseId='" + databaseId + '\'' +
                 ", acceptanceStatus='" + acceptanceStatus + '\'' +
                 ", customerPhoneNumber='" + customerPhoneNumber + '\'' +
+                ", token_id='" + token_id + '\'' +
+                ", offers=" + offers +
                 ", driver=" + driver +
                 '}';
     }

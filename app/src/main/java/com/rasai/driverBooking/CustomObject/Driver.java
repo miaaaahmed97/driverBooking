@@ -33,6 +33,7 @@ public class Driver implements Serializable {
     private String idImage;
     private String drivingLicenseImage;
     private String databaseId;
+    private String token_id;
     private List<String> offersMade = new ArrayList<>();
     private List<String> offerAccepted = new ArrayList<>();
     private List<String> tripsCompleted = new ArrayList<>();
@@ -52,6 +53,7 @@ public class Driver implements Serializable {
                 ", idImage='" + idImage + '\'' +
                 ", drivingLicenseImage='" + drivingLicenseImage + '\'' +
                 ", databaseId='" + databaseId + '\'' +
+                ", token_id='" + token_id + '\'' +
                 ", offersMade=" + offersMade +
                 ", offerAccepted=" + offerAccepted +
                 ", tripsCompleted=" + tripsCompleted +
@@ -180,6 +182,14 @@ public class Driver implements Serializable {
             }
         }
 
+    }
+
+    public String getToken_id() {
+        return token_id;
+    }
+
+    public void setToken_id(String token_id) {
+        this.token_id = token_id;
     }
 
     public String getCnicImage() {

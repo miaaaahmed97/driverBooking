@@ -110,6 +110,7 @@ public class DriverHome extends AppCompatActivity implements Serializable{
                                     tripInfo.setPhoneNumber(inner_child.child("phoneNumber").getValue(String.class));
                                     tripInfo.setIsReturn(inner_child.child("isReturn").getValue(String.class));
                                     tripInfo.setDatabaseId(inner_child.child("databaseId").getValue(String.class));
+                                    tripInfo.setCustomerToken(inner_child.child("customerToken").getValue(String.class));
 
                                     postedTripsList.add(tripInfo);
                                     //Log.d("Testinglist in Homeloop", postedTripsList.toString());

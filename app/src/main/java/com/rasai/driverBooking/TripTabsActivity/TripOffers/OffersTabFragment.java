@@ -65,7 +65,7 @@ public class OffersTabFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 final Intent intent = new Intent(getActivity(), MakeOffer.class);
-                //Log.d("testing list index", Integer.toString(position));
+
                 final TripInformation offerSelected = offeredTripsList.get(position);
 
                 DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Offer/"+
@@ -108,7 +108,7 @@ public class OffersTabFragment extends Fragment {
                 }
 
                offersCallback();
-                Log.d("TAG", "after offers callback");
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -126,7 +126,7 @@ public class OffersTabFragment extends Fragment {
 
             if (dataSnapshot.exists()) {
                 m_offer = dataSnapshot.getValue(Offer.class);
-                //Log.d("testing3", m_offer.getAcceptanceStatus());
+
 
 
                 if (m_offer.getAcceptanceStatus().equals("unconfirmed") ||
@@ -150,8 +150,9 @@ public class OffersTabFragment extends Fragment {
 
     private void offersCallback(){
         for(String offer: offersList){
+
             m_offer = new Offer();
-            Log.d("testing2 in databasefor", "inside");
+
             final DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Offer/"+offer+"/"+phone_Number+"/");
             myRef.addValueEventListener(new MyOfferValueEventListener());
 
@@ -178,7 +179,6 @@ public class OffersTabFragment extends Fragment {
 
 
                     if (offeredTripsList.size() == offerObjects.size()) {
-                        Log.d("TAG", "calling adapter");
 
                         mAdapter = new CustomListAdapter(getActivity(),R.layout.offers_list_item, offeredTripsList);
                         mListView.setAdapter(mAdapter);

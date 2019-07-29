@@ -15,6 +15,7 @@ public class TripInformation implements Serializable {
     public TripInformation() {}
 
     private String phoneNumber;
+    private String CustomerName;
     private String to;
     private String from;
     private String startDate;
@@ -28,14 +29,17 @@ public class TripInformation implements Serializable {
     private String extraDetails;
     private String isReturn = "no";
     private Boolean confirmed = false;
+    private Boolean completed = false;
     private String databaseId;
     private String driverOffer = "";
     private String driverAssigned;
+    private String customerToken;
 
     @Override
     public String toString() {
         return "TripInformation{" +
                 "phoneNumber='" + phoneNumber + '\'' +
+                ", CustomerName='" + CustomerName + '\'' +
                 ", to='" + to + '\'' +
                 ", from='" + from + '\'' +
                 ", startDate='" + startDate + '\'' +
@@ -49,9 +53,35 @@ public class TripInformation implements Serializable {
                 ", extraDetails='" + extraDetails + '\'' +
                 ", isReturn='" + isReturn + '\'' +
                 ", confirmed=" + confirmed +
+                ", completed=" + completed +
                 ", databaseId='" + databaseId + '\'' +
                 ", driverAssigned='" + driverAssigned + '\'' +
+                ", customerToken='" + customerToken + '\'' +
                 '}';
+    }
+
+    public String getCustomerToken() {
+        return customerToken;
+    }
+
+    public void setCustomerToken(String customerToken) {
+        this.customerToken = customerToken;
+    }
+
+    public String getCustomerName() {
+        return CustomerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        CustomerName = customerName;
+    }
+
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
     }
 
     public String getDriverAssigned() {

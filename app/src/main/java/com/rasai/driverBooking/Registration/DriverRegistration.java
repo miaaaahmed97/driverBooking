@@ -12,11 +12,16 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.rasai.driverBooking.CustomObject.Driver;
 import com.rasai.driverBooking.R;
 
@@ -27,6 +32,7 @@ import java.util.Locale;
 
 public class DriverRegistration extends AppCompatActivity implements Serializable {
 
+    private static final String TAG = "DriverRegistration" ;
     private TextInputEditText mName;
     private TextInputEditText mCnic;
     private TextInputEditText mBday;
@@ -98,9 +104,25 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
                 driverInformation.setAddress(mAddress.getText().toString());
                 driverInformation.setLanguages(StringLangSelected);
 
-                Intent navNext = new Intent(DriverRegistration.this, driverRegistration2.class);
-                navNext.putExtra("driverObject", driverInformation);
-                startActivity(navNext);
+                FirebaseInstanceId.getInstance().getInstanceId()
+                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                if (!task.isSuccessful()) {
+                                    Log.w(TAG, "getInstanceId failed", task.getException());
+                                    return;
+                                }
+
+                                // Get new Instance ID token
+                                String token_id = task.getResult().getToken();
+                                driverInformation.setToken_id(token_id);
+
+                                Intent navNext = new Intent(DriverRegistration.this, driverRegistration2.class);
+                                navNext.putExtra("driverObject", driverInformation);
+                                startActivity(navNext);
+                            }
+                        });
+
             }
         }
 

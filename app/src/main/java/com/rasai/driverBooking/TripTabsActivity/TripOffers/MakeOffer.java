@@ -165,6 +165,8 @@ public class MakeOffer extends AppCompatActivity {
                 mBudgetField.setFocusable(false);
 
                 //store the value to tripInfo object
+                offer.setToken_id(tripInfo.getCustomerToken());
+                Log.d("MakeOffer", "CustomerToken: " + tripInfo.getCustomerToken());
                 offer.setAmount(mBudgetField.getText().toString());
                 offer.setTripID(tripInfo.getDatabaseId());
                 offer.setCustomerPhoneNumber(tripInfo.getPhoneNumber());
@@ -178,20 +180,17 @@ public class MakeOffer extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-
-                        Log.d("testing makeOffer 4", dataSnapshot.toString());
                         if(dataSnapshot.getValue() == null){
-                            Log.d("testing makeOffer 5", "inside if condition");
+
                             offer.makeOffer(myRef);
                             added[0] = true;
                         }
 
                         Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                         for(DataSnapshot child: children){
-                            Log.d("testing makeOffer 6", child.toString());
 
                             if( child.getValue().equals(offer.getTripID())){
-                                Log.d("testing makeOffer 7", "inside second if for");
+
                                 offer.changeOffer(myRef);
                                 added[0] = true;
                                 break;
@@ -199,7 +198,7 @@ public class MakeOffer extends AppCompatActivity {
 
                         }
                         if(!added[0])
-                        {   Log.d("testing makeOffer 8", "inside second if");
+                        {
                             offer.makeOffer(myRef);}
                     }
                     @Override
@@ -225,8 +224,7 @@ public class MakeOffer extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                         for (DataSnapshot child : children){
-                            Log.d("testing0", child.getValue().toString());
-                            Log.d("testing1", tripInfo.getDatabaseId());
+
                             if(child.getValue().toString().equals(tripInfo.getDatabaseId())){
                                 child.getRef().removeValue();
                             }
@@ -236,7 +234,6 @@ public class MakeOffer extends AppCompatActivity {
                         DatabaseReference offersRef = FirebaseDatabase.getInstance().getReference()
                                 .child("Offer").child(tripInfo.getDatabaseId()).child(user.getPhoneNumber());
                         offersRef.removeValue();
-                        Log.d("testing2", "after removing from offers");
 
                         Intent intent = new Intent(MakeOffer.this, TripTabsActivity.class);
                         startActivity(intent);

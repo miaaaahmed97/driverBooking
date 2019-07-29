@@ -104,14 +104,45 @@ public class MessageListActivity extends AppCompatActivity {
                 String content = mTextbox.getText().toString().trim();
                 if (content.length() > 0) {
 
-                    Message newMessage = new Message();
-                    newMessage.setTextMessage(mTextbox.getText().toString());
-                    newMessage.setIdSender(chat.getDriverPhone());
-                    newMessage.setIdReceiver(chat.getCustomerPhone());
-                    newMessage.setTimestamp(System.currentTimeMillis());
-                    FirebaseDatabase.getInstance().getReference().child("Chat").child(chat.getChatId()).push().setValue(newMessage);
+                    final String userPhone = chat.getCustomerPhone();
 
-                    mTextbox.setText("");
+                    DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Customer").child(userPhone);
+                    mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            Message newMessage = new Message();
+                            newMessage.setTextMessage(mTextbox.getText().toString());
+                            newMessage.setIdSender(chat.getDriverPhone());
+                            newMessage.setIdReceiver(userPhone);
+                            newMessage.setTimestamp(System.currentTimeMillis());
+                            newMessage.setToken_receiver(dataSnapshot.child("token_id").getValue(String.class));
+
+                            DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver").child(chat.getDriverPhone());
+                            mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                    newMessage.setSender_name(dataSnapshot.child("name").getValue(String.class));
+
+                                    FirebaseDatabase.getInstance().getReference().child("Chat").child(chat.getChatId()).push().setValue(newMessage);
+
+                                    mTextbox.setText("");
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
 
                 }
             }
