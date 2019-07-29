@@ -59,7 +59,7 @@ public class MainChat extends AppCompatActivity {
 
         phone_Number = user.getPhoneNumber();
 
-        mListView = findViewById(R.id.list_view);
+        mListView = findViewById(R.id.history_list_view);
         mAdapter = new ChatListAdapter(MainChat.this, R.layout.activity_chats_main, chatsList);
         mListView.setAdapter(mAdapter);
 

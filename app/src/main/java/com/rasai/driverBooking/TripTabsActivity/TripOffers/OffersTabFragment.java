@@ -24,6 +24,7 @@ import com.rasai.driverBooking.CustomObject.Offer;
 import com.rasai.driverBooking.CustomObject.TripInformation;
 import com.rasai.driverBooking.R;
 import com.rasai.driverBooking.TripTabsActivity.CustomListAdapter;
+import com.rasai.driverBooking.TripTabsActivity.HistoryTabFragment;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,13 +40,14 @@ public class OffersTabFragment extends Fragment {
     private ListView mListView;
     private CustomListAdapter mAdapter;
     private View inflateView;
-    private LayoutInflater minflater;
+    //private LayoutInflater minflater;
 
     List<String> offersList = new ArrayList<String>();
     List<Offer> offerObjects = new ArrayList<Offer>();
     List<TripInformation> list = new ArrayList<TripInformation>();
     Offer m_offer;
     TripInformation m_trip;
+    DatabaseReference mRef;
 
     List<TripInformation> offeredTripsList = new ArrayList<TripInformation>();
 
@@ -54,9 +56,11 @@ public class OffersTabFragment extends Fragment {
     public  View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        minflater = OffersTabFragment.this.getLayoutInflater();
-        inflateView = minflater.inflate(R.layout.activity_offer_list,null,true);
-        mListView = (ListView) inflateView.findViewById(R.id.list_view);
+        //minflater = OffersTabFragment.this.getLayoutInflater();
+        if(inflateView==null){
+            inflateView = inflater.inflate(R.layout.activity_offer_list,container,false);
+            mListView = (ListView) inflateView.findViewById(R.id.offers_list_view);
+        }
 
         phone_Number = user.getPhoneNumber();
 
@@ -93,34 +97,52 @@ public class OffersTabFragment extends Fragment {
             }
         });
 
-        final DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver/"+phone_Number+"/offersMade");
+        mRef = FirebaseDatabase.getInstance().getReference().child("Driver/"+phone_Number+"/offersMade");
         //First Database Reference called
-        class MyValueEventListener implements ValueEventListener, Serializable {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                offeredTripsList.clear();
 
-                //get all the unconfirmed offers made by the driver
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                for (DataSnapshot child: children){
-                    offersList.add(child.getValue().toString());
-                }
-
-               offersCallback();
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        }
-
-        mRef.addValueEventListener(new MyValueEventListener());
+        //mRef.addValueEventListener(new MyValueEventListener());
 
         return inflateView;
     }
 
-    class MyOfferValueEventListener implements ValueEventListener, Serializable {
+    @Override
+    public void onStart(){
+        super.onStart();
+        mRef.addValueEventListener(new MyValueEventListener());
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (inflateView.getParent() != null) {
+            Log.d("offer","in offer destroy");
+            ((ViewGroup)inflateView.getParent()).removeView(inflateView);
+        }
+        offeredTripsList.clear();
+        super.onDestroyView();
+    }
+
+    private class MyValueEventListener implements ValueEventListener, Serializable {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            offeredTripsList.clear();
+
+            //get all the unconfirmed offers made by the driver
+            Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+            for (DataSnapshot child: children){
+                offersList.add(child.getValue().toString());
+            }
+
+            offersCallback();
+
+        }
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+        }
+    }
+
+    private class MyOfferValueEventListener implements ValueEventListener, Serializable {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 

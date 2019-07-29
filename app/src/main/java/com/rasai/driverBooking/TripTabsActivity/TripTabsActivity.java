@@ -13,7 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.rasai.driverBooking.BottomNavigationViewHelper;
 import com.rasai.driverBooking.R;
-import com.rasai.driverBooking.TripTabsActivity.AssignedTrips.AssisgnedTripsTabFragment;
+import com.rasai.driverBooking.TripTabsActivity.AssignedTrips.AssignedTripsTabFragment;
 import com.rasai.driverBooking.TripTabsActivity.TripOffers.OffersTabFragment;
 
 import java.io.Serializable;
@@ -36,12 +36,12 @@ public class TripTabsActivity extends AppCompatActivity implements Serializable 
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        mListView = (ListView) findViewById(R.id.list_view);
+        mListView = (ListView) findViewById(R.id.history_list_view);
 
         adapter = new TabAdapter(getSupportFragmentManager());
 
         OffersTabFragment tab1 = new OffersTabFragment();
-        AssisgnedTripsTabFragment tab2 = new AssisgnedTripsTabFragment();
+        AssignedTripsTabFragment tab2 = new AssignedTripsTabFragment();
         HistoryTabFragment tab3 = new HistoryTabFragment();
 
         adapter.addFragment(tab1, "Offers");
