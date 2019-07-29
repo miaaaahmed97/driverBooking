@@ -5,15 +5,20 @@
 
 
     <style name="AppTheme" parent="AppBaseTheme">
-        <!-- Customize your theme here. -->
-        <item name="android:typeface">monospace</item>
+        <item name="android:typeface">sans</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!--<item name="android:textViewStyle">@style/RobotoTextViewStyle</item>-->
-
     </style>
 
+    <style name="SplashTheme" parent ="AppTheme">
+        <item name="android:windowBackground">@drawable/splashscreen_background</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+
+    <!-- not being used -->
     <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
         <item name="android:fontFamily">sans-serif</item>
     </style>

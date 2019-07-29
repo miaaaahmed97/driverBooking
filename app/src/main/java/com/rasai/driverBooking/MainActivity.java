@@ -81,6 +81,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
 
