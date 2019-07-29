@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -155,57 +156,63 @@ public class MakeOffer extends AppCompatActivity {
         mMakeOffer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //show change budget and done button and hide make offer.
-                mChangeBudget.setVisibility(View.VISIBLE);
-                mDone.setVisibility(View.VISIBLE);
-                mMakeOffer.setVisibility(View.GONE);
+                if(mBudgetField.getText().length()>0){
+                    //show change budget and done button and hide make offer.
+                    mChangeBudget.setVisibility(View.VISIBLE);
+                    mDone.setVisibility(View.VISIBLE);
+                    mMakeOffer.setVisibility(View.GONE);
 
-                //disable budget field
-                mBudgetField.setEnabled(false);
-                mBudgetField.setFocusable(false);
+                    //disable budget field
+                    mBudgetField.setEnabled(false);
+                    mBudgetField.setFocusable(false);
 
-                //store the value to tripInfo object
-                offer.setToken_id(tripInfo.getCustomerToken());
-                Log.d("MakeOffer", "CustomerToken: " + tripInfo.getCustomerToken());
-                offer.setAmount(mBudgetField.getText().toString());
-                offer.setTripID(tripInfo.getDatabaseId());
-                offer.setCustomerPhoneNumber(tripInfo.getPhoneNumber());
-                offer.setDriverPhoneNumber(user.getPhoneNumber());
+                    //store the value to tripInfo object
+                    offer.setToken_id(tripInfo.getCustomerToken());
+                    Log.d("MakeOffer", "CustomerToken: " + tripInfo.getCustomerToken());
+                    offer.setAmount(mBudgetField.getText().toString());
+                    offer.setTripID(tripInfo.getDatabaseId());
+                    offer.setCustomerPhoneNumber(tripInfo.getPhoneNumber());
+                    offer.setDriverPhoneNumber(user.getPhoneNumber());
 
-                final Boolean[] added = {false};
+                    final Boolean[] added = {false};
 
-                DatabaseReference mRef = FirebaseDatabase.getInstance().
-                        getReference().child("Driver/"+offer.getDriverPhoneNumber()+"/offersMade");
-                mRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    DatabaseReference mRef = FirebaseDatabase.getInstance().
+                            getReference().child("Driver/"+offer.getDriverPhoneNumber()+"/offersMade");
+                    mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        if(dataSnapshot.getValue() == null){
+                            if(dataSnapshot.getValue() == null){
 
-                            offer.makeOffer(myRef);
-                            added[0] = true;
-                        }
-
-                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                        for(DataSnapshot child: children){
-
-                            if( child.getValue().equals(offer.getTripID())){
-
-                                offer.changeOffer(myRef);
+                                offer.makeOffer(myRef);
                                 added[0] = true;
-                                break;
                             }
 
-                        }
-                        if(!added[0])
-                        {
-                            offer.makeOffer(myRef);}
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                            for(DataSnapshot child: children){
 
-                    }
-                });
+                                if( child.getValue().equals(offer.getTripID())){
+
+                                    offer.changeOffer(myRef);
+                                    added[0] = true;
+                                    break;
+                                }
+
+                            }
+                            if(!added[0])
+                            {
+                                offer.makeOffer(myRef);}
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+                else{
+                    Toast.makeText(MakeOffer.this, "Offer field cannot be empty", Toast.LENGTH_LONG).show();
+
+                }
 
             }
         });
@@ -275,10 +282,4 @@ public class MakeOffer extends AppCompatActivity {
         }
     }
 
-
-    public void doneOffer(View v){
-        //go to next page
-        Intent intent = new Intent(MakeOffer.this, TripTabsActivity.class);
-        startActivity(intent);
-    }
 }

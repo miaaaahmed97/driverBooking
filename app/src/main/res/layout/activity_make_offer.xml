@@ -382,6 +382,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_marginStart="8dp"
+                        android:focusableInTouchMode="true"
                         android:hint="Your budget e.g. 4500">
 
                         <com.google.android.material.textfield.TextInputEditText
