@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.Registration.DriverRegistration;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser user = mauth.getCurrentUser();
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    DatabaseReference mRef;
+    ValueEventListener listener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         Firebase.setAndroidContext(this);
+
+        mRef = FirebaseDatabase.getInstance().getReference().child("Driver");
 
         //Called when there is a change in the authentication state
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -48,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
              */
             @Override
             public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
-
-                DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver");
 
                 Log.d("testing0 MainActvity", "inside authlistener");
                 if (firebaseAuth.getCurrentUser() != null) {
@@ -80,6 +84,44 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    class MyValueEventListener implements ValueEventListener, Serializable {
+
+        FirebaseUser mUser;
+
+        public MyValueEventListener(FirebaseUser Myuser) {
+            this.mUser = Myuser;
+        }
+
+        Boolean controller = true;
+
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+            for(DataSnapshot child: children){
+
+                if(child.getKey().equals(mUser.getPhoneNumber())){
+
+                    Intent intentHome = new Intent(MainActivity.this, DriverHome.class);
+                    startActivity(intentHome);
+                    controller = false;
+                }
+            }
+
+            if (controller) {
+                //new intent creation has to be inside a method
+                Intent intentReg = new Intent(MainActivity.this, DriverRegistration.class);
+                startActivity(intentReg);
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    }
+
     @Override
     public void onBackPressed() {
         finish();
@@ -94,40 +136,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void isRegistered(DatabaseReference myRef, FirebaseUser Myuser){
 
-        final FirebaseUser mUser = Myuser;
+        listener = new MyValueEventListener(Myuser);
+        mRef.addListenerForSingleValueEvent(listener);
 
-        myRef.addValueEventListener(new ValueEventListener() {
+    }
 
-            Boolean controller = true;
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-
-                for(DataSnapshot child: children){
-
-                    if(child.getKey().equals(mUser.getPhoneNumber())){
-
-                        Intent intentHome = new Intent(MainActivity.this, DriverHome.class);
-                        startActivity(intentHome);
-                        controller = false;
-                    }
-                }
-
-                if (controller) {
-                    //new intent creation has to be inside a method
-                    Intent intentReg = new Intent(MainActivity.this, DriverRegistration.class);
-                    startActivity(intentReg);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
+    @Override
+    protected void onStop() {
+        mRef.removeEventListener(listener);
+        super.onStop();
     }
 }

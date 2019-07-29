@@ -74,6 +74,7 @@ public class ProfileDisplay extends AppCompatActivity {
     private TextView mDriverName, mDriverMobile, mDriverCNIC,mDriverDOB, mDriverAddress, mRegField, mSecurityAmount, mModel, mManufacturer;
     private TextView mSecurityDepositAmount;
 
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,7 +195,7 @@ public class ProfileDisplay extends AppCompatActivity {
                 DepositUri = uri;
                 mSecurityDepositImage.setImageBitmap(bmp);
                 // Create AlertDialog and show.
-                final AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
                 break;
             default:
@@ -256,6 +257,9 @@ public class ProfileDisplay extends AppCompatActivity {
                                 }
                             });
                 }
+                /*Intent intent = new Intent(ProfileDisplay.this, ProfileDisplay.class);
+                startActivity(intent);*/
+            alertDialog.dismiss();
             }
         });
     }
@@ -505,8 +509,5 @@ public class ProfileDisplay extends AppCompatActivity {
             }
         });
     }
-
-
-
 
 }

@@ -37,8 +37,9 @@ public class DriverHome extends AppCompatActivity implements Serializable{
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
     private FirebaseUser user = mauth.getCurrentUser();
 
-
     List<TripInformation> postedTripsList = new ArrayList<TripInformation>();
+
+    DatabaseReference mRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,9 @@ public class DriverHome extends AppCompatActivity implements Serializable{
         setTitle("HOME");
 
         mListView = findViewById(R.id.list_view);
+
+        mAdapter = new CustomListAdapter(DriverHome.this, R.layout.driver_home_list_item, postedTripsList);
+        mListView.setAdapter(mAdapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -63,80 +67,74 @@ public class DriverHome extends AppCompatActivity implements Serializable{
             }
         });
 
-        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Trips");
-
-        class MyValueEventListener implements ValueEventListener, Serializable {
+        mRef = FirebaseDatabase.getInstance().getReference().child("Trips");
 
 
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                postedTripsList.clear();
-
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-
-                //Iterate through phone numbers
-                for(DataSnapshot child: children){
-
-                    Log.d("testing0", "Inside first for loop");
-
-                    Log.d("testing1", child.toString());
-                    Log.d("testing2", child.getKey());
-                    Log.d("testing3", child.getValue().toString());
-
-                    if (!child.getKey().equals(user.getPhoneNumber())) {
-                        Iterable<DataSnapshot> inner_children = child.getChildren();
-
-                        //Iterate through the trips of a given phone number
-                        for(DataSnapshot inner_child: inner_children){
-
-                            //Log.d("testing2", "Inside first for loop");
-
-                            try {
-                                if (inner_child.child("confirmed").getValue(Boolean.class) != true) {
-                                    TripInformation tripInfo = new TripInformation();
-
-                                    tripInfo.setFrom(inner_child.child("from").getValue(String.class));
-                                    tripInfo.setTo(inner_child.child("to").getValue(String.class));
-                                    tripInfo.setStartDate(inner_child.child("startDate").getValue(String.class));
-                                    tripInfo.setStartTime(inner_child.child("startTime").getValue(String.class));
-                                    tripInfo.setEndDate(inner_child.child("endDate").getValue(String.class));
-                                    tripInfo.setEndTime(inner_child.child("endTime").getValue(String.class));
-                                    tripInfo.setMinBudget(inner_child.child("minBudget").getValue(String.class));
-                                    tripInfo.setMaxBudget(inner_child.child("maxBudget").getValue(String.class));
-                                    tripInfo.setTripType(inner_child.child("tripType").getValue(String.class));
-                                    tripInfo.setSeats(inner_child.child("seats").getValue(String.class));
-                                    tripInfo.setExtraDetails(inner_child.child("extraDetails").getValue(String.class));
-                                    tripInfo.setPhoneNumber(inner_child.child("phoneNumber").getValue(String.class));
-                                    tripInfo.setIsReturn(inner_child.child("isReturn").getValue(String.class));
-                                    tripInfo.setDatabaseId(inner_child.child("databaseId").getValue(String.class));
-                                    tripInfo.setCustomerToken(inner_child.child("customerToken").getValue(String.class));
-
-                                    postedTripsList.add(tripInfo);
-                                    //Log.d("Testinglist in Homeloop", postedTripsList.toString());
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    }
-                }
-                mAdapter = new CustomListAdapter(DriverHome.this, R.layout.driver_home_list_item, postedTripsList);
-                mAdapter.notifyDataSetChanged();
-                mListView.setAdapter(mAdapter);
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { }
-        }
-        mRef.addListenerForSingleValueEvent(new MyValueEventListener());
         //Log.d("Testing list in Home", postedTripsList.toString());
 
         //creating bottom navigation view
         setupBottomNavigationView();
 
     }
+
+    class MyValueEventListener implements ValueEventListener, Serializable {
+
+
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            postedTripsList.clear();
+
+            Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+            //Iterate through phone numbers
+            for(DataSnapshot child: children){
+
+                if (!child.getKey().equals(user.getPhoneNumber())) {
+                    Iterable<DataSnapshot> inner_children = child.getChildren();
+
+                    //Iterate through the trips of a given phone number
+                    for(DataSnapshot inner_child: inner_children){
+
+                        try {
+                            if (inner_child.child("confirmed").getValue(Boolean.class) != true) {
+                                TripInformation tripInfo = new TripInformation();
+
+                                tripInfo.setFrom(inner_child.child("from").getValue(String.class));
+                                tripInfo.setTo(inner_child.child("to").getValue(String.class));
+                                tripInfo.setStartDate(inner_child.child("startDate").getValue(String.class));
+                                tripInfo.setStartTime(inner_child.child("startTime").getValue(String.class));
+                                tripInfo.setEndDate(inner_child.child("endDate").getValue(String.class));
+                                tripInfo.setEndTime(inner_child.child("endTime").getValue(String.class));
+                                tripInfo.setMinBudget(inner_child.child("minBudget").getValue(String.class));
+                                tripInfo.setMaxBudget(inner_child.child("maxBudget").getValue(String.class));
+                                tripInfo.setTripType(inner_child.child("tripType").getValue(String.class));
+                                tripInfo.setSeats(inner_child.child("seats").getValue(String.class));
+                                tripInfo.setExtraDetails(inner_child.child("extraDetails").getValue(String.class));
+                                tripInfo.setPhoneNumber(inner_child.child("phoneNumber").getValue(String.class));
+                                tripInfo.setIsReturn(inner_child.child("isReturn").getValue(String.class));
+                                tripInfo.setDatabaseId(inner_child.child("databaseId").getValue(String.class));
+                                tripInfo.setCustomerToken(inner_child.child("customerToken").getValue(String.class));
+
+                                postedTripsList.add(tripInfo);
+
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+
+
+        }
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) { }
+    }
+
+    private ValueEventListener listener = new MyValueEventListener();
 
     //cannot go back to previous activity, closes down app to background
     @Override
@@ -154,5 +152,34 @@ public class DriverHome extends AppCompatActivity implements Serializable{
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("PostedTripsFragment", "inside onStart()");
+
+        //Call separate thread to avoid application doing too much work on its main thread
+        new Thread(){
+            @Override
+            public void run(){
+                mRef.addValueEventListener(listener);
+            }
+        }.start();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mRef.removeEventListener(listener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("PostedTripsFragment", "inside onStop()");
+        mRef.removeEventListener(listener);
+
     }
 }

@@ -119,6 +119,8 @@ public class MainChat extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                tripList.clear();
+
                 Iterable<DataSnapshot> offersConfirmed = dataSnapshot.child("chatThreads").getChildren();
 
                 for(DataSnapshot child: offersConfirmed){
