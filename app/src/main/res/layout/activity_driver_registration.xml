@@ -44,7 +44,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            app:helperText="Eg. 3214563456776">
+            app:helperText="Format 3214563456776">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/cnic_field"
@@ -53,7 +53,7 @@
                 android:inputType="number"
                 android:hint="CNIC"
                 android:text=""
-                android:maxLength="13"/>
+                android:maxLength="13" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -65,7 +65,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            app:helperText="Eg. 23/04/1980">
+            app:helperText="Format DD/MM/YYYY">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/birthday_field"
@@ -94,7 +94,8 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:inputType="textPostalAddress|textMultiLine|textCapWords"
-                android:maxLines="3"/>
+                android:maxLines="3"
+                android:maxLength="150"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

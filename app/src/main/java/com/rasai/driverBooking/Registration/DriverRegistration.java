@@ -102,7 +102,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
                 Log.d("testing1", StringLangSelected);
 
                 //set tripInformation
-                if (name.length()>0 && cnic.length()>0 && bday.length()>0
+                if (name.length()>0 && cnic.length()==13 && bday.length()==10
                         && address.length()>0 && StringLangSelected.length()>0) {
                     driverInformation.setPhoneNumber(phoneNumber);
                     driverInformation.setName(name);
@@ -130,7 +130,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
                                 }
                             });
                 } else {
-                    Toast.makeText(getBaseContext(), "Please fill all fields.",
+                    Toast.makeText(getBaseContext(), "Please fill all fields correctly.",
                             Toast.LENGTH_LONG).show();
                 }
 
