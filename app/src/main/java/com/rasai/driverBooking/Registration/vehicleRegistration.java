@@ -1,8 +1,8 @@
 package com.rasai.driverBooking.Registration;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -26,8 +26,6 @@ import com.rasai.driverBooking.CustomObject.Driver;
 import com.rasai.driverBooking.CustomObject.Vehicle;
 import com.rasai.driverBooking.R;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.Serializable;
 
 public class vehicleRegistration extends AppCompatActivity implements AdapterView.OnItemSelectedListener,Serializable {
@@ -62,19 +60,19 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
         this.driverInformation = driverInformation;
     }
 
-    class ImageButtonListener implements View.OnClickListener{
+    private class TextViewListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
             //calls gallery
-            buttonIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            buttonIntent = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             buttonIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            //buttonIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-            String[] mimeTypes = {"image/jpeg", "image/png"};
+            buttonIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            String[] mimeTypes = {"image/jpeg", "image/png","image/jpg"};
             buttonIntent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
             //get ID of calling button
             String viewID= String.valueOf(v.getId());
             buttonIntent.putExtra("EXTRA",viewID);
-            startActivityForResult(buttonIntent, GET_FROM_GALLERY);
+            startActivityForResult(Intent.createChooser(buttonIntent,"Select Only 3 Images"), GET_FROM_GALLERY);
         }
     }
 
@@ -108,9 +106,9 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
                 addExteriorText =  findViewById(R.id.exterior_textview);
                 addInteriorText =  findViewById(R.id.interior_textview);
 
-                addExteriorText.setOnClickListener(new ImageButtonListener());
+                addExteriorText.setOnClickListener(new TextViewListener());
                 Log.d("showID", String.valueOf(R.id.exterior_textview));
-                addInteriorText.setOnClickListener(new ImageButtonListener());
+                addInteriorText.setOnClickListener(new TextViewListener());
 
 
                 //Get Driver Object from driverRegistration2
@@ -158,10 +156,98 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
 
         //Detects request codes
         if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
-            Uri selectedImage = data.getData();
-            displayImage(selectedImage);
+            Uri imageUri;
+            //Uri selectedImage = data.getData();
+            //displayImage(selectedImage);
+
+            if(data.getClipData() != null) {
+                //evaluate the count to display message
+                int count = data.getClipData().getItemCount();
+                if(count<3){
+                    Toast.makeText(getBaseContext(), "Please upload 3 images", Toast.LENGTH_LONG).show();
+                }
+                else if (count==3){
+                    displayMultipleImages(data.getClipData());
+                }else{
+                    Toast.makeText(getBaseContext(), "Only 3 images will be uploaded", Toast.LENGTH_LONG).show();
+                    displayMultipleImages(data.getClipData());
+                }
+
+                //do something with the image (save it to some directory or whatever you need to do with it here)
+            }
+            else if(data.getData() != null) {
+            //imageUri = data.getData();
+            //do something with the image (save it to some directory or whatever you need to do with it here)
+                Toast.makeText(getBaseContext(), "Please upload 3 images", Toast.LENGTH_LONG).show();
+        }
         }
 
+    }
+
+    public void displayMultipleImages(ClipData clipData){
+        Uri uri;
+        ImageView imageview;
+
+        String stringID= buttonIntent.getExtras().getString("EXTRA");
+        int intID =Integer.parseInt(stringID);
+        switch (intID){
+            case R.id.exterior_textview:
+                for(int i = 0; i < 3; i++){
+                    uri = clipData.getItemAt(i).getUri();
+                    switch (i){
+                        case 0:
+                            imageview = findViewById(R.id.showExterior);
+                            getVehicleInformation().setExteriorImage(uri.toString());
+                            break;
+                        case 1:
+                            imageview = findViewById(R.id.showExterior2);
+                            getVehicleInformation().setExteriorImage2(uri.toString());
+                            break;
+                        case 2:
+                            imageview = findViewById(R.id.showExterior3);
+                            getVehicleInformation().setExteriorImage3(uri.toString());
+                            break;
+
+                        //to stop may not have been initialized errors
+                        default:imageview = findViewById(R.id.showExterior);break;
+
+                    }
+                    Glide.with(vehicleRegistration.this)
+                            .load(uri)
+                            .apply(new RequestOptions().centerInside().placeholder(R.drawable.ic_car))
+                            .into(imageview);
+                }
+
+                break;
+            case R.id.interior_textview:
+
+                for(int i = 0; i < 3; i++){
+                    uri = clipData.getItemAt(i).getUri();
+                    switch (i){
+                        case 0:
+                            imageview = findViewById(R.id.showInterior);
+                            getVehicleInformation().setInteriorImage(uri.toString());
+                            break;
+                        case 1:
+                            imageview = findViewById(R.id.showInterior2);
+                            getVehicleInformation().setInteriorImage2(uri.toString());
+                            break;
+                        case 2:
+                            imageview = findViewById(R.id.showInterior3);
+                            getVehicleInformation().setInteriorImage3(uri.toString());
+                            break;
+
+                        //to stop may not have been initialized errors
+                        default:imageview = findViewById(R.id.showInterior);break;
+
+                    }
+                    Glide.with(vehicleRegistration.this)
+                            .load(uri)
+                            .apply(new RequestOptions().centerInside().placeholder(R.drawable.ic_car))
+                            .into(imageview);
+                }
+                break;
+        }
     }
 
     //displays the uploaded image next to the upload icon

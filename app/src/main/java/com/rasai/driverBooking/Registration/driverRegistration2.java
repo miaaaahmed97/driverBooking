@@ -50,11 +50,11 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
         this.driverInformation = driverInformation;
     }
 
-    class TextViewListener implements View.OnClickListener, Serializable {
+    private class TextViewListener implements View.OnClickListener, Serializable {
         @Override
         public void onClick(View v) {
 
-            buttonIntent =new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            buttonIntent =new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             buttonIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             String[] mimeTypes = {"image/jpeg", "image/png"};
             buttonIntent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
