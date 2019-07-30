@@ -3,12 +3,18 @@
     package="com.rasai.driverBooking">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-feature android:name="android.hardware.camera.flash"/>
+
 
     <application
         android:allowBackup="false"
         android:screenOrientation="portrait"
         android:fullBackupContent="false"
-        android:icon="@drawable/ic_rasai_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -33,6 +39,16 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <!--<provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths"/>
+        </provider>-->
 
         <activity
             android:name=".TripTabsActivity.AssignedTrips.ViewAssignedTrips"
@@ -70,13 +86,13 @@
             android:screenOrientation="portrait" />
         <activity android:name=".SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme"><intent-filter>
+            android:theme="@style/SplashTheme">
+        </activity>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"><intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-        </activity>
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait">
         </activity>
     </application>
 

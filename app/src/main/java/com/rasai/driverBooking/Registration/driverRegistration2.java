@@ -16,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.BuildConfig;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.rasai.driverBooking.CustomObject.Driver;
@@ -31,6 +34,7 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
     //ImageDisplayer imageDisplayer;
 
     private static final int GET_FROM_GALLERY = 1;
+
     TextView addIDText, addCNICText, addDrivLicText;
     Button registrationButton;
 
@@ -49,12 +53,16 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
     class TextViewListener implements View.OnClickListener, Serializable {
         @Override
         public void onClick(View v) {
-            //calls gallery
-            buttonIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-            startActivityForResult(buttonIntent, GET_FROM_GALLERY);
+
+            buttonIntent =new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            buttonIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            String[] mimeTypes = {"image/jpeg", "image/png"};
+            buttonIntent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
             //get ID of calling button
             String viewID= String.valueOf(v.getId());
             buttonIntent.putExtra("EXTRA",viewID);
+            startActivityForResult(buttonIntent, GET_FROM_GALLERY);
+
         }
     }
 
@@ -119,32 +127,17 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
         super.onActivityResult(requestCode, resultCode, data);
 
         //Detects request codes
-        if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
-            Uri selectedImage = data.getData();
-
-            try {
-                Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+        if(resultCode == Activity.RESULT_OK) {
+            if(requestCode==GET_FROM_GALLERY){
+                Uri selectedImage = data.getData();
                 //image display
-
-                displayImage(bmp, selectedImage);
-                //Refactoring try
-                //String stringID= buttonIntent.getExtras().getString("EXTRA");
-                //imageDisplayer = new ImageDisplayer(getDriverInformation(), R.layout.activity_driver_registration2, this, stringID);
-                //imageDisplayer.displayImage(bmp, selectedImage);
-
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                displayImage(selectedImage);
             }
         }
-
     }
 
     //displays the uploaded image next to the upload icon
-    public void displayImage(Bitmap bmp, Uri uri){
+    public void displayImage(Uri uri){
         ImageView imageView;
         //get ID of calling button
         String stringID= buttonIntent.getExtras().getString("EXTRA");
@@ -167,8 +160,55 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
                 break;
         }
         //Log.d("pleasee", getDriverInformation().toString());
-        imageView.setImageBitmap(bmp);
+        //imageView.setImageURI(uri);
+
+        Glide.with(driverRegistration2.this)
+                .load(uri)
+                .apply(new RequestOptions().centerInside()
+                        .placeholder(R.drawable.rounded_rectangle_grey))
+                        .into(imageView);
     }
+
+    /**
+     * Showing Alert Dialog with Settings option
+     * Navigates user to app settings
+     * NOTE: Keep proper title and message depending on your app
+
+    private void showSettingsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Need Permissions");
+        builder.setMessage(
+                "This app needs permission to use this feature. You can grant them in app settings.");
+        builder.setPositiveButton("GOTO SETTINGS", (dialog, which) -> {
+            dialog.cancel();
+            openSettings();
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.show();
+    }*/
+    /**
+     * Select image from gallery
+
+    private void dispatchGalleryIntent() {
+        Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        pickPhoto.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        // Sets the type as image/*. This ensures only components of type image are selected
+        //pickPhoto.setType("image/*");
+        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
+        String[] mimeTypes = {"image/jpeg", "image/png"};
+        pickPhoto.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+        startActivityForResult(pickPhoto, GET_FROM_GALLERY);
+    }*/
+
+    // navigating user to app settings
+    /*
+    private void openSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getPackageName(), null);
+        intent.setData(uri);
+        startActivityForResult(intent, 101);
+    }*/
 
 }
 

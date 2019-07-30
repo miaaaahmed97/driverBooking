@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputEditText;
 import com.rasai.driverBooking.CustomObject.Driver;
 import com.rasai.driverBooking.CustomObject.Vehicle;
@@ -31,11 +33,11 @@ import java.io.Serializable;
 
 public class vehicleRegistration extends AppCompatActivity implements AdapterView.OnItemSelectedListener,Serializable {
 
-    Intent buttonIntent;
+    private Intent buttonIntent;
     private static final int GET_FROM_GALLERY = 1;
 
-    TextView addExteriorText;
-    TextView addInteriorText;
+    private TextView addExteriorText;
+    private TextView addInteriorText;
     private Button registrationButton;
     private TextInputEditText mManufacturer;
     private TextInputEditText mModel;
@@ -61,15 +63,19 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
         this.driverInformation = driverInformation;
     }
 
-    class ImageButtonListener implements View.OnClickListener {
+    class ImageButtonListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
             //calls gallery
-            buttonIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-            startActivityForResult(buttonIntent, GET_FROM_GALLERY);
+            buttonIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            buttonIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            //buttonIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            String[] mimeTypes = {"image/jpeg", "image/png"};
+            buttonIntent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
             //get ID of calling button
             String viewID= String.valueOf(v.getId());
             buttonIntent.putExtra("EXTRA",viewID);
+            startActivityForResult(buttonIntent, GET_FROM_GALLERY);
         }
     }
 
@@ -185,52 +191,37 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
         //Detects request codes
         if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
             Uri selectedImage = data.getData();
-
-            try {
-                Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-                //image display
-                displayImage(bmp, selectedImage);
-
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            displayImage(selectedImage);
         }
 
     }
 
     //displays the uploaded image next to the upload icon
-    public void displayImage(Bitmap bmp, Uri uri){
+    public void displayImage(Uri uri){
 
-        new Thread(){
-            @Override
-            public void run(){
+        ImageView imageView;
+        //get ID of calling button
+        String stringID= buttonIntent.getExtras().getString("EXTRA");
+        int intID =Integer.parseInt(stringID);
+        switch (intID){
+            case R.id.exterior_textview:
+                imageView = findViewById(R.id.showExterior);
+                getVehicleInformation().setExteriorImage(uri.toString());
+                break;
+            case  R.id.interior_textview:
+                imageView = findViewById(R.id.showInterior);
+                getVehicleInformation().setInteriorImage(uri.toString());
+                break;
+                default:
+                    imageView = findViewById(R.id.showInterior);
+                    break;
 
-                ImageView imageView;
-                //get ID of calling button
-                String stringID= buttonIntent.getExtras().getString("EXTRA");
-                int intID =Integer.parseInt(stringID);
-                switch (intID){
-                    case R.id.exterior_textview:
-                        //todo show images in remaining showExterior images
-                        imageView = findViewById(R.id.showExterior);
-                        getVehicleInformation().setExteriorImage(uri.toString());
-                        break;
-                    case R.id.interior_textview:
-                        imageView = findViewById(R.id.showInterior);
-                        getVehicleInformation().setInteriorImage(uri.toString());
-                        break;
-                    default:
-                        imageView = findViewById(R.id.showInterior);
-                        break;
-                }
-                Log.d("pleasee", getVehicleInformation().toString());
-                imageView.setImageBitmap(bmp);
-            }
-        };
+        }
+        Log.d("pleasee", getVehicleInformation().toString());
+        Glide.with(vehicleRegistration.this)
+                .load(uri)
+                .apply(new RequestOptions().centerInside().placeholder(R.drawable.ic_car))
+                .into(imageView);
     }
 
     @Override

@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -30,22 +32,20 @@ import java.io.Serializable;
 
 public class SecurityDepositUpload extends AppCompatActivity {
 
-    Intent buttonIntent;
+    private Intent buttonIntent;
     private static final int GET_FROM_GALLERY = 1;
 
-    FirebaseStorage storage;
-    StorageReference storageReference;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
 
-    TextView addDepositText;
-    ImageView depositSlipImage;
+    private TextView addDepositText;
+    private ImageView depositSlipImage;
     private Button registrationButton;
     private TextInputEditText mDate;
     private TextInputEditText mAmount;
 
     private Driver driverInfo;
     private SecurityDeposit securityDeposit;
-
-    Uri testURI;
 
     public void setDriverInfo(Driver driverInfo) {
         this.driverInfo = driverInfo;
@@ -67,7 +67,10 @@ public class SecurityDepositUpload extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             //calls gallery
-            buttonIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+            buttonIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            buttonIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            String[] mimeTypes = {"image/jpeg", "image/png"};
+            buttonIntent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
             startActivityForResult(buttonIntent, GET_FROM_GALLERY);
         }
     }
@@ -152,21 +155,13 @@ public class SecurityDepositUpload extends AppCompatActivity {
         //Detects request codes
         if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
+            getSecurityDeposit().setDepositImage(uri.toString());
+            Log.d("pleasee", getSecurityDeposit().toString());
 
-            try {
-                Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-                //image display
-                getSecurityDeposit().setDepositImage(uri.toString());
-                Log.d("pleasee", getSecurityDeposit().toString());
-                depositSlipImage.setImageBitmap(bmp);
-
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            Glide.with(SecurityDepositUpload.this)
+                    .load(uri)
+                    .apply(new RequestOptions().centerInside().placeholder(R.drawable.ic_car))
+                    .into(depositSlipImage);
         }
     }
 }
