@@ -48,6 +48,18 @@ public class HistoryTabFragment extends Fragment {
 
     List<TripInformation> completedTripsList = new ArrayList<TripInformation>();
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        phone_Number = user.getPhoneNumber();
+        Log.d("fragment","in history oncreate");
+
+        mRef = FirebaseDatabase.getInstance().
+                getReference().child("Driver/"+phone_Number+"/tripsCompleted");
+
+        //mRef.addValueEventListener(new MyValueEventListener());
+
+    }
 
     @Override
     public  View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -55,11 +67,10 @@ public class HistoryTabFragment extends Fragment {
 
         //minflater = HistoryTabFragment.this.getLayoutInflater();
         if(inflateView==null){
+            Log.d("fragment","in history oncreateview");
             inflateView = inflater.inflate(R.layout.activity_history_list,container,false);
             mListView = (ListView) inflateView.findViewById(R.id.history_list_view);
         }
-
-        phone_Number = user.getPhoneNumber();
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,17 +84,14 @@ public class HistoryTabFragment extends Fragment {
             }
         });
 
-         mRef = FirebaseDatabase.getInstance().
-                getReference().child("Driver/"+phone_Number+"/tripsCompleted");
-
-        //mRef.addValueEventListener(new MyValueEventListener());
-
         return inflateView;
     }
 
     @Override
     public void onStart(){
         super.onStart();
+        Log.d("fragment","in history start");
+
         mRef.addValueEventListener(new MyValueEventListener());
     }
 
@@ -91,6 +99,8 @@ public class HistoryTabFragment extends Fragment {
     public void onDestroyView() {
         if (inflateView.getParent() != null) {
             ((ViewGroup)inflateView.getParent()).removeView(inflateView);
+            Log.d("fragment","in history destroy");
+
         }
         super.onDestroyView();
     }
@@ -143,6 +153,7 @@ public class HistoryTabFragment extends Fragment {
         for(String offer: tripsList){
             m_offer = new Offer();
             Log.d("testing2 in databasefor", "inside");
+            Log.d("fragment","in history offerscallback");
             final DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Offer/"+offer+"/"+phone_Number+"/");
             myRef.addValueEventListener(new MyOfferValueEventListener());
 
@@ -155,6 +166,7 @@ public class HistoryTabFragment extends Fragment {
             m_trip = new TripInformation();
             DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().
                     child("Trips/"+offer.getCustomerPhoneNumber()+"/"+offer.getTripID()+"/");
+            Log.d("fragment","in history tripscallback");
 
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -162,6 +174,7 @@ public class HistoryTabFragment extends Fragment {
 
                     m_trip= dataSnapshot.getValue(TripInformation.class);
                     m_trip.setDriverOffer(m_offer.getAmount());
+                    //TODO ye kya hai? shouldnt it be completed
                     if (m_trip.getConfirmed()) {
                         completedTripsList.add(m_trip);
                     }
@@ -171,6 +184,9 @@ public class HistoryTabFragment extends Fragment {
                         Log.d("TAG", "calling adapter");
                         mAdapter = new CustomListAdapter(getActivity(),R.layout.offers_list_item, completedTripsList);
                         mListView.setAdapter(mAdapter);
+                        //mAdapter.notifyDataSetChanged();
+                        Log.d("fragment","in history tripscallbackvalue ofrdtrpslst = ofrobjcts");
+
                     }
 
                 }

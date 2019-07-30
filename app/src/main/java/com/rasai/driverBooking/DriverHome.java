@@ -157,7 +157,7 @@ public class DriverHome extends AppCompatActivity implements Serializable{
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("PostedTripsFragment", "inside onStart()");
+        Log.d("DriverHome", "inside onStart()");
 
         //Call separate thread to avoid application doing too much work on its main thread
         new Thread(){
@@ -178,7 +178,7 @@ public class DriverHome extends AppCompatActivity implements Serializable{
     @Override
     public void onStop() {
         super.onStop();
-        Log.d("PostedTripsFragment", "inside onStop()");
+        Log.d("DriverHome", "inside onStop()");
         mRef.removeEventListener(listener);
 
     }

@@ -48,6 +48,7 @@ public class TripTabsActivity extends AppCompatActivity implements Serializable 
         adapter.addFragment(tab2, "Assigned Trips");
         adapter.addFragment(tab3, "History");
 
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
