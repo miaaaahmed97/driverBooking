@@ -38,6 +38,7 @@ public class DriverHome extends AppCompatActivity implements Serializable{
     private FirebaseUser user = mauth.getCurrentUser();
 
     List<TripInformation> postedTripsList = new ArrayList<TripInformation>();
+    List<String> offersMade = new ArrayList<String>();
 
     DatabaseReference mRef;
 
@@ -97,7 +98,11 @@ public class DriverHome extends AppCompatActivity implements Serializable{
                     for(DataSnapshot inner_child: inner_children){
 
                         try {
-                            if (inner_child.child("confirmed").getValue(Boolean.class) != true) {
+
+                            Log.d("DriverHome", "compare: "+ offersMade.contains(inner_child.child("databaseId").getValue(String.class)));
+
+                            if (inner_child.child("confirmed").getValue(Boolean.class) != true &&
+                                    !(offersMade.contains(inner_child.child("databaseId").getValue(String.class)))) {
                                 TripInformation tripInfo = new TripInformation();
 
                                 tripInfo.setFrom(inner_child.child("from").getValue(String.class));
@@ -163,7 +168,7 @@ public class DriverHome extends AppCompatActivity implements Serializable{
         new Thread(){
             @Override
             public void run(){
-                mRef.addValueEventListener(listener);
+                displayList();
             }
         }.start();
 
@@ -181,5 +186,30 @@ public class DriverHome extends AppCompatActivity implements Serializable{
         Log.d("DriverHome", "inside onStop()");
         mRef.removeEventListener(listener);
 
+    }
+
+    private void displayList(){
+        DatabaseReference driverRef = FirebaseDatabase.getInstance().getReference()
+                .child("Driver").child(user.getPhoneNumber()).child("offersMade");
+        driverRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Log.d("DriverHome", "datasnapshot: "+dataSnapshot.toString());
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                for (DataSnapshot child : children){
+                    Log.d("DriverHome", "child: "+child.getValue().toString());
+                    offersMade.add(child.getValue().toString());
+                }
+
+                mRef.addValueEventListener(listener);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

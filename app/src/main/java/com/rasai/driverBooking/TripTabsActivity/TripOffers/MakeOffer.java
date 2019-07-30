@@ -208,6 +208,8 @@ public class MakeOffer extends AppCompatActivity {
 
                         }
                     });
+
+
                 }
                 else{
                     Toast.makeText(MakeOffer.this, "Offer field cannot be empty", Toast.LENGTH_LONG).show();
@@ -282,4 +284,10 @@ public class MakeOffer extends AppCompatActivity {
         }
     }
 
+
+    public void doneOffer(View v){
+        //go to next page
+        Intent intent = new Intent(MakeOffer.this, TripTabsActivity.class);
+        startActivity(intent);
+    }
 }

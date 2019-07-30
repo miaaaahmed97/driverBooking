@@ -48,16 +48,6 @@ public class AssignedTripsTabFragment extends Fragment {
     DatabaseReference mRef;
     List<TripInformation> assignedTripsList = new ArrayList<TripInformation>();
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        phone_Number = user.getPhoneNumber();
-        Log.d("fragment","in assigned oncreate");
-
-        mRef = FirebaseDatabase.getInstance().getReference().child("Driver/"+phone_Number+"/offerConfirmed");
-
-    }
 
     @Override
     public  View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -65,10 +55,12 @@ public class AssignedTripsTabFragment extends Fragment {
 
         //minflater = AssignedTripsTabFragment.this.getLayoutInflater();
         if(inflateView==null){
-            Log.d("fragment","in assigned oncreateview");
             inflateView = inflater.inflate(R.layout.activity_assigned_trips,container,false);
             mListView = (ListView) inflateView.findViewById(R.id.assigned_list_view);
         }
+
+        phone_Number = user.getPhoneNumber();
+
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -81,22 +73,22 @@ public class AssignedTripsTabFragment extends Fragment {
             }
         });
 
-        //mRef.addValueEventListener(new MyValueEventListener());
+        mRef = FirebaseDatabase.getInstance().getReference().child("Driver/"+phone_Number+"/offerConfirmed");
+
+        mRef.addValueEventListener(new MyValueEventListener());
 
         return inflateView;
     }
 
-    @Override
+    /*@Override
     public void onStart(){
         super.onStart();
-        Log.d("fragment","in assgnd start");
         mRef.addValueEventListener(new MyValueEventListener());
-    }
+    }*/
 
     @Override
     public void onDestroyView() {
         if (inflateView.getParent() != null) {
-            Log.d("fragment","in assgnd destroy");
             ((ViewGroup)inflateView.getParent()).removeView(inflateView);
         }
         super.onDestroyView();
@@ -148,8 +140,6 @@ public class AssignedTripsTabFragment extends Fragment {
         for(String offer: offersList){
             m_offer = new Offer();
             Log.d("testing2 in databasefor", "inside");
-            Log.d("fragment","in assigned offerscallback");
-
             final DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Offer/"+offer+"/"+phone_Number+"/");
             myRef.addValueEventListener(new MyOfferValueEventListener());
 
@@ -162,8 +152,6 @@ public class AssignedTripsTabFragment extends Fragment {
             m_trip = new TripInformation();
             DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().
                     child("Trips/"+offer.getCustomerPhoneNumber()+"/"+offer.getTripID()+"/");
-            Log.d("fragment","in assigned tripscallback");
-
 
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -178,8 +166,6 @@ public class AssignedTripsTabFragment extends Fragment {
 
                     if (assignedTripsList.size() == offerObjects.size()) {
                         Log.d("TAG", "calling adapter");
-                        Log.d("fragment","in assigned tripscallbackvalue ofrdtrpslst = ofrobjcts");
-
                         mAdapter = new CustomListAdapter(getActivity(),R.layout.offers_list_item, assignedTripsList);
                         mListView.setAdapter(mAdapter);
                     }
