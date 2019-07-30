@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -422,6 +423,10 @@ public class ProfileDisplay extends AppCompatActivity {
                 mRegField.setEnabled(true);
                 mRegField.setTextColor(getResources().getColor(R.color.black));
 
+                mACSwitch.setClickable(true);
+
+                seatsSpinner.setClickable(true);
+
                 //hide edit button and show save button
                 mEdit.setVisibility(View.GONE);
                 mSave.setVisibility(View.VISIBLE);
@@ -464,13 +469,18 @@ public class ProfileDisplay extends AppCompatActivity {
                 mRegField.setEnabled(false);
                 mRegField.setTextColor(getResources().getColor(R.color.darkgrey2));
 
+                mACSwitch.setClickable(false);
+
+                seatsSpinner.setClickable(false);
+
+
                 //hide save button and show edit button
                 mEdit.setVisibility(View.VISIBLE);
                 mSave.setVisibility(View.GONE);
 
                 String name = mDriverName.getText().toString();
                 String address = mDriverAddress.getText().toString();
-                String manudacturer = mManufacturer.getText().toString();
+                String manufacturer = mManufacturer.getText().toString();
                 String model = mModel.getText().toString();
                 String registration =  mRegField.getText().toString();
 
@@ -483,12 +493,27 @@ public class ProfileDisplay extends AppCompatActivity {
                 if(address.length()>0){
                     mDriverRef.child("address").setValue(address);
                 }
+                if(manufacturer.length()>0){
+                    mDriverRef.child("manufacturer").setValue(manufacturer);
                 if(model.length()>0){
                     mDriverRef.child("vehicle").child("model").setValue(address);
                 }
                 if(registration.length()>0){
                     mDriverRef.child("vehicle").child("registration").setValue(registration);
-                }*/
+                }
+                final String[] ac = new String[1];
+                mACSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked) {
+                            // The toggle is enabled
+                            ac[0] = "yes";
+                        } else {
+                            // The toggle is disabled
+                            ac[0] = "no";
+                        }
+                            mDriverRef.child("vehicle").child("hasAc").setValue(ac[0]);
+                    }
+                });*/
 
             }
         });

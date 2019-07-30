@@ -280,6 +280,7 @@
                         android:id="@+id/seatsSpinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:clickable="false"
                         android:dropDownSelector="@android:drawable/arrow_down_float"
                         app:layout_constraintBottom_toBottomOf="@+id/numberSeats"
                         app:layout_constraintEnd_toEndOf="parent" />
@@ -305,6 +306,7 @@
                         android:id="@+id/ac_switch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:clickable="false"
                         app:layout_constraintBottom_toBottomOf="@+id/ac_textview"
                         app:layout_constraintEnd_toEndOf="parent" />
 

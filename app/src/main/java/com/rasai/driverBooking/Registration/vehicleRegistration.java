@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -95,29 +96,60 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
         //End - Spinner Layout Setup
 
 
-                mManufacturer = findViewById(R.id.manufacturer_field);
-                mModel =  findViewById(R.id.model_field);
-                mRegistration =  findViewById(R.id.registration_field);
-               Switch toggle =  findViewById(R.id.ac_switch);
-                addExteriorText =  findViewById(R.id.exterior_textview);
-                addInteriorText =  findViewById(R.id.interior_textview);
+        mManufacturer = findViewById(R.id.manufacturer_field);
+        mModel =  findViewById(R.id.model_field);
+        mRegistration =  findViewById(R.id.registration_field);
+        Switch toggle =  findViewById(R.id.ac_switch);
+        addExteriorText =  findViewById(R.id.exterior_textview);
+        addInteriorText =  findViewById(R.id.interior_textview);
 
-                addExteriorText.setOnClickListener(new ImageButtonListener());
-                Log.d("showID", String.valueOf(R.id.exterior_textview));
-                addInteriorText.setOnClickListener(new ImageButtonListener());
+        addExteriorText.setOnClickListener(new ImageButtonListener());
+        Log.d("showID", String.valueOf(R.id.exterior_textview));
+        addInteriorText.setOnClickListener(new ImageButtonListener());
 
 
-                //Get Driver Object from driverRegistration2
-                Intent i = getIntent();
-                setDriverInformation((Driver) i.getSerializableExtra("driverObject"));
+        //Get Driver Object from driverRegistration2
+        Intent i = getIntent();
+        setDriverInformation((Driver) i.getSerializableExtra("driverObject"));
 
-                //initialize vehicle
-                setVehicleInformation(new Vehicle());
-
+        //initialize vehicle
+        setVehicleInformation(new Vehicle());
 
         //spinner listeners
         //manufacturerSpinner.setOnItemSelectedListener(this);
         seatsSpinner.setOnItemSelectedListener(this);
+
+        //Strat AC switch listener
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // The toggle is enabled
+                    getVehicleInformation().setHasAc("yes");
+                } else {
+                    // The toggle is disabled
+                    getVehicleInformation().setHasAc("no");
+                }
+            }
+        });
+        //End AC switch listener
+
+        //Register Button Listener
+        class MyOnClickListener implements View.OnClickListener, Serializable
+        {
+            @Override
+            public void onClick(View view) {
+                //Log.d("testing3", driverInformation.toString());
+
+                vehicleInformation.setModel(mModel.getText().toString());
+                vehicleInformation.setRegistration(mRegistration.getText().toString());
+                getDriverInformation().setVehicle(vehicleInformation);
+
+                Intent navNext = new Intent(vehicleRegistration.this, SecurityDepositUpload.class);
+                navNext.putExtra("driverObject", driverInformation);
+                startActivity(navNext);
+            }
+        }
+        registrationButton.setOnClickListener(new MyOnClickListener());
 
     }
 
