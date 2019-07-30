@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
 
+                user = mauth.getCurrentUser();
+
                 Log.d("testing0 MainActvity", "inside authlistener");
                 if (firebaseAuth.getCurrentUser() != null) {
                     // Sign in logic here.
@@ -105,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             //if (mUser != null) {
                 for(DataSnapshot child: children){
 
-                    if(child.getKey().equals(mUser.getPhoneNumber())){
+                    if(child.getKey().equals(user.getPhoneNumber())){
 
                         Intent intentHome = new Intent(MainActivity.this, DriverHome.class);
                         startActivity(intentHome);
