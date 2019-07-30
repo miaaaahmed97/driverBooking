@@ -70,11 +70,9 @@ public class ViewAssignedTrips extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_assigned_trip);
-        setTitle("Assigned Trip");
 
         //set title Bar
         assert getSupportActionBar() != null;   //null check
-        setTitle("ASSIGNED TRIP");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
 
         //Get trip info of the trip selected from previous activity
@@ -82,8 +80,16 @@ public class ViewAssignedTrips extends AppCompatActivity {
         tripInfo = (TripInformation) i.getSerializableExtra("TRIP_SELECTED");
 
         setWidgets();
-
         mCompletedTrip = findViewById(R.id.completedTripButton);
+
+        if (tripInfo.getCompleted()){
+            setTitle("COMPLETED TRIP");
+            mCompletedTrip.setVisibility(View.GONE);
+        }
+        else{
+            setTitle("ASSIGNED TRIP");
+            mCompletedTrip.setVisibility(View.VISIBLE);
+        }
 
         mCompletedTrip.setOnClickListener(new View.OnClickListener() {
 
@@ -104,8 +110,6 @@ public class ViewAssignedTrips extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     private void initBadReviewPopup() {

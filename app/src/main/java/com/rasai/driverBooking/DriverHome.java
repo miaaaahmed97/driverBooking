@@ -50,7 +50,7 @@ public class DriverHome extends AppCompatActivity implements Serializable{
         assert getSupportActionBar() != null;   //null check
         setTitle("HOME");
 
-        mListView = findViewById(R.id.list_view);
+        mListView = findViewById(R.id.history_list_view);
 
         mAdapter = new CustomListAdapter(DriverHome.this, R.layout.driver_home_list_item, postedTripsList);
         mListView.setAdapter(mAdapter);

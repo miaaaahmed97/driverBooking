@@ -38,8 +38,8 @@ public class HistoryTabFragment extends Fragment {
     private ListView mListView;
     private CustomListAdapter mAdapter;
     private View inflateView;
-    private LayoutInflater minflater;
 
+    DatabaseReference mRef;
     List<String> tripsList = new ArrayList<String>();
     List<Offer> offerObjects = new ArrayList<Offer>();
     List<TripInformation> list = new ArrayList<TripInformation>();
@@ -53,9 +53,11 @@ public class HistoryTabFragment extends Fragment {
     public  View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        minflater = HistoryTabFragment.this.getLayoutInflater();
-        inflateView = minflater.inflate(R.layout.activity_history_list,null,true);
-        mListView = (ListView) inflateView.findViewById(R.id.list_view);
+        //minflater = HistoryTabFragment.this.getLayoutInflater();
+        if(inflateView==null){
+            inflateView = inflater.inflate(R.layout.activity_history_list,container,false);
+            mListView = (ListView) inflateView.findViewById(R.id.history_list_view);
+        }
 
         phone_Number = user.getPhoneNumber();
 
@@ -71,36 +73,50 @@ public class HistoryTabFragment extends Fragment {
             }
         });
 
-        final DatabaseReference mRef = FirebaseDatabase.getInstance().
+         mRef = FirebaseDatabase.getInstance().
                 getReference().child("Driver/"+phone_Number+"/tripsCompleted");
 
-        class MyValueEventListener implements ValueEventListener, Serializable {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                completedTripsList.clear();
-
-                //Log.d("testing1", dataSnapshot.getValue().toString());
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                for (DataSnapshot child: children){
-                    tripsList.add(child.getValue().toString());
-                }
-
-                offersCallback();
-                Log.d("testing0 HistoryTab", "after offers callback");
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        }
-
-        mRef.addValueEventListener(new MyValueEventListener());
+        //mRef.addValueEventListener(new MyValueEventListener());
 
         return inflateView;
     }
 
-    class MyOfferValueEventListener implements ValueEventListener, Serializable {
+    @Override
+    public void onStart(){
+        super.onStart();
+        mRef.addValueEventListener(new MyValueEventListener());
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (inflateView.getParent() != null) {
+            ((ViewGroup)inflateView.getParent()).removeView(inflateView);
+        }
+        super.onDestroyView();
+    }
+
+    private class MyValueEventListener implements ValueEventListener, Serializable {
+
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            completedTripsList.clear();
+
+            //Log.d("testing1", dataSnapshot.getValue().toString());
+            Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+            for (DataSnapshot child: children){
+                tripsList.add(child.getValue().toString());
+            }
+
+            offersCallback();
+            Log.d("testing0 HistoryTab", "after offers callback");
+        }
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+        }
+    }
+
+    private class MyOfferValueEventListener implements ValueEventListener, Serializable {
 
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -128,7 +144,7 @@ public class HistoryTabFragment extends Fragment {
             m_offer = new Offer();
             Log.d("testing2 in databasefor", "inside");
             final DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Offer/"+offer+"/"+phone_Number+"/");
-            myRef.addValueEventListener(new HistoryTabFragment.MyOfferValueEventListener());
+            myRef.addValueEventListener(new MyOfferValueEventListener());
 
         }
     }
@@ -146,7 +162,7 @@ public class HistoryTabFragment extends Fragment {
 
                     m_trip= dataSnapshot.getValue(TripInformation.class);
                     m_trip.setDriverOffer(m_offer.getAmount());
-                    if (m_trip.getConfirmed() == true ) {
+                    if (m_trip.getConfirmed()) {
                         completedTripsList.add(m_trip);
                     }
 

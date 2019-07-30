@@ -28,7 +28,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AssisgnedTripsTabFragment extends Fragment {
+public class AssignedTripsTabFragment extends Fragment {
 
     //get current user
     private String phone_Number;
@@ -38,24 +38,26 @@ public class AssisgnedTripsTabFragment extends Fragment {
     private ListView mListView;
     private CustomListAdapter mAdapter;
     private View inflateView;
-    private LayoutInflater minflater;
+    //private LayoutInflater minflater;
 
     List<String> offersList = new ArrayList<String>();
     List<Offer> offerObjects = new ArrayList<Offer>();
     List<TripInformation> list = new ArrayList<TripInformation>();
     Offer m_offer;
     TripInformation m_trip;
-
-    List<TripInformation> offeredTripsList = new ArrayList<TripInformation>();
+    DatabaseReference mRef;
+    List<TripInformation> assignedTripsList = new ArrayList<TripInformation>();
 
 
     @Override
     public  View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        minflater = AssisgnedTripsTabFragment.this.getLayoutInflater();
-        inflateView = minflater.inflate(R.layout.activity_assigned_trips,null,true);
-        mListView = (ListView) inflateView.findViewById(R.id.list_view);
+        //minflater = AssignedTripsTabFragment.this.getLayoutInflater();
+        if(inflateView==null){
+            inflateView = inflater.inflate(R.layout.activity_assigned_trips,container,false);
+            mListView = (ListView) inflateView.findViewById(R.id.assigned_list_view);
+        }
 
         phone_Number = user.getPhoneNumber();
 
@@ -65,39 +67,55 @@ public class AssisgnedTripsTabFragment extends Fragment {
 
                 Intent intent = new Intent(getActivity(), ViewAssignedTrips.class);
                 //Log.d("testing list index", Integer.toString(position));
-                TripInformation tripSelected = offeredTripsList.get(position);
+                TripInformation tripSelected = assignedTripsList.get(position);
                 intent.putExtra("TRIP_SELECTED", tripSelected);
                 startActivity(intent);
             }
         });
 
-        final DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver/"+phone_Number+"/offerConfirmed");
-        class MyValueEventListener implements ValueEventListener, Serializable {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        mRef = FirebaseDatabase.getInstance().getReference().child("Driver/"+phone_Number+"/offerConfirmed");
 
-                offeredTripsList.clear();
-
-                //Log.d("testing1", dataSnapshot.getValue().toString());
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                for (DataSnapshot child: children){
-                    offersList.add(child.getValue().toString());
-                }
-
-                offersCallback();
-                Log.d("TAG", "after offers callback");
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        }
-
-        mRef.addValueEventListener(new MyValueEventListener());
+        //mRef.addValueEventListener(new MyValueEventListener());
 
         return inflateView;
     }
 
-    class MyOfferValueEventListener implements ValueEventListener, Serializable {
+    @Override
+    public void onStart(){
+        super.onStart();
+        mRef.addValueEventListener(new MyValueEventListener());
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (inflateView.getParent() != null) {
+            ((ViewGroup)inflateView.getParent()).removeView(inflateView);
+        }
+        super.onDestroyView();
+    }
+
+    private class MyValueEventListener implements ValueEventListener, Serializable {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            assignedTripsList.clear();
+
+            //Log.d("testing1", dataSnapshot.getValue().toString());
+            Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+            for (DataSnapshot child: children){
+                offersList.add(child.getValue().toString());
+            }
+
+            offersCallback();
+            Log.d("TAG", "after offers callback");
+        }
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+        }
+    }
+
+
+    private class MyOfferValueEventListener implements ValueEventListener, Serializable {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             m_offer = dataSnapshot.getValue(Offer.class);
@@ -142,13 +160,13 @@ public class AssisgnedTripsTabFragment extends Fragment {
                     m_trip= dataSnapshot.getValue(TripInformation.class);
                     m_trip.setDriverOffer(m_offer.getAmount());
                     if (m_trip.getConfirmed() == true ) {
-                        offeredTripsList.add(m_trip);
+                        assignedTripsList.add(m_trip);
                     }
 
 
-                    if (offeredTripsList.size() == offerObjects.size()) {
+                    if (assignedTripsList.size() == offerObjects.size()) {
                         Log.d("TAG", "calling adapter");
-                        mAdapter = new CustomListAdapter(getActivity(),R.layout.offers_list_item, offeredTripsList);
+                        mAdapter = new CustomListAdapter(getActivity(),R.layout.offers_list_item, assignedTripsList);
                         mListView.setAdapter(mAdapter);
                     }
 
