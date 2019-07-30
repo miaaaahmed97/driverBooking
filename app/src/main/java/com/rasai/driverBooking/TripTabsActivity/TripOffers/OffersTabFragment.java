@@ -40,42 +40,26 @@ public class OffersTabFragment extends Fragment {
     private ListView mListView;
     private CustomListAdapter mAdapter;
     private View inflateView;
-    //private LayoutInflater minflater;
+    private LayoutInflater minflater;
 
     List<String> offersList = new ArrayList<String>();
     List<Offer> offerObjects = new ArrayList<Offer>();
     List<TripInformation> list = new ArrayList<TripInformation>();
     Offer m_offer;
     TripInformation m_trip;
-    DatabaseReference mRef;
 
     List<TripInformation> offeredTripsList = new ArrayList<TripInformation>();
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d("fragment","in offer oncreate");
-
-        phone_Number = user.getPhoneNumber();
-        mRef = FirebaseDatabase.getInstance().getReference().child("Driver/"+phone_Number+"/offersMade");
-        //First Database Reference called
-    }
 
 
     @Override
     public  View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        //minflater = OffersTabFragment.this.getLayoutInflater();
-        if(inflateView==null){
-            Log.d("fragment","in offer oncreateview");
+        minflater = OffersTabFragment.this.getLayoutInflater();
+        inflateView = minflater.inflate(R.layout.activity_offer_list,null,true);
+        mListView = (ListView) inflateView.findViewById(R.id.offers_list_view);
 
-            inflateView = inflater.inflate(R.layout.activity_offer_list,container,false);
-            mListView = (ListView) inflateView.findViewById(R.id.offers_list_view);
-            mAdapter = new CustomListAdapter(getActivity(),R.layout.offers_list_item, offeredTripsList);
-            mListView.setAdapter(mAdapter);
-        }
-
+        phone_Number = user.getPhoneNumber();
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -109,55 +93,41 @@ public class OffersTabFragment extends Fragment {
 
             }
         });
-        //mRef.addValueEventListener(new MyValueEventListener());
+
+        final DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver/"+phone_Number+"/offersMade");
+        //First Database Reference called
+        class MyValueEventListener implements ValueEventListener, Serializable {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                offeredTripsList.clear();
+
+                //get all the unconfirmed offers made by the driver
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                for (DataSnapshot child: children){
+                    offersList.add(child.getValue().toString());
+                }
+
+               offersCallback();
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        }
+
+        mRef.addValueEventListener(new MyValueEventListener());
 
         return inflateView;
     }
 
-    @Override
-    public void onStart(){
-        super.onStart();
-        mRef.addValueEventListener(new MyValueEventListener());
-        Log.d("fragment","in offer start");
-
-    }
-
-    @Override
-    public void onDestroyView() {
-        if (inflateView.getParent() != null) {
-            Log.d("fragment","in offer destroy");
-            ((ViewGroup)inflateView.getParent()).removeView(inflateView);
-        }
-        offeredTripsList.clear();
-        super.onDestroyView();
-    }
-
-    private class MyValueEventListener implements ValueEventListener, Serializable {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-            offeredTripsList.clear();
-
-            //get all the unconfirmed offers made by the driver
-            Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-            for (DataSnapshot child: children){
-                offersList.add(child.getValue().toString());
-            }
-
-            offersCallback();
-
-        }
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-        }
-    }
-
-    private class MyOfferValueEventListener implements ValueEventListener, Serializable {
+    class MyOfferValueEventListener implements ValueEventListener, Serializable {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
             if (dataSnapshot.exists()) {
                 m_offer = dataSnapshot.getValue(Offer.class);
+
 
 
                 if (m_offer.getAcceptanceStatus().equals("unconfirmed") ||
@@ -183,7 +153,6 @@ public class OffersTabFragment extends Fragment {
         for(String offer: offersList){
 
             m_offer = new Offer();
-            Log.d("fragment","in offers offerscallback");
 
             final DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Offer/"+offer+"/"+phone_Number+"/");
             myRef.addValueEventListener(new MyOfferValueEventListener());
@@ -197,8 +166,6 @@ public class OffersTabFragment extends Fragment {
             m_trip = new TripInformation();
             DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().
                     child("Trips/"+offer.getCustomerPhoneNumber()+"/"+offer.getTripID()+"/");
-            Log.d("fragment","in offers tripscallback");
-
 
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -211,11 +178,11 @@ public class OffersTabFragment extends Fragment {
                     }*/
                     offeredTripsList.add(m_trip);
 
+
                     if (offeredTripsList.size() == offerObjects.size()) {
 
-                        mAdapter.notifyDataSetChanged();
-                        Log.d("fragment","in offers tripscallbackvalue ofrdtrpslst = ofrobjcts");
-
+                        mAdapter = new CustomListAdapter(getActivity(),R.layout.offers_list_item, offeredTripsList);
+                        mListView.setAdapter(mAdapter);
                     }
 
                 }

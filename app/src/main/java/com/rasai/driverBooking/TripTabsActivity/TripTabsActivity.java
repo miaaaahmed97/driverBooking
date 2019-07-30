@@ -57,6 +57,12 @@ public class TripTabsActivity extends AppCompatActivity implements Serializable 
     }
 
     /**
+     * Dispatch onResume() to fragments.  Note that for better inter-operation
+     * with older versions of the platform, at the point of this call the
+     * fragments attached to the activity are <em>not</em> resumed.
+     */
+
+    /**
      * BottomNavigationView setup
      */
     private void setupBottomNavigationView() {
