@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -93,35 +94,45 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
             public void onClick(View view) {
 
                 StringLangSelected = mLangSpinner.getSelectedStrings().toString();
+                String name = mName.getText().toString();
+                String cnic = mCnic.getText().toString();
+                String bday = mBday.getText().toString();
+                String address = mAddress.getText().toString();
 
                 Log.d("testing1", StringLangSelected);
 
                 //set tripInformation
-                driverInformation.setPhoneNumber(phoneNumber);
-                driverInformation.setName(mName.getText().toString());
-                driverInformation.setCnic(mCnic.getText().toString());
-                driverInformation.setBirthday(mBday.getText().toString());
-                driverInformation.setAddress(mAddress.getText().toString());
-                driverInformation.setLanguages(StringLangSelected);
+                if (name.length()>0 && cnic.length()>0 && bday.length()>0
+                        && address.length()>0 && StringLangSelected.length()>0) {
+                    driverInformation.setPhoneNumber(phoneNumber);
+                    driverInformation.setName(name);
+                    driverInformation.setCnic(cnic);
+                    driverInformation.setBirthday(bday);
+                    driverInformation.setAddress(address);
+                    driverInformation.setLanguages(StringLangSelected);
 
-                FirebaseInstanceId.getInstance().getInstanceId()
-                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                                if (!task.isSuccessful()) {
-                                    Log.w(TAG, "getInstanceId failed", task.getException());
-                                    return;
+                    FirebaseInstanceId.getInstance().getInstanceId()
+                            .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                    if (!task.isSuccessful()) {
+                                        Log.w(TAG, "getInstanceId failed", task.getException());
+                                        return;
+                                    }
+
+                                    // Get new Instance ID token
+                                    String token_id = task.getResult().getToken();
+                                    driverInformation.setToken_id(token_id);
+
+                                    Intent navNext = new Intent(DriverRegistration.this, driverRegistration2.class);
+                                    navNext.putExtra("driverObject", driverInformation);
+                                    startActivity(navNext);
                                 }
-
-                                // Get new Instance ID token
-                                String token_id = task.getResult().getToken();
-                                driverInformation.setToken_id(token_id);
-
-                                Intent navNext = new Intent(DriverRegistration.this, driverRegistration2.class);
-                                navNext.putExtra("driverObject", driverInformation);
-                                startActivity(navNext);
-                            }
-                        });
+                            });
+                } else {
+                    Toast.makeText(getBaseContext(), "Please fill all fields.",
+                            Toast.LENGTH_LONG).show();
+                }
 
             }
         }

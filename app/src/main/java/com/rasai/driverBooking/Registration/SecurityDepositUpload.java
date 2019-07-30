@@ -104,11 +104,28 @@ public class SecurityDepositUpload extends AppCompatActivity {
             public void onClick(View view) {
                 //Log.d("testing3", driverInfo.toString());
 
-                getSecurityDeposit().setAmount(Integer.parseInt(mAmount.getText().toString()));
-                getSecurityDeposit().setDepositDate(mDate.getText().toString());
-                getDriverInfo().setSecurityDeposit(getSecurityDeposit());
+                Integer amount = Integer.parseInt(mAmount.getText().toString());
+                String date = mDate.getText().toString();
 
-                String[] imageNames = {getDriverInfo().getCnicImage(), getDriverInfo().getIdImage(),
+                if (amount != null && date.length()>0 && getSecurityDeposit().getDepositImage() !=null ) {
+                    getSecurityDeposit().setAmount(amount);
+                    getSecurityDeposit().setDepositDate(date);
+                    getDriverInfo().setSecurityDeposit(getSecurityDeposit());
+
+                    String[] imageNames = {getDriverInfo().getCnicImage(), getDriverInfo().getIdImage(),
+                            getDriverInfo().getDrivingLicenseImage(), getDriverInfo().getVehicle().getExteriorImage(),
+                            getDriverInfo().getVehicle().getInteriorImage(), getSecurityDeposit().getDepositImage()};
+
+                    getDriverInfo().uploadImage(storageReference, imageNames);
+
+                    Intent navNext = new Intent(SecurityDepositUpload.this, DriverHome.class);
+                    navNext.putExtra("driverObject", driverInfo);
+                    startActivity(navNext);
+                } else {
+                    Toast.makeText(SecurityDepositUpload.this, "Please fill all info ", Toast.LENGTH_SHORT).show();
+                }
+
+                /*String[] imageNames = {getDriverInfo().getCnicImage(), getDriverInfo().getIdImage(),
                         getDriverInfo().getDrivingLicenseImage(), getDriverInfo().getVehicle().getExteriorImage(),
                 getDriverInfo().getVehicle().getInteriorImage(), getSecurityDeposit().getDepositImage()};
 
@@ -121,7 +138,7 @@ public class SecurityDepositUpload extends AppCompatActivity {
                 }else{
                     Log.d("MyError", "select all images");
                     Toast.makeText(SecurityDepositUpload.this, "Please Upload all Images ", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         }
         registrationButton.setOnClickListener(new MyOnClickListener());

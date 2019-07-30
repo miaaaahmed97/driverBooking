@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -92,9 +93,21 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
             public void onClick(View view) {
                 //Log.d("testing3", driverInformation.toString());
 
-                Intent navNext = new Intent(driverRegistration2.this, vehicleRegistration.class);
-                navNext.putExtra("driverObject", driverInformation);
-                startActivity(navNext);
+                Driver mDriver = getDriverInformation();
+
+                if (mDriver.getCnicImage()!=null && mDriver.getIdImage() !=null
+                        && mDriver.getDrivingLicenseImage()!=null) {
+
+                    Intent navNext = new Intent(driverRegistration2.this, vehicleRegistration.class);
+                    navNext.putExtra("driverObject", driverInformation);
+                    startActivity(navNext);
+
+                } else {
+
+                    Toast.makeText(getBaseContext(), "Please upload all images",
+                            Toast.LENGTH_LONG).show();
+
+                }
             }
         }
         registrationButton.setOnClickListener(new MyOnClickListener());

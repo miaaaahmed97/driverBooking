@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -93,9 +94,7 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
         seatsSpinner.setAdapter(seatsAdapter);
         //End - Spinner Layout Setup
 
-        new Thread(){
-            @Override
-            public void run(){
+
                 mManufacturer = findViewById(R.id.manufacturer_field);
                 mModel =  findViewById(R.id.model_field);
                 mRegistration =  findViewById(R.id.registration_field);
@@ -106,20 +105,15 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
                 addExteriorText.setOnClickListener(new ImageButtonListener());
                 Log.d("showID", String.valueOf(R.id.exterior_textview));
                 addInteriorText.setOnClickListener(new ImageButtonListener());
-            }
-        };
 
-        new Thread(){
-            @Override
-            public void run(){
+
                 //Get Driver Object from driverRegistration2
                 Intent i = getIntent();
                 setDriverInformation((Driver) i.getSerializableExtra("driverObject"));
 
                 //initialize vehicle
                 setVehicleInformation(new Vehicle());
-            }
-        };
+
 
         //spinner listeners
         //manufacturerSpinner.setOnItemSelectedListener(this);
@@ -225,14 +219,25 @@ public class vehicleRegistration extends AppCompatActivity implements AdapterVie
                     public void onClick(View view) {
                         //Log.d("testing3", driverInformation.toString());
 
-                        vehicleInformation.setManufacturer(mManufacturer.getText().toString());
-                        vehicleInformation.setModel(mModel.getText().toString());
-                        vehicleInformation.setRegistration(mRegistration.getText().toString());
-                        getDriverInformation().setVehicle(vehicleInformation);
+                        //TODO add check for images
 
-                        Intent navNext = new Intent(vehicleRegistration.this, SecurityDepositUpload.class);
-                        navNext.putExtra("driverObject", driverInformation);
-                        startActivity(navNext);
+                        String manufacturer = mManufacturer.getText().toString();
+                        String model= mModel.getText().toString();
+                        String registration = mRegistration.getText().toString();
+
+                        if (manufacturer.length() > 0 && model.length() > 0 && registration.length() > 0) {
+                            vehicleInformation.setManufacturer(manufacturer);
+                            vehicleInformation.setModel(model);
+                            vehicleInformation.setRegistration(registration);
+                            getDriverInformation().setVehicle(vehicleInformation);
+
+                            Intent navNext = new Intent(vehicleRegistration.this, SecurityDepositUpload.class);
+                            navNext.putExtra("driverObject", driverInformation);
+                            startActivity(navNext);
+                        } else {
+                            Toast.makeText(getBaseContext(), "Please provide all info.",
+                                    Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
 

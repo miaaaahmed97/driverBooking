@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
 
         mRef = FirebaseDatabase.getInstance().getReference().child("Driver");
+        listener = new MyValueEventListener(user);
 
         //Called when there is a change in the authentication state
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -58,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("testing0 MainActvity", "inside authlistener");
                 if (firebaseAuth.getCurrentUser() != null) {
                     // Sign in logic here.
-                    isRegistered(mRef, firebaseAuth.getCurrentUser());
+                    listener = new MyValueEventListener(user);
+                    isRegistered(mRef);
                 }
             }
         };
@@ -68,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
             //already signed in
             //startActivity(myIntent);
             DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver");
-            isRegistered(mRef, user);
+            listener = new MyValueEventListener(user);
+            isRegistered(mRef);
         }else{
             //create login options
             Log.d("testing2 MainActvity", "inside else");
@@ -99,13 +102,15 @@ public class MainActivity extends AppCompatActivity {
 
             Iterable<DataSnapshot> children = dataSnapshot.getChildren();
 
-            for(DataSnapshot child: children){
+            if (mUser != null) {
+                for(DataSnapshot child: children){
 
-                if(child.getKey().equals(mUser.getPhoneNumber())){
+                    if(child.getKey().equals(mUser.getPhoneNumber())){
 
-                    Intent intentHome = new Intent(MainActivity.this, DriverHome.class);
-                    startActivity(intentHome);
-                    controller = false;
+                        Intent intentHome = new Intent(MainActivity.this, DriverHome.class);
+                        startActivity(intentHome);
+                        controller = false;
+                    }
                 }
             }
 
@@ -134,10 +139,9 @@ public class MainActivity extends AppCompatActivity {
         mauth.addAuthStateListener(mAuthListener);
     }
 
-    private void isRegistered(DatabaseReference myRef, FirebaseUser Myuser){
+    private void isRegistered(DatabaseReference myRef){
 
-        listener = new MyValueEventListener(Myuser);
-        mRef.addListenerForSingleValueEvent(listener);
+        myRef.addListenerForSingleValueEvent(listener);
 
     }
 
