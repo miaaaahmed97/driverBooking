@@ -3,20 +3,21 @@ package com.rasai.driverBooking.Registration;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Paint;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.BuildConfig;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.storage.FirebaseStorage;
@@ -24,19 +25,22 @@ import com.google.firebase.storage.StorageReference;
 import com.rasai.driverBooking.CustomObject.Driver;
 import com.rasai.driverBooking.R;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.Serializable;
 
 public class driverRegistration2 extends AppCompatActivity implements Serializable{
 
     Intent buttonIntent;
-    //ImageDisplayer imageDisplayer;
 
     private static final int GET_FROM_GALLERY = 1;
 
-    TextView addIDText, addCNICText, addDrivLicText;
-    Button registrationButton;
+    private Button addIDButton, addCNICButton, addDrivLicButton;
+    private Button registrationButton;
+    private Button mAddImageButton, mDoneButton;
+    private View mAddImagePopup;
+    private ImageView mSelectedImage;
+    private AlertDialog alertDialog;
+    private int callingView;
+    private TextView mHelpingText;
 
     private StorageReference mStorageRef;
 
@@ -50,7 +54,7 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
         this.driverInformation = driverInformation;
     }
 
-    private class TextViewListener implements View.OnClickListener, Serializable {
+    private class addImageButtonListener implements View.OnClickListener, Serializable {
         @Override
         public void onClick(View v) {
 
@@ -59,8 +63,8 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
             String[] mimeTypes = {"image/jpeg", "image/png"};
             buttonIntent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
             //get ID of calling button
-            String viewID= String.valueOf(v.getId());
-            buttonIntent.putExtra("EXTRA",viewID);
+            //String viewID= String.valueOf(v.getId());
+            //buttonIntent.putExtra("EXTRA",viewID);
             startActivityForResult(buttonIntent, GET_FROM_GALLERY);
 
         }
@@ -81,20 +85,14 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
         Intent i = getIntent();
         setDriverInformation((Driver) i.getSerializableExtra("driverObject"));
 
-        addIDText = findViewById(R.id.addDisplayPicture);
-        addIDText.setPaintFlags(addIDText.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-
-        addCNICText =findViewById(R.id.addCnic);
-        addCNICText.setPaintFlags(addCNICText.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-
-        addDrivLicText = findViewById(R.id.addDrivingLicense);
-        addDrivLicText.setPaintFlags(addDrivLicText.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-
+        addIDButton = findViewById(R.id.addIDPicture);
+        addCNICButton =findViewById(R.id.addCnic);
+        addDrivLicButton = findViewById(R.id.addDrivingLicense);
         registrationButton = findViewById(R.id.registerDriverButton);
 
-        addIDText.setOnClickListener(new TextViewListener());
-        addCNICText.setOnClickListener(new TextViewListener());
-        addDrivLicText.setOnClickListener(new TextViewListener());
+        addIDButton.setOnClickListener(new createPopupListener());
+        addCNICButton.setOnClickListener(new createPopupListener());
+        addDrivLicButton.setOnClickListener(new createPopupListener());
 
         class MyOnClickListener implements View.OnClickListener, Serializable {
             @Override
@@ -121,6 +119,101 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
         registrationButton.setOnClickListener(new MyOnClickListener());
     }
 
+    private class createPopupListener implements View.OnClickListener, Serializable{
+
+        @Override
+        public void onClick(View view) {
+
+            //creating the picture popup
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(driverRegistration2.this);
+            alertDialogBuilder.setCancelable(true);
+            callingView = view.getId();
+            initAddImagePopup();
+            Log.d("IDDDD",String.valueOf(view.getId()));
+            switch (callingView){
+                case R.id.addIDPicture:
+                    // Init popup dialog view and it's ui controls.
+                    alertDialogBuilder.setTitle("Add ID Image");
+                    break;
+                case R.id.addCnic:
+                    alertDialogBuilder.setTitle("Add CNIC Image");
+                    break;
+                case R.id.addDrivingLicense:
+                    alertDialogBuilder.setTitle("Add Driving License Image");
+                    break;
+                default:break;
+            }
+            // Set the inflated layout view object to the AlertDialog builder.
+            alertDialogBuilder.setView(mAddImagePopup);
+            // Create AlertDialog and show.
+            alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }
+    }
+
+
+
+    private void initAddImagePopup() {
+        LayoutInflater layoutInflater = LayoutInflater.from(driverRegistration2.this);
+        mAddImagePopup = layoutInflater.inflate(R.layout.add_picture_popup_reg,null);
+        mSelectedImage = mAddImagePopup.findViewById(R.id.imageSelected);
+        mHelpingText = mAddImagePopup.findViewById(R.id.helpingText);
+        Log.d("IDDDD in init",String.valueOf(callingView));
+        switch (callingView){
+            case R.id.addIDPicture:
+                mHelpingText.setText("Please upload a photo of yourself that clearly shows your face.");
+                if(getDriverInformation().getIdImage()==null){
+                    mSelectedImage.setImageResource((R.drawable.man));
+                }
+                else{
+                    Glide.with(driverRegistration2.this).
+                            load(Uri.parse(getDriverInformation().getIdImage()))
+                            .apply(new RequestOptions().centerInside()
+                                    .placeholder(R.drawable.ic_image))
+                            .into(mSelectedImage);
+                }
+                break;
+            case R.id.addCnic:
+                mHelpingText.setText("Please upload a properly focused image of your CNIC.");
+                if(getDriverInformation().getCnicImage()==null){
+                    mSelectedImage.setImageResource((R.drawable.cnic));
+                }
+                else{
+                    Glide.with(driverRegistration2.this).
+                            load(Uri.parse(getDriverInformation().getCnicImage()))
+                            .apply(new RequestOptions().centerInside()
+                                    .placeholder(R.drawable.ic_image))
+                            .into(mSelectedImage);
+                }
+                break;
+            case R.id.addDrivingLicense:
+                mHelpingText.setText("Please upload a properly focused image of your driving license");
+                if(getDriverInformation().getDrivingLicenseImage()==null){
+                    mSelectedImage.setImageResource((R.drawable.driving_license));
+                }
+                else{
+                    Glide.with(driverRegistration2.this).
+                            load(Uri.parse(getDriverInformation().getDrivingLicenseImage()))
+                            .apply(new RequestOptions().centerInside()
+                                    .placeholder(R.drawable.ic_image))
+                            .into(mSelectedImage);
+                }
+                break;
+                default:
+                    break;
+
+        }
+        mAddImageButton = mAddImagePopup.findViewById(R.id.addImageButton);
+        mDoneButton = mAddImagePopup.findViewById(R.id.doneButton);
+        mAddImageButton.setOnClickListener(new addImageButtonListener());
+        mDoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+    }
+
     //called automatically after any button is clicked and gallery intent is made
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -131,42 +224,37 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
             if(requestCode==GET_FROM_GALLERY){
                 Uri selectedImage = data.getData();
                 //image display
-                displayImage(selectedImage);
+                Glide.with(driverRegistration2.this).
+                        load(selectedImage)
+                        .apply(new RequestOptions().centerInside()
+                                .placeholder(R.drawable.ic_image))
+                        .into(mSelectedImage);
+                Log.d("IDDDD in oAR",String.valueOf(callingView));
+                switch (callingView){
+                    case R.id.addIDPicture:
+                        getDriverInformation().setIdImage(selectedImage.toString());
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            addIDButton.setBackgroundTintList(this.getResources().getColorStateList(R.color.green));
+                        }
+                        break;
+                    case R.id.addCnic:
+                        getDriverInformation().setCnicImage(selectedImage.toString());
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            addCNICButton.setBackgroundTintList(this.getResources().getColorStateList(R.color.green));
+                        }
+                        break;
+                    case R.id.addDrivingLicense:
+                        getDriverInformation().setDrivingLicenseImage(selectedImage.toString());
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            addDrivLicButton.setBackgroundTintList(this.getResources().getColorStateList(R.color.green));
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
             }
         }
-    }
-
-    //displays the uploaded image next to the upload icon
-    public void displayImage(Uri uri){
-        ImageView imageView;
-        //get ID of calling button
-        String stringID= buttonIntent.getExtras().getString("EXTRA");
-        int intID =Integer.parseInt(stringID);
-        switch (intID){
-            case R.id.addDisplayPicture:
-                imageView = findViewById(R.id.showDisplayPicture);
-                getDriverInformation().setIdImage(uri.toString());
-                break;
-            case R.id.addCnic:
-                imageView = findViewById(R.id.showCNIC);
-                getDriverInformation().setCnicImage(uri.toString());
-                break;
-            case R.id.addDrivingLicense:
-                imageView = findViewById(R.id.showDrivingLicense);
-                getDriverInformation().setDrivingLicenseImage(uri.toString());
-                break;
-            default:
-                imageView = findViewById(R.id.showDrivingLicense);
-                break;
-        }
-        //Log.d("pleasee", getDriverInformation().toString());
-        //imageView.setImageURI(uri);
-
-        Glide.with(driverRegistration2.this)
-                .load(uri)
-                .apply(new RequestOptions().centerInside()
-                        .placeholder(R.drawable.rounded_rectangle_grey))
-                        .into(imageView);
     }
 
     /**

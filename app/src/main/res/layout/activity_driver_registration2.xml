@@ -12,62 +12,80 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:layout_weight="1">
-
-        <ImageView
-            android:id="@+id/showDisplayPicture"
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="24dp"
-            android:padding="4dp"
-            android:src="@drawable/man"
-            android:scaleType="fitCenter"/>
-
         <TextView
-            android:id="@+id/addDisplayPicture"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_id_picture"
-            android:textColor="@color/standardBlue"
-            android:textSize="16sp" />
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginBottom="24dp"
+            android:text="Please click on the button to upload an image. These will be used for identification purposes."
+            android:textColor="@color/black"
+            android:gravity="center"
+            />
 
-        <ImageView
-            android:id="@+id/showCNIC"
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:layout_margin="8dp"
-            android:padding="4dp"
-            android:src="@drawable/cnic"
-            android:scaleType="fitCenter"/>
+        <Button
+            android:id="@+id/addIDPicture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:padding="20dp"
+            android:textAllCaps="false"
+            android:text="Add ID Picture"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:backgroundTint="@color/darkgrey2"
+            app:backgroundTint="@color/darkgrey2"
+            android:elevation="5dp"
+            tools:ignore="UnusedAttribute" />
 
-        <TextView
+        <Button
             android:id="@+id/addCnic"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_cnic"
-            android:textSize="16sp"
-            android:textColor="@color/standardBlue"
-            android:clickable="true" />
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:padding="20dp"
+            android:textAllCaps="false"
+            android:text="Add CNIC Picture"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:elevation="5dp"
+            android:backgroundTint="@color/darkgrey2"
+            app:backgroundTint="@color/darkgrey2"
+            tools:ignore="UnusedAttribute" />
 
-
-        <ImageView
-            android:id="@+id/showDrivingLicense"
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:layout_margin="8dp"
-            android:padding="4dp"
-            android:src="@drawable/driving_license"
-            android:scaleType="fitCenter" />
-
-        <TextView
+        <Button
             android:id="@+id/addDrivingLicense"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_driving_license"
-            android:textColor="@color/standardBlue"
-            android:textSize="16sp" />
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:padding="20dp"
+            android:textAllCaps="false"
+            android:text="Add Driving License"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:elevation="5dp"
+            android:backgroundTint="@color/darkgrey2"
+            app:backgroundTint="@color/darkgrey2"
+            style="@style/Widget.AppCompat.Button.Colored"
+            tools:ignore="UnusedAttribute" />
+
 
     </LinearLayout>
 
