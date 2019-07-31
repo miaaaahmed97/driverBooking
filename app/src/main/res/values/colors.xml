@@ -13,9 +13,10 @@
     <color name="lightslategray">#778899</color>
     <color name="slategray">#D3D3D3</color>
     <color name="orange">#ECA400</color>
-    <color name="green">#00A82A</color>
+    <color name="green">#2A7A25</color>
     <color name="blue">#00B2FF</color>
     <color name="darkgrey2">#808080</color>
     <color name="standardBlue"> #0000EE</color>
     <color name="rasaiblue">#224B7F</color>
+    <color name="hintgray">#808080</color>
 </resources>
