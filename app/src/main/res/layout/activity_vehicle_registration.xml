@@ -8,217 +8,169 @@
     android:gravity="center"
     tools:context=".Registration.vehicleRegistration">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:hint="Car Name Eg. SUZUKI BOLAN">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/manufacturer_field"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textPersonName|textCapWords"
-            android:text=""
-            android:textSize="14sp"
-            android:maxLength="30"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!--<Spinner
-        android:id="@+id/manufacturerSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:dropDownSelector="@android:drawable/arrow_down_float"/>-->
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/model"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:hint="Model Eg. 2015">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/model_field"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="14sp"
-            android:inputType="number"
-            android:maxLength="4"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/registration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:hint="Registration Field Eg. ASK 768">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/registration_field"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="14sp"
-            android:inputType="textCapCharacters"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="start">
-
-        <TextView
-            android:id="@+id/numberSeats"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Number of Seats"
-            android:textSize="16sp"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <Spinner
-            android:id="@+id/seatsSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:dropDownSelector="@android:drawable/arrow_down_float"
-            app:layout_constraintBottom_toBottomOf="@+id/numberSeats"
-            app:layout_constraintEnd_toEndOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="start">
-        <TextView
-            android:id="@+id/ac_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="AC"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Switch
-            android:id="@+id/ac_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/ac_textview"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center">
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_weight="1">
 
-        <ImageView
-            android:id="@+id/showExterior"
-            android:layout_width="120dp"
-            android:layout_height="70dp"
-            app:layout_constraintEnd_toStartOf="@+id/showInterior"
-            android:src="@drawable/car_side"/>
-        <ImageView
-            android:id="@+id/showExterior2"
-            android:layout_width="120dp"
-            android:layout_height="70dp"
-            app:layout_constraintEnd_toStartOf="@+id/showInterior"
-            android:src="@drawable/car_front"/>
-        <ImageView
-            android:id="@+id/showExterior3"
-            android:layout_width="120dp"
-            android:layout_height="70dp"
-            app:layout_constraintEnd_toStartOf="@+id/showInterior"
-            android:src="@drawable/car_back"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:helperText="Eg. SUZUKI Bolan"
+            android:hint="Car Name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/manufacturer_field"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName|textCapWords"
+                android:text=""
+                android:textSize="14sp"
+                android:maxLength="30"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--<Spinner
+            android:id="@+id/manufacturerSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:dropDownSelector="@android:drawable/arrow_down_float"/>-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/model"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:helperText="Eg. 2015"
+            android:hint="Model">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/model_field"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:inputType="number"
+                android:maxLength="4"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/registration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:helperText="Eg. ASD 678"
+            android:hint="Registration Field">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registration_field"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:inputType="textCapCharacters"
+                android:maxLength="10"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:helperText="Eg. 6"
+            android:hint="Number of Seats">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/numberSeats_field"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:inputType="textCapCharacters"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:isIndicator ="true"
+                android:maxLength="2"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <!--<androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="start">
+
+            <TextView
+                android:id="@+id/numberSeats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Number of Seats"
+                android:textSize="17sp"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <Spinner
+                android:id="@+id/seatsSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:dropDownSelector="@android:drawable/arrow_down_float"
+                app:layout_constraintBottom_toBottomOf="@+id/numberSeats"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="start">
+
+            <TextView
+                android:id="@+id/ac_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:text="Air Conditioning"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Switch
+                android:id="@+id/ac_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOff="My car does not have AC"
+                android:textOn="My has has AC"
+                app:layout_constraintBottom_toBottomOf="@+id/ac_textview"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/exterior_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/upload_exterior"
-        android:textColor="@color/standardBlue"/>
-
-    <!--<ImageButton
-        android:id="@+id/addExterior"
-        android:layout_width="40dp"
-        android:layout_height="36dp"
-        app:srcCompat="@android:drawable/ic_menu_camera" />-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        android:padding="8dp"
-        android:orientation="horizontal"
-        android:gravity="center">
-        <ImageView
-            android:id="@+id/showInterior"
-            android:layout_width="120dp"
-            android:layout_height="70dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/interior" />
-        <ImageView
-            android:id="@+id/showInterior2"
-            android:layout_width="120dp"
-            android:layout_height="70dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/interior2" />
-        <ImageView
-            android:id="@+id/showInterior3"
-            android:layout_width="120dp"
-            android:layout_height="70dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/interior3" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/interior_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/standardBlue"
-        android:text="@string/upload_interior" />
-
-    <!--<ImageButton
-        android:id="@+id/addInterior"
-        android:layout_width="40dp"
-        android:layout_height="36dp"
-        app:srcCompat="@android:drawable/ic_menu_camera" />-->
 
     <Button
         android:id="@+id/RegisterVehicle"
@@ -228,7 +180,7 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_margin="16dp"
-        android:text="register"
+        android:text="Continue"
         android:visibility="visible" />
 
 
