@@ -30,6 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPersonName|textCapWords"
+                android:focusableInTouchMode="true"
                 android:hint="Full Name"
                 android:text=""
                 android:maxLength="30"/>
@@ -98,7 +99,9 @@
                 android:maxLength="150"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <FrameLayout
+            android:id="@+id/selectLanguagesLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -106,31 +109,24 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:padding="8dp">
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <TextView
-                android:id="@+id/LanguagesText"
-                android:layout_width="wrap_content"
+                android:id="@+id/selectLanguagesText"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Select Languages"
+                android:textColor="@color/hintgray"
                 android:clickable="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-            <com.rasai.driverBooking.Registration.MultiSelectionSpinner
-                android:id="@+id/lang_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleY="1"
-                android:scaleX="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                android:isIndicator ="true"
+                android:textSize="17sp"
+                style="@android:style/Widget.DeviceDefault.EditText"/>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
 
         <!--<TextView
             android:id="@+id/selectedLanguages_textview"
@@ -151,6 +147,7 @@
         android:layout_margin="16dp"
         android:textColor="@color/white"
         android:textStyle="bold"
+        android:padding="20dp"
         style="@style/Widget.AppCompat.Button.Colored"
         android:text="Continue"/>
 

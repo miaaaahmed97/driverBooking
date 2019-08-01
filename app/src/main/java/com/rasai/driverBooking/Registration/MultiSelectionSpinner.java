@@ -60,7 +60,7 @@ public class MultiSelectionSpinner extends AppCompatSpinner implements DialogInt
             @Override
             public void onClick(DialogInterface arg0, int arg1)
             {
-                DriverRegistration.disappear();
+                //DriverRegistration.disappear();
             }
         });
 

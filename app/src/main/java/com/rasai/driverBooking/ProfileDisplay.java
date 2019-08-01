@@ -75,7 +75,7 @@ public class ProfileDisplay extends AppCompatActivity {
     private TextView mDriverName, mDriverMobile, mDriverCNIC,mDriverDOB, mDriverAddress, mRegField, mSecurityAmount, mModel, mManufacturer;
     private TextView mSecurityDepositAmount;
 
-    AlertDialog alertDialog;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,29 +159,20 @@ public class ProfileDisplay extends AppCompatActivity {
         //Detects request codes
         if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
             Uri selectedImage = data.getData();
-            try {
-                Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-                //image display
-                processImage(bmp, selectedImage);
-            } catch (FileNotFoundException e) {
-                // T/ODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // T/ODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            processImage(selectedImage);
+
         }
 
     }
 
-    private void processImage(Bitmap bmp, Uri uri) {
+    private void processImage(Uri uri) {
         //get ID of calling view
         String stringID= imageIntent.getExtras().getString("EXTRA");
         int intID =Integer.parseInt(stringID);
         switch (intID){
             case R.id.userPicture:
                 //mIDImage.setImageBitmap(bmp);
-                uploadProfilePicture(bmp, uri);
+                uploadProfilePicture(uri);
                 break;
             case R.id.addSecurityButton:
                 //getSecurityDeposit().setDepositImage(uri.toString());
@@ -194,7 +185,11 @@ public class ProfileDisplay extends AppCompatActivity {
                 // Set the inflated layout view object to the AlertDialog builder.
                 alertDialogBuilder.setView(mSecurityDepositPopup);
                 DepositUri = uri;
-                mSecurityDepositImage.setImageBitmap(bmp);
+                Glide.with(ProfileDisplay.this)
+                        .load(uri)
+                        .apply(new RequestOptions().centerInside()
+                                .placeholder(R.drawable.ic_image))
+                        .into(mSecurityDepositImage);
                 // Create AlertDialog and show.
                 alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
@@ -354,12 +349,16 @@ public class ProfileDisplay extends AppCompatActivity {
 
     }
 
-    private void uploadProfilePicture(Bitmap bitmap, Uri uri){
+    private void uploadProfilePicture(Uri uri){
 
-        try {
-            Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+            Glide.with(ProfileDisplay.this)
+                    .load(uri)
+                    .apply(new RequestOptions().centerInside()
+                            .placeholder(R.drawable.ic_image))
+                    .into(mIDImage);
+            //Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
             //image display
-            mIDImage.setImageBitmap(bmp);
+
             String imageid;
 
             if(uri != null)
@@ -384,14 +383,6 @@ public class ProfileDisplay extends AppCompatActivity {
                             }
                         });
             }
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     private void edit(Button button){

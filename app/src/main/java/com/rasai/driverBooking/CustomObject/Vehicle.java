@@ -12,7 +12,27 @@ public class Vehicle implements Serializable {
     private String vehicleSeats;
     private String hasAc = "no";
     private String exteriorImage;
+    private String exteriorImage2;
+    private String exteriorImage3;
     private String interiorImage;
+    private String interiorImage2;
+    private String interiorImage3;
+
+    public String getInteriorImage2() {
+        return interiorImage2;
+    }
+
+    public void setInteriorImage2(String interiorImage2) {
+        this.interiorImage2 = interiorImage2;
+    }
+
+    public String getInteriorImage3() {
+        return interiorImage3;
+    }
+
+    public void setInteriorImage3(String interiorImage3) {
+        this.interiorImage3 = interiorImage3;
+    }
 
     @Override
     public String toString() {
@@ -22,9 +42,29 @@ public class Vehicle implements Serializable {
                 ", registration='" + registration + '\'' +
                 ", vehicleSeats='" + vehicleSeats + '\'' +
                 ", hasAc='" + hasAc + '\'' +
-                ", exteriorImage=" + exteriorImage +
-                ", interiorImage=" + interiorImage +
+                ", exteriorImage='" + exteriorImage + '\'' +
+                ", exteriorImage2='" + exteriorImage2 + '\'' +
+                ", exteriorImage3='" + exteriorImage3 + '\'' +
+                ", interiorImage='" + interiorImage + '\'' +
+                ", interiorImage2='" + interiorImage2 + '\'' +
+                ", interiorImage3='" + interiorImage3 + '\'' +
                 '}';
+    }
+
+    public String getExteriorImage2() {
+        return exteriorImage2;
+    }
+
+    public void setExteriorImage2(String exteriorImage2) {
+        this.exteriorImage2 = exteriorImage2;
+    }
+
+    public String getExteriorImage3() {
+        return exteriorImage3;
+    }
+
+    public void setExteriorImage3(String exteriorImage3) {
+        this.exteriorImage3 = exteriorImage3;
     }
 
     public String getExteriorImage() {
@@ -82,4 +122,6 @@ public class Vehicle implements Serializable {
     public void setHasAc(String hasAc) {
         this.hasAc = hasAc;
     }
+
+
 }

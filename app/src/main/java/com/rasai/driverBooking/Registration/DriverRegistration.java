@@ -1,15 +1,15 @@
 package com.rasai.driverBooking.Registration;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,11 +40,12 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
     private TextInputEditText mAddress;
     private MultiSelectionSpinner mLangSpinner;
     private Button mnextButton;
-    private static TextView mSelectLanguages;
+    private FrameLayout mSelectLanguages;
+    private TextView mSelectLanguagesText;
 
-    Driver driverInformation;
+    private Driver driverInformation;
     private List<String> listLangSelected;
-    private String StringLangSelected;
+    //private String StringLangSelected;
     private String phoneNumber;
 
     //private FirebaseDatabase database;
@@ -63,16 +64,58 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
         driverInformation = new Driver();
 
         phoneNumber = user.getPhoneNumber();
-        mLangSpinner = findViewById(R.id.lang_spinner);
-        mSelectLanguages = findViewById(R.id.LanguagesText);
+        //mLangSpinner = findViewById(R.id.lang_spinner);
+        mSelectLanguages = findViewById(R.id.selectLanguagesLayout);
+        mSelectLanguagesText = findViewById(R.id.selectLanguagesText);
 
-        List<String> languageList = new ArrayList<String>();
+        mSelectLanguages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<String> languagesList = new ArrayList<>();
+                // setup the alert builder
+                AlertDialog.Builder builder = new AlertDialog.Builder(DriverRegistration.this);
+                builder.setTitle("Choose Languages");
+                // add a checkbox list
+                String[] languages = getResources().getStringArray(R.array.languages_array);
+                boolean[] checkedItems = null;
+                builder.setMultiChoiceItems(languages, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        // user checked a box, add to the array
+                        if(isChecked){
+                            languagesList.add(languages[which]);
+                        }
+                        //user unchecked a box remove from array
+                        else {
+                            languagesList.remove(languages[which]);
+                        }
+                    }
+                });
+                // add OK and Cancel buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // user clicked OK
+                        if(languagesList!=null){
+                            mSelectLanguagesText.setText(languagesList.toString());
+                        }
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+
+                // create and show the alert dialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+        /*List<String> languageList = new ArrayList<String>();
         languageList.add("English");
         languageList.add("Urdu");
         languageList.add("Punjabi");
         mLangSpinner.setItems(languageList);
 
-        mLangSpinner.callOnClick();
+        mLangSpinner.callOnClick();*/
 
         //StringLangSelected = mLangSpinner.buildSelectedItemString();
         //mLangSpinner.onClick();
@@ -93,13 +136,14 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
             @Override
             public void onClick(View view) {
 
-                StringLangSelected = mLangSpinner.getSelectedStrings().toString();
+                //StringLangSelected = mLangSpinner.getSelectedStrings().toString();
                 String name = mName.getText().toString();
                 String cnic = mCnic.getText().toString();
                 String bday = mBday.getText().toString();
                 String address = mAddress.getText().toString();
+                String StringLangSelected = mSelectLanguagesText.getText().toString();
 
-                Log.d("testing1", StringLangSelected);
+                //Log.d("testing1", StringLangSelected);
 
                 //set tripInformation
                 if (name.length()>0 && cnic.length()==13 && bday.length()==10
@@ -142,9 +186,9 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
     }
 
     //disable select languages text
-    public static void disappear(){
-        mSelectLanguages.setVisibility(View.GONE);
-    }
+    //public static void disappear(){
+    //    mSelectLanguages.setVisibility(View.GONE);
+    //}
 
     //cannot go back to previous activity, closes down app to background
     @Override
@@ -152,6 +196,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
         moveTaskToBack(true);
     }
 
+    //dunno random
     private class DateMask implements TextWatcher {
 
         private static final int MAX_LENGTH = 8;
