@@ -114,6 +114,7 @@ public class SecurityDepositUpload extends AppCompatActivity {
                     getSecurityDeposit().setAmount(amount);
                     getSecurityDeposit().setDepositDate(date);
                     getDriverInfo().setSecurityDeposit(getSecurityDeposit());
+                    getDriverInfo().setRating((float) 5.0);
 
                     String[] imageNames = {getDriverInfo().getCnicImage(), getDriverInfo().getIdImage(),
                             getDriverInfo().getDrivingLicenseImage(), getDriverInfo().getVehicle().getExteriorImage(),

@@ -34,6 +34,7 @@ public class Driver implements Serializable {
     private String drivingLicenseImage;
     private String databaseId;
     private String token_id;
+    private float rating;
     private List<String> offersMade = new ArrayList<>();
     private List<String> offerAccepted = new ArrayList<>();
     private List<String> tripsCompleted = new ArrayList<>();
@@ -54,6 +55,7 @@ public class Driver implements Serializable {
                 ", drivingLicenseImage='" + drivingLicenseImage + '\'' +
                 ", databaseId='" + databaseId + '\'' +
                 ", token_id='" + token_id + '\'' +
+                ", rating=" + rating +
                 ", offersMade=" + offersMade +
                 ", offerAccepted=" + offerAccepted +
                 ", tripsCompleted=" + tripsCompleted +
@@ -310,5 +312,13 @@ public class Driver implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 }
