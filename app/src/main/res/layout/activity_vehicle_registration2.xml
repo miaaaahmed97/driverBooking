@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Registration.vehicleRegistration2">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/showExterior"
+                android:layout_margin="4dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerInside"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/add_image_holder"
+                app:srcCompat="@drawable/ic_add_photo"
+                />
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Upload Car Front"
+                android:layout_below="@id/showExterior"
+                android:layout_alignLeft="@id/showExterior"
+                android:layout_alignRight="@id/showExterior"
+                android:layout_alignStart="@id/showExterior"
+                android:layout_alignEnd="@id/showExterior"
+                android:textColor="@color/darkgrey2"
+                />
+
+            <ImageView
+                android:id="@+id/showExterior2"
+                android:layout_margin="4dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerInside"
+                android:background="@drawable/add_image_holder"
+                app:srcCompat="@drawable/ic_add_photo"
+                android:layout_toRightOf="@id/showExterior"
+                android:layout_toEndOf="@id/showExterior" />
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Upload Car Back"
+                android:layout_below="@id/showExterior2"
+                android:layout_alignLeft="@id/showExterior2"
+                android:layout_alignRight="@id/showExterior2"
+                android:layout_alignStart="@id/showExterior2"
+                android:layout_alignEnd="@id/showExterior2"
+                android:textColor="@color/darkgrey2"
+                />
+
+            <ImageView
+                android:id="@+id/showExterior3"
+                android:layout_margin="4dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerInside"
+                android:background="@drawable/add_image_holder"
+                app:srcCompat="@drawable/ic_add_photo"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/text1"
+            />
+
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Upload Car Side"
+                android:layout_below="@id/showExterior3"
+                android:layout_alignLeft="@id/showExterior3"
+                android:layout_alignRight="@id/showExterior3"
+                android:layout_alignStart="@id/showExterior3"
+                android:layout_alignEnd="@id/showExterior3"
+                android:textColor="@color/darkgrey2"
+                />
+
+            <ImageView
+                android:id="@+id/showInterior"
+                android:layout_margin="4dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerInside"
+                android:background="@drawable/add_image_holder"
+                app:srcCompat="@drawable/ic_add_photo"
+                android:layout_below="@id/text2"
+                android:layout_toRightOf="@id/showExterior3"
+                android:layout_toEndOf="@id/showExterior3" />
+
+            <TextView
+                android:id="@+id/text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Upload Car Seats"
+                android:layout_below="@id/showInterior"
+                android:layout_alignLeft="@id/showInterior"
+                android:layout_alignRight="@id/showInterior"
+                android:layout_alignStart="@id/showInterior"
+                android:layout_alignEnd="@id/showInterior"
+                android:textColor="@color/darkgrey2"
+                />
+
+            <ImageView
+                android:id="@+id/showInterior2"
+                android:layout_margin="4dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerInside"
+                android:background="@drawable/add_image_holder"
+                app:srcCompat="@drawable/ic_add_photo"
+                android:layout_below="@id/text3"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:id="@+id/text5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Upload Car Inside"
+                android:layout_below="@id/showInterior2"
+                android:layout_alignLeft="@id/showInterior2"
+                android:layout_alignRight="@id/showInterior2"
+                android:layout_alignStart="@id/showInterior2"
+                android:layout_alignEnd="@id/showInterior2"
+                android:textColor="@color/darkgrey2"
+                />
+
+            <ImageView
+                android:id="@+id/showInterior3"
+                android:layout_margin="4dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerInside"
+                android:background="@drawable/add_image_holder"
+                app:srcCompat="@drawable/ic_add_photo"
+                android:layout_below="@id/text4"
+                android:layout_toRightOf="@id/showInterior2"
+                android:layout_toEndOf="@id/showInterior2"/>
+
+            <TextView
+                android:id="@+id/text6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Upload Car Inside"
+                android:layout_below="@id/showInterior3"
+                android:layout_alignLeft="@id/showInterior3"
+                android:layout_alignRight="@id/showInterior3"
+                android:layout_alignStart="@id/showInterior3"
+                android:layout_alignEnd="@id/showInterior3"
+                android:textColor="@color/darkgrey2"
+                />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/RegisterVehicle2Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:padding="20dp"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:text="Register"/>
+
+</LinearLayout>
