@@ -30,4 +30,40 @@
     <string name="upload_exterior"><u>Upload Vehicle Exterior Pictures</u></string>
     <string name="upload_interior"><u>Upload Vehicle Interior Pictures</u></string>
 
+    <!--App Intro Slider-->
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Welcome!</string>
+    <string name="slide_1_desc">Rasai connects you to the best customers and helps you earn. Lets take a tour.</string>
+
+    <string name="slide_2_title">Register</string>
+    <string name="slide_2_desc">Complete the form at the end of this intro. You will need:
+        \n- Your ID Picture
+        \n- Pictures of your vehicle
+        \n- Scanned CNIC
+        \n- Scanned Driving License
+        \n- Scanned copy of Security deposit you payed us
+    </string>
+
+    <string name="slide_3_title">Make Offer</string>
+    <string name="slide_3_desc">Click on a trip posted by our customers and enter the price you want for the trip!</string>
+
+    <string name="slide_4_title">Get A Response</string>
+    <string name="slide_4_desc">Wait for the customer to choose you!</string>
+
+    <string name="slide_5_title">In App Chat</string>
+    <string name="slide_5_desc">Start a conversation with the customer!</string>
+
+    <string name="slide_6_title">Mark Completed</string>
+    <string name="slide_6_desc">When you have completed the trip, mark it!</string>
+
+    <string name="slide_7_title">Enjoy Your Trip</string>
+    <string name="slide_7_desc">Safe Travels!</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+
 </resources>

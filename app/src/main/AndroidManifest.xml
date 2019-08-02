@@ -21,8 +21,14 @@
         android:theme="@style/AppTheme">
         <!--
         Set custom default icon. This is used when no icon is set for incoming notification messages.
+        <activity android:name=".WelcomeActivity"></activity>
+        Set custom default icon. This is used when no icon is set for incoming notification messages.
         See README(https://goo.gl/l4GJaQ) for more.
         -->
+        <activity
+            android:name=".WelcomeActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_stat_ic_notification" />
@@ -76,15 +82,12 @@
         </activity>
         <activity android:name=".Registration.vehicleRegistration2"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Registration.DriverRegistration"
-            android:screenOrientation="portrait" />
-        <activity
+            android:screenOrientation="portrait"></activity>
+
+          <activity
             android:name=".MessageActivity.MainChat"
             android:screenOrientation="portrait" />
         <activity
@@ -96,7 +99,12 @@
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme"></activity>
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">

@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (controller) {
                 //new intent creation has to be inside a method
-                Intent intentReg = new Intent(MainActivity.this, DriverRegistration.class);
+                Intent intentReg = new Intent(MainActivity.this, WelcomeActivity.class);
                 startActivity(intentReg);
             }
         }

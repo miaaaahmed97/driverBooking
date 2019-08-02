@@ -47,6 +47,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
     private List<String> listLangSelected;
     //private String StringLangSelected;
     private String phoneNumber;
+    private int languageCounter = 0;
 
     //private FirebaseDatabase database;
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
@@ -84,10 +85,12 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
                         // user checked a box, add to the array
                         if(isChecked){
                             languagesList.add(languages[which]);
+                            languageCounter+=1;
                         }
                         //user unchecked a box remove from array
                         else {
                             languagesList.remove(languages[which]);
+                            languageCounter-=1;
                         }
                     }
                 });
@@ -96,7 +99,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // user clicked OK
-                        if(languagesList!=null){
+                        if(languagesList.size()>0){
                             mSelectLanguagesText.setText(languagesList.toString());
                         }
                     }
@@ -147,7 +150,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
 
                 //set tripInformation
                 if (name.length()>0 && cnic.length()==13 && bday.length()==10
-                        && address.length()>0 && StringLangSelected.length()>0) {
+                        && address.length()>0 && languageCounter > 0) {
                     driverInformation.setPhoneNumber(phoneNumber);
                     driverInformation.setName(name);
                     driverInformation.setCnic(cnic);

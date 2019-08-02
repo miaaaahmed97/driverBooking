@@ -1,40 +1,25 @@
 package com.rasai.driverBooking.Registration;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputEditText;
 import com.rasai.driverBooking.CustomObject.Driver;
 import com.rasai.driverBooking.CustomObject.Vehicle;
 import com.rasai.driverBooking.R;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class vehicleRegistration extends AppCompatActivity implements Serializable {
-
 
     private Button registrationButton;
     private TextInputEditText mManufacturer;
@@ -42,7 +27,6 @@ public class vehicleRegistration extends AppCompatActivity implements Serializab
     private TextInputEditText mRegistration;
     private TextInputEditText mNumberSeats;
     private int numberOfSeats;
-    //Spinner seatsSpinner;
 
     private Vehicle vehicleInformation;
     private Driver driverInformation;
@@ -63,7 +47,6 @@ public class vehicleRegistration extends AppCompatActivity implements Serializab
         this.driverInformation = driverInformation;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,26 +55,12 @@ public class vehicleRegistration extends AppCompatActivity implements Serializab
         assert getSupportActionBar() != null;   //null check
         setTitle("VEHICLE REGISTRATION");
 
-        //Start - Spinner Layout Setup
-        /*Spinner manufacturerSpinner = (Spinner) findViewById(R.id.manufacturerSpinner);
-        ArrayAdapter<CharSequence> manufacturerAdapter = ArrayAdapter.createFromResource(this,
-                R.array.manufacturer_array, android.R.layout.simple_spinner_item);
-        manufacturerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        manufacturerSpinner.setAdapter(manufacturerAdapter);
-
-        seatsSpinner = (Spinner) findViewById(R.id.seatsSpinner);
-        ArrayAdapter<CharSequence> seatsAdapter = ArrayAdapter.createFromResource(getBaseContext(),
-                R.array.seats_array, android.R.layout.simple_spinner_item);
-        seatsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        seatsSpinner.setAdapter(seatsAdapter);*/
-        //End - Spinner Layout Setup
-
-
-                mManufacturer = findViewById(R.id.manufacturer_field);
-                mModel =  findViewById(R.id.model_field);
-                mRegistration =  findViewById(R.id.registration_field);
-                mNumberSeats = findViewById(R.id.numberSeats_field);
-                Switch toggle =  findViewById(R.id.ac_switch);
+        mManufacturer = findViewById(R.id.manufacturer_field);
+        mModel =  findViewById(R.id.model_field);
+        mRegistration =  findViewById(R.id.registration_field);
+        Switch toggle =  findViewById(R.id.ac_switch);
+        mNumberSeats = findViewById(R.id.numberSeats_field);
+        registrationButton =  findViewById(R.id.RegisterVehicle);
 
                 mNumberSeats.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -122,6 +91,7 @@ public class vehicleRegistration extends AppCompatActivity implements Serializab
 
                             }
                         });
+
                         // add OK and Cancel buttons
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
@@ -145,10 +115,6 @@ public class vehicleRegistration extends AppCompatActivity implements Serializab
         //initialize vehicle
         setVehicleInformation(new Vehicle());
 
-        //spinner listeners
-        //manufacturerSpinner.setOnItemSelectedListener(this);
-        //seatsSpinner.setOnItemSelectedListener(this);
-
         //Strat AC switch listener
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -162,92 +128,12 @@ public class vehicleRegistration extends AppCompatActivity implements Serializab
             }
         });
         //End AC switch listener
-
-        //Register Button Listener
-        class MyOnClickListener implements View.OnClickListener, Serializable
-        {
-            @Override
-            public void onClick(View view) {
-                //Log.d("testing3", driverInformation.toString());
-
-                vehicleInformation.setModel(mModel.getText().toString());
-                vehicleInformation.setRegistration(mRegistration.getText().toString());
-                getDriverInformation().setVehicle(vehicleInformation);
-
-                Intent navNext = new Intent(vehicleRegistration.this, SecurityDepositUpload.class);
-                navNext.putExtra("driverObject", driverInformation);
-                startActivity(navNext);
-            }
-        }
-        registrationButton.setOnClickListener(new MyOnClickListener());
-
     }
-
-    //Start Dropdown Listener
-    /*
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-    {
-        new Thread(){
-            @Override
-            public void run(){
-                if(parent.getId() == R.id.manufacturer_field)
-                {
-                    getVehicleInformation().setManufacturer(parent.getSelectedItem().toString());
-                }
-                else if(parent.getId() == R.id.seatsSpinner)
-                {
-                    getVehicleInformation().setVehicleSeats(parent.getSelectedItem().toString());
-                }
-            }
-        };
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-    }
-    */
-    //End Manufacturer Dropdown Listener
-
-    //displays the uploaded image next to the upload icon
-    /*public void displayImage(Uri uri){
-
-        ImageView imageView;
-        //get ID of calling button
-        String stringID= buttonIntent.getExtras().getString("EXTRA");
-        int intID =Integer.parseInt(stringID);
-        switch (intID){
-            case R.id.exterior_textview:
-                imageView = findViewById(R.id.showExterior);
-                getVehicleInformation().setExteriorImage(uri.toString());
-                break;
-            case  R.id.interior_textview:
-                imageView = findViewById(R.id.showInterior);
-                getVehicleInformation().setInteriorImage(uri.toString());
-                break;
-                default:
-                    imageView = findViewById(R.id.showInterior);
-                    break;
-
-        }
-        Log.d("pleasee", getVehicleInformation().toString());
-        Glide.with(vehicleRegistration.this)
-                .load(uri)
-                .apply(new RequestOptions().centerInside().placeholder(R.drawable.ic_car))
-                .into(imageView);
-    }*/
 
     @Override
     public void onStart() {
         super.onStart();
-
-        //Call separate thread to avoid application doing too much work on its main thread
-        new Thread(){
-            @Override
-            public void run(){
-
-                registrationButton =  findViewById(R.id.RegisterVehicle);
-
+        
                 //Register Button Listener
                 class MyOnClickListener implements View.OnClickListener, Serializable
                 {
@@ -260,12 +146,14 @@ public class vehicleRegistration extends AppCompatActivity implements Serializab
                         String manufacturer = mManufacturer.getText().toString();
                         String model= mModel.getText().toString();
                         String registration = mRegistration.getText().toString();
+                        String seats = String.valueOf(numberOfSeats);
 
 
                         if (manufacturer.length() > 0 && model.length() > 0 && registration.length() > 0 && numberOfSeats>0) {
                             vehicleInformation.setManufacturer(manufacturer);
                             vehicleInformation.setModel(model);
                             vehicleInformation.setRegistration(registration);
+                            vehicleInformation.setVehicleSeats(seats);
                             getDriverInformation().setVehicle(vehicleInformation);
 
                             Intent navNext = new Intent(vehicleRegistration.this, SecurityDepositUpload.class);
@@ -279,8 +167,7 @@ public class vehicleRegistration extends AppCompatActivity implements Serializab
                 }
 
                 registrationButton.setOnClickListener(new MyOnClickListener());
-            }
-        }.start();
+
 
     }
 }
