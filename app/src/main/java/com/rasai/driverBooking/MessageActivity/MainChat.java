@@ -40,10 +40,11 @@ public class MainChat extends AppCompatActivity {
 
     private static final int ACTIVITY_NUM = 2;
     private ListView mListView;
+    private View mNoChatsLayout;
     private ChatListAdapter mAdapter;
 
-    List<String> tripList = new ArrayList<>();
-    List<ChatListItem> chatsList = new ArrayList<ChatListItem>();
+    private List<String> tripList = new ArrayList<>();
+    private List<ChatListItem> chatsList = new ArrayList<ChatListItem>();
 
     int tripsCounter = 0;
     int chatCounter = 0;
@@ -59,7 +60,8 @@ public class MainChat extends AppCompatActivity {
 
         phone_Number = user.getPhoneNumber();
 
-        mListView = findViewById(R.id.history_list_view);
+        mListView = findViewById(R.id.chats_list_view);
+        mNoChatsLayout = findViewById(R.id.noChatsLayout);
         mAdapter = new ChatListAdapter(MainChat.this, R.layout.activity_chats_main, chatsList);
         mListView.setAdapter(mAdapter);
 
@@ -127,7 +129,13 @@ public class MainChat extends AppCompatActivity {
                     tripList.add(child.getValue(String.class));
                 }
 
-                driverCallback();
+                if(tripList.size()>0){
+                    driverCallback();
+                }
+                else{
+                    mNoChatsLayout.setVisibility(View.VISIBLE);
+                    mListView.setVisibility(View.GONE);
+                }
             }
 
             @Override

@@ -36,17 +36,18 @@ public class HistoryTabFragment extends Fragment {
     private FirebaseUser user = mauth.getCurrentUser();
 
     private ListView mListView;
+    private View mNoHistoryLayout;
     private CustomListAdapter mAdapter;
     private View inflateView;
 
-    DatabaseReference mRef;
-    List<String> tripsList = new ArrayList<String>();
-    List<Offer> offerObjects = new ArrayList<Offer>();
+    private DatabaseReference mRef;
+    private List<String> tripsList = new ArrayList<String>();
+    private List<Offer> offerObjects = new ArrayList<Offer>();
     List<TripInformation> list = new ArrayList<TripInformation>();
-    Offer m_offer;
-    TripInformation m_trip;
+    private Offer m_offer;
+    private TripInformation m_trip;
 
-    List<TripInformation> completedTripsList = new ArrayList<TripInformation>();
+    private List<TripInformation> completedTripsList = new ArrayList<TripInformation>();
 
 
     @Override
@@ -57,6 +58,7 @@ public class HistoryTabFragment extends Fragment {
         if(inflateView==null){
             inflateView = inflater.inflate(R.layout.activity_history_list,container,false);
             mListView = (ListView) inflateView.findViewById(R.id.history_list_view);
+            mNoHistoryLayout = inflateView.findViewById(R.id.noHistoryLayout);
         }
 
         phone_Number = user.getPhoneNumber();
@@ -108,8 +110,15 @@ public class HistoryTabFragment extends Fragment {
                 tripsList.add(child.getValue().toString());
             }
 
-            offersCallback();
-            Log.d("testing0 HistoryTab", "after offers callback");
+            if(tripsList.size()>0){
+                offersCallback();
+                Log.d("testing0 HistoryTab", "after offers callback");
+            }
+            else{
+                mNoHistoryLayout.setVisibility(View.VISIBLE);
+                mListView.setVisibility(View.GONE);
+            }
+
         }
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {

@@ -38,17 +38,18 @@ public class OffersTabFragment extends Fragment {
     private FirebaseUser user = mauth.getCurrentUser();
 
     private ListView mListView;
+    private View mNoOffersLayout;
     private CustomListAdapter mAdapter;
     private View inflateView;
     private LayoutInflater minflater;
 
-    List<String> offersList = new ArrayList<String>();
-    List<Offer> offerObjects = new ArrayList<Offer>();
-    List<TripInformation> list = new ArrayList<TripInformation>();
-    Offer m_offer;
-    TripInformation m_trip;
+    private List<String> offersList = new ArrayList<String>();
+    private List<Offer> offerObjects = new ArrayList<Offer>();
+    private List<TripInformation> list = new ArrayList<TripInformation>();
+    private Offer m_offer;
+    private TripInformation m_trip;
 
-    List<TripInformation> offeredTripsList = new ArrayList<TripInformation>();
+    private List<TripInformation> offeredTripsList = new ArrayList<TripInformation>();
 
 
     @Override
@@ -58,6 +59,7 @@ public class OffersTabFragment extends Fragment {
         minflater = OffersTabFragment.this.getLayoutInflater();
         inflateView = minflater.inflate(R.layout.activity_offer_list,null,true);
         mListView = (ListView) inflateView.findViewById(R.id.offers_list_view);
+        mNoOffersLayout = inflateView.findViewById(R.id.noOffersLayout);
 
         phone_Number = user.getPhoneNumber();
 
@@ -108,7 +110,13 @@ public class OffersTabFragment extends Fragment {
                     offersList.add(child.getValue().toString());
                 }
 
-               offersCallback();
+                if(offersList.size()>0){
+                    offersCallback();
+                }
+                else{
+                    mNoOffersLayout.setVisibility(View.VISIBLE);
+                    mListView.setVisibility(View.GONE);
+                }
 
             }
             @Override

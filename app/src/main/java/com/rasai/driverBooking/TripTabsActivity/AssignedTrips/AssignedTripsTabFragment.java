@@ -36,17 +36,18 @@ public class AssignedTripsTabFragment extends Fragment {
     private FirebaseUser user = mauth.getCurrentUser();
 
     private ListView mListView;
+    private View mNoAssignedLayout;
     private CustomListAdapter mAdapter;
     private View inflateView;
     //private LayoutInflater minflater;
 
-    List<String> offersList = new ArrayList<String>();
-    List<Offer> offerObjects = new ArrayList<Offer>();
+    private List<String> offersList = new ArrayList<String>();
+    private List<Offer> offerObjects = new ArrayList<Offer>();
     List<TripInformation> list = new ArrayList<TripInformation>();
-    Offer m_offer;
-    TripInformation m_trip;
-    DatabaseReference mRef;
-    List<TripInformation> assignedTripsList = new ArrayList<TripInformation>();
+    private Offer m_offer;
+    private TripInformation m_trip;
+    private DatabaseReference mRef;
+    private List<TripInformation> assignedTripsList = new ArrayList<TripInformation>();
 
 
     @Override
@@ -57,6 +58,7 @@ public class AssignedTripsTabFragment extends Fragment {
         if(inflateView==null){
             inflateView = inflater.inflate(R.layout.activity_assigned_trips,container,false);
             mListView = (ListView) inflateView.findViewById(R.id.assigned_list_view);
+            mNoAssignedLayout = inflateView.findViewById(R.id.noAssignedTripsLayout);
         }
 
         phone_Number = user.getPhoneNumber();
@@ -106,8 +108,14 @@ public class AssignedTripsTabFragment extends Fragment {
                 offersList.add(child.getValue().toString());
             }
 
-            offersCallback();
-            Log.d("TAG", "after offers callback");
+            if(offersList.size()>0){
+                offersCallback();
+                Log.d("TAG", "after offers callback");
+            }
+            else{
+                mNoAssignedLayout.setVisibility(View.VISIBLE);
+                mListView.setVisibility(View.GONE);
+            }
         }
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {

@@ -5,6 +5,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
+        android:id="@+id/noChatsLayout"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginBottom="50dp">
+
+        <ImageView
+            android:layout_width="@dimen/img_width_height"
+            android:layout_height="@dimen/img_width_height"
+            android:layout_margin="24dp"
+            android:src="@drawable/conversation_circle"/>
+        <!--android:src="@drawable/ic_food" -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No chats"
+            android:textColor="@color/lightslategray"
+            android:textSize="@dimen/slide_title"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="@dimen/desc_padding"
+            android:paddingRight="@dimen/desc_padding"
+            android:text="Once you confirm a trip, your chat with the driver will appear here!"
+            android:textAlignment="center"
+            android:textColor="@color/darkgrey"
+            android:textSize="@dimen/slide_desc" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -16,7 +55,7 @@
         android:layout_marginBottom="50dp">
 
         <ListView
-            android:id="@+id/history_list_view"
+            android:id="@+id/chats_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@null"
