@@ -31,6 +31,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 public class SecurityDepositUpload extends AppCompatActivity {
 
     private Intent buttonIntent;
@@ -94,7 +96,7 @@ public class SecurityDepositUpload extends AppCompatActivity {
         mDate = (TextInputEditText) findViewById(R.id.date_field);
         mAmount = (TextInputEditText) findViewById(R.id.amount_field);
         addDepositText = findViewById(R.id.uploadPictureText);
-        addDepositText.setOnClickListener(new ImageButtonListener());
+        depositSlipImage.setOnClickListener(new ImageButtonListener());
 
         //Get Driver Object from driverRegistration2
         Intent i = getIntent();
@@ -160,6 +162,8 @@ public class SecurityDepositUpload extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        int radius = 15; // corner radius, higher value = more rounded
+        int margin = 0; // crop margin, set to 0 for corners with no crop
         //Detects request codes
         if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
@@ -168,7 +172,7 @@ public class SecurityDepositUpload extends AppCompatActivity {
 
             Glide.with(SecurityDepositUpload.this)
                     .load(uri)
-                    .apply(new RequestOptions().centerInside().placeholder(R.drawable.ic_car))
+                    .apply(new RequestOptions().centerInside().transform(new RoundedCornersTransformation(radius, margin)).placeholder(R.drawable.ic_car))
                     .into(depositSlipImage);
         }
     }

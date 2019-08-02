@@ -23,12 +23,10 @@
         <item>16</item>
     </string-array>
 
-    <string name="add_driving_license"><u>Add Driving License</u></string>
-    <string name="add_cnic"><u>Add CNIC Image</u></string>
-    <string name="add_id_picture"><u>Add ID Picture</u></string>
-    <string name="add_bank_slip"><u>Upload Picture of Bank Deposit Slip</u></string>
-    <string name="upload_exterior"><u>Upload Vehicle Exterior Pictures</u></string>
-    <string name="upload_interior"><u>Upload Vehicle Interior Pictures</u></string>
+    <string name="add_driving_license">Add Driving License</string>
+    <string name="add_cnic">Add CNIC Image</string>
+    <string name="add_id_picture">Add ID Picture</string>
+    <string name="add_bank_slip">Click the image to upload picture of bank deposit slip</string>
 
     <!--App Intro Slider-->
     <string name="title_activity_welcome">Home Screen</string>

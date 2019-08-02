@@ -193,12 +193,6 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
     //    mSelectLanguages.setVisibility(View.GONE);
     //}
 
-    //cannot go back to previous activity, closes down app to background
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
-    }
-
     //dunno random
     private class DateMask implements TextWatcher {
 

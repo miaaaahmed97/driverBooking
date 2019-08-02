@@ -91,13 +91,28 @@ public class WelcomeActivity extends AppCompatActivity {
                 int current = getItem(+1);
                 if (current < layouts.length) {
                     // move to next screen
-                    viewPager.setCurrentItem(current);
+                    viewPager.setCurrentItem(current,true);
                 } else {
                     Log.d("WelcomeActivity", "calling launchHome from next button");
                     launchHomeScreen();
                 }
             }
         });
+    }
+
+    //cannot go back to previous activity, closes down app to background
+    @Override
+    public void onBackPressed() {
+        int current = viewPager.getCurrentItem();
+        Log.d("currenthaha", String.valueOf(current));
+        //pages work from 0 to 6
+        if (current > 0 ) {
+            //go to previous page
+            current -= 1;
+            viewPager.setCurrentItem(current,true);
+        } else {
+            moveTaskToBack(true);
+        }
     }
 
     private void addBottomDots(int currentPage) {
@@ -127,7 +142,6 @@ public class WelcomeActivity extends AppCompatActivity {
         //prefManager.setFirstTimeLaunch(false);
         Log.d("WelcomeActivity", "launching triptabs");
         startActivity(new Intent(WelcomeActivity.this, DriverRegistration.class));
-        finish();
     }
 
     //  viewpager change listener
