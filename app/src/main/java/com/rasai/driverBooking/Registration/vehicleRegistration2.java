@@ -30,7 +30,7 @@ public class vehicleRegistration2 extends AppCompatActivity {
     private Driver driverInformation;
 
     int radius = 15; // corner radius, higher value = more rounded
-    int margin = 5; // crop margin, set to 0 for corners with no crop
+    int margin = 0; // crop margin, set to 0 for corners with no crop
 
     public Vehicle getVehicleInformation() {
         return vehicleInformation;
@@ -154,9 +154,10 @@ public class vehicleRegistration2 extends AppCompatActivity {
                 break;
                 default: imageview = mExterior;break;
         }
+        new RequestOptions();
         Glide.with(vehicleRegistration2.this)
                 .load(uri)
-                .apply(new RequestOptions().centerCrop().transform(new RoundedCornersTransformation(radius, margin)).placeholder(R.drawable.add_image_holder))
+                .apply(RequestOptions.centerCropTransform().transform(new RoundedCornersTransformation(radius, margin)).placeholder(R.drawable.add_image_holder))
                 .into(imageview);
 
     }
