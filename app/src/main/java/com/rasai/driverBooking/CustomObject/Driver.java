@@ -80,11 +80,23 @@ public class Driver implements Serializable {
             case "drivingLicenseImage":
                 filePath = Uri.parse(drivingLicenseImage);
                 break;
-            case "exteriorImage":
-                filePath = Uri.parse(vehicle.getExteriorImage());
+            case "exteriorImage1":
+                filePath = Uri.parse(vehicle.getFrontviewImage());
                 break;
-            case "interiorImage":
-                filePath = Uri.parse(vehicle.getInteriorImage());
+            case "exteriorImage2":
+                filePath = Uri.parse(vehicle.getBackviewImage());
+                break;
+            case "exteriorImage3":
+                filePath = Uri.parse(vehicle.getSideviewImage());
+                break;
+            case "interiorImage1":
+                filePath = Uri.parse(vehicle.getSeatsImage());
+                break;
+            case "interiorImage2":
+                filePath = Uri.parse(vehicle.getInteriorImage1());
+                break;
+            case "interiorImage3":
+                filePath = Uri.parse(vehicle.getInteriorImage2());
                 break;
             case "depositImage":
                 filePath = Uri.parse(securityDeposit.getDepositImage());
@@ -112,12 +124,24 @@ public class Driver implements Serializable {
                 drivingLicenseImage =url;
                 break;
             case 3:
-                vehicle.setExteriorImage(url);
+                vehicle.setFrontviewImage(url);
                 break;
             case 4:
-                vehicle.setInteriorImage(url);
+                vehicle.setBackviewImage(url);
                 break;
             case 5:
+                vehicle.setSideviewImage(url);
+                break;
+            case 6:
+                vehicle.setSeatsImage(url);
+                break;
+            case 7:
+                vehicle.setInteriorImage1(url);
+                break;
+            case 8:
+                vehicle.setInteriorImage2(url);
+                break;
+            case 9:
                 securityDeposit.setDepositImage(url);
                 break;
             default:
@@ -155,6 +179,7 @@ public class Driver implements Serializable {
                                         counter[0] +=1;
 
                                         if (counter[0] == imageNameArray.length) {
+
                                             DatabaseReference mDriver = FirebaseDatabase.getInstance().getReference();
                                             postDriverInfo(mDriver);
                                         }

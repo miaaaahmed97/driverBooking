@@ -65,9 +65,11 @@ public class vehicleRegistration extends AppCompatActivity implements Serializab
                 mNumberSeats.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
                         // setup the alert builder
                         AlertDialog.Builder builder = new AlertDialog.Builder(vehicleRegistration.this);
                         builder.setTitle("Choose Number of Seats");
+
                         // add a checkbox list
                         String[] seatNumbersArray = getResources().getStringArray(R.array.seats_array);
                         builder.setSingleChoiceItems(seatNumbersArray, -1, new DialogInterface.OnClickListener() {
@@ -119,11 +121,15 @@ public class vehicleRegistration extends AppCompatActivity implements Serializab
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+
                     // The toggle is enabled
                     getVehicleInformation().setHasAc("yes");
+
                 } else {
+
                     // The toggle is disabled
                     getVehicleInformation().setHasAc("no");
+
                 }
             }
         });
@@ -133,15 +139,12 @@ public class vehicleRegistration extends AppCompatActivity implements Serializab
     @Override
     public void onStart() {
         super.onStart();
-        
+
                 //Register Button Listener
                 class MyOnClickListener implements View.OnClickListener, Serializable
                 {
                     @Override
                     public void onClick(View view) {
-                        //Log.d("testing3", driverInformation.toString());
-
-                        //TODO add check for images
 
                         String manufacturer = mManufacturer.getText().toString();
                         String model= mModel.getText().toString();
@@ -154,10 +157,10 @@ public class vehicleRegistration extends AppCompatActivity implements Serializab
                             vehicleInformation.setModel(model);
                             vehicleInformation.setRegistration(registration);
                             vehicleInformation.setVehicleSeats(seats);
-                            getDriverInformation().setVehicle(vehicleInformation);
 
-                            Intent navNext = new Intent(vehicleRegistration.this, SecurityDepositUpload.class);
+                            Intent navNext = new Intent(vehicleRegistration.this, vehicleRegistration2.class);
                             navNext.putExtra("driverObject", driverInformation);
+                            navNext.putExtra("vehicleObject", vehicleInformation);
                             startActivity(navNext);
                         } else {
                             Toast.makeText(getBaseContext(), "Please provide all info.",
@@ -167,7 +170,5 @@ public class vehicleRegistration extends AppCompatActivity implements Serializab
                 }
 
                 registrationButton.setOnClickListener(new MyOnClickListener());
-
-
     }
 }

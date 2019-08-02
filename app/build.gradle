@@ -57,7 +57,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-core:17.0.1'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'com.google.android.material:material:1.1.0-alpha08'
+    implementation 'com.google.android.material:material:1.1.0-alpha09'
     implementation 'com.google.firebase:firebase-auth:18.1.0'
     implementation 'com.firebaseui:firebase-ui-auth:3.3.1'
     implementation 'com.firebase:firebase-client-android:2.5.0'
@@ -68,7 +68,7 @@ dependencies {
 
 
     //for bottom navigation view
-    implementation 'com.google.android.material:material:1.1.0-alpha08'
+    implementation 'com.google.android.material:material:1.1.0-alpha09'
     implementation 'com.google.android.material:material:1.0.0'
 
     // reactive

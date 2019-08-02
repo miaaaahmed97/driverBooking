@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -17,36 +19,26 @@ import com.rasai.driverBooking.CustomObject.Driver;
 import com.rasai.driverBooking.CustomObject.Vehicle;
 import com.rasai.driverBooking.R;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class vehicleRegistration2 extends AppCompatActivity {
 
     private static final int GET_FROM_GALLERY = 1;
-    private ImageView mExterior, mExterior2, mExterior3, mInterior, mInterior2, mInterior3;
+    private ImageView mExterior1, mExterior2, mExterior3, mInterior1, mInterior2, mInterior3;
     private Intent buttonIntent;
     private Button mRegisterVehicle2Button;
 
-    private Vehicle vehicleInformation;
-    private Driver driverInformation;
+    Vehicle vehicleInfo;
+    Driver driverInformation;
 
     int radius = 15; // corner radius, higher value = more rounded
     int margin = 0; // crop margin, set to 0 for corners with no crop
-
-    public Vehicle getVehicleInformation() {
-        return vehicleInformation;
-    }
-
-    public void setVehicleInformation(Vehicle vehicleInformation) {
-        this.vehicleInformation = vehicleInformation;
-    }
-
-    public Driver getDriverInformation() {
-        return driverInformation;
-    }
-
-    public void setDriverInformation(Driver driverInformation) {
-        this.driverInformation = driverInformation;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +47,24 @@ public class vehicleRegistration2 extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        mExterior = findViewById(R.id.showExterior);
+        Intent i = getIntent();
+        driverInformation = (Driver) i.getSerializableExtra("driverObject");
+        vehicleInfo = (Vehicle) i.getSerializableExtra("vehicleObject");
+
+        mRegisterVehicle2Button = findViewById(R.id.RegisterVehicle2Button);
+        mRegisterVehicle2Button.setOnClickListener(new MyOnClickListener());
+
+        mExterior1 = findViewById(R.id.showExterior);
         mExterior2 = findViewById(R.id.showExterior2);
         mExterior3 = findViewById(R.id.showExterior3);
-        mInterior = findViewById(R.id.showInterior);
+        mInterior1 = findViewById(R.id.showInterior);
         mInterior2 = findViewById(R.id.showInterior2);
         mInterior3 = findViewById(R.id.showInterior3);
-        mRegisterVehicle2Button = findViewById(R.id.RegisterVehicle2Button);
 
-        mExterior.setOnClickListener(new ImageViewListener());
+        mExterior1.setOnClickListener(new ImageViewListener());
         mExterior2.setOnClickListener(new ImageViewListener());
         mExterior3.setOnClickListener(new ImageViewListener());
-        mInterior.setOnClickListener(new ImageViewListener());
+        mInterior1.setOnClickListener(new ImageViewListener());
         mInterior2.setOnClickListener(new ImageViewListener());
         mInterior3.setOnClickListener(new ImageViewListener());
 
@@ -97,27 +95,6 @@ public class vehicleRegistration2 extends AppCompatActivity {
 
             Uri selectedImage = data.getData();
             displayImage(selectedImage);
-
-            /*if(data.getClipData() != null) {
-                //evaluate the count to display message
-                int count = data.getClipData().getItemCount();
-                if(count<3){
-                    Toast.makeText(getBaseContext(), "Please upload 3 images", Toast.LENGTH_LONG).show();
-                }
-                else if (count==3){
-                    displayMultipleImages(data.getClipData());
-                }else{
-                    Toast.makeText(getBaseContext(), "Only 3 images will be uploaded", Toast.LENGTH_LONG).show();
-                    displayMultipleImages(data.getClipData());
-                }
-
-                //do something with the image (save it to some directory or whatever you need to do with it here)
-            }*/
-
-                //imageUri = data.getData();
-                //do something with the image (save it to some directory or whatever you need to do with it here)
-                //Toast.makeText(getBaseContext(), "Please upload 3 images", Toast.LENGTH_LONG).show();
-
         }
 
     }
@@ -127,104 +104,68 @@ public class vehicleRegistration2 extends AppCompatActivity {
 
         String stringID= buttonIntent.getExtras().getString("EXTRA");
         int intID =Integer.parseInt(stringID);
+
         switch (intID){
             case R.id.showExterior:
-                imageview = mExterior;
-                //getVehicleInformation().setExteriorImage(uri.toString());
+                imageview = mExterior1;
+                vehicleInfo.setFrontviewImage(mExterior1.toString());
                 break;
             case R.id.showExterior2:
                 imageview = mExterior2;
-                //getVehicleInformation().setExteriorImage2(uri.toString());
+                vehicleInfo.setBackviewImage(mExterior2.toString());
                 break;
             case R.id.showExterior3:
                 imageview = mExterior3;
-                //getVehicleInformation().setExteriorImage3(uri.toString());
+                vehicleInfo.setSideviewImage(mExterior3.toString());
                 break;
             case R.id.showInterior:
-                imageview = mInterior;
-                //getVehicleInformation().setInteriorImage(uri.toString());
+                imageview = mInterior1;
+                vehicleInfo.setSeatsImage(mInterior1.toString());
                 break;
             case R.id.showInterior2:
                 imageview = mInterior2;
-                //getVehicleInformation().setInteriorImage2(uri.toString());
+                vehicleInfo.setInteriorImage1(mInterior2.toString());
                 break;
             case R.id.showInterior3:
                 imageview = mInterior3;
-                //getVehicleInformation().setInteriorImage3(uri.toString());
+                vehicleInfo.setInteriorImage2(mInterior3.toString());
                 break;
-                default: imageview = mExterior;break;
+
+                default:
+                    imageview = mExterior1;
+                    break;
         }
+
         new RequestOptions();
         Glide.with(vehicleRegistration2.this)
                 .load(uri)
-                .apply(RequestOptions.centerCropTransform().transform(new RoundedCornersTransformation(radius, margin)).placeholder(R.drawable.add_image_holder))
+                .centerCrop()
                 .into(imageview);
 
     }
 
-    /*public void displayMultipleImages(ClipData clipData){
-        Uri uri;
-        ImageView imageview;
+    class MyOnClickListener implements View.OnClickListener, Serializable
+    {
+        @Override
+        public void onClick(View view) {
 
-        String stringID= buttonIntent.getExtras().getString("EXTRA");
-        int intID =Integer.parseInt(stringID);
-        switch (intID){
-            case R.id.exterior_textview:
-                for(int i = 0; i < 3; i++){
-                    uri = clipData.getItemAt(i).getUri();
-                    switch (i){
-                        case 0:
-                            imageview = findViewById(R.id.showExterior);
-                            getVehicleInformation().setExteriorImage(uri.toString());
-                            break;
-                        case 1:
-                            imageview = findViewById(R.id.showExterior2);
-                            getVehicleInformation().setExteriorImage2(uri.toString());
-                            break;
-                        case 2:
-                            imageview = findViewById(R.id.showExterior3);
-                            getVehicleInformation().setExteriorImage3(uri.toString());
-                            break;
+            if (vehicleInfo.getFrontviewImage()!=null && vehicleInfo.getBackviewImage()!=null &&
+                    vehicleInfo.getSideviewImage()!=null && vehicleInfo.getSeatsImage()!=null &&
+                    vehicleInfo.getInteriorImage1()!=null && vehicleInfo.getInteriorImage2()!=null)
+            {
 
-                        //to stop may not have been initialized errors
-                        default:imageview = findViewById(R.id.showExterior);break;
+                driverInformation.setVehicle(vehicleInfo);
 
-                    }
-                    Glide.with(vehicleRegistration2.this)
-                            .load(uri)
-                            .apply(new RequestOptions().centerInside().placeholder(R.drawable.ic_car))
-                            .into(imageview);
-                }
+                Log.d("VehicleRegistration2", driverInformation.toString());
 
-                break;
-            case R.id.interior_textview:
+                Intent navNext = new Intent(vehicleRegistration2.this, SecurityDepositUpload.class);
+                navNext.putExtra("driverObject", driverInformation);
+                startActivity(navNext);
 
-                for(int i = 0; i < 3; i++){
-                    uri = clipData.getItemAt(i).getUri();
-                    switch (i){
-                        case 0:
-                            imageview = findViewById(R.id.showInterior);
-                            getVehicleInformation().setInteriorImage(uri.toString());
-                            break;
-                        case 1:
-                            imageview = findViewById(R.id.showInterior2);
-                            getVehicleInformation().setInteriorImage2(uri.toString());
-                            break;
-                        case 2:
-                            imageview = findViewById(R.id.showInterior3);
-                            getVehicleInformation().setInteriorImage3(uri.toString());
-                            break;
-
-                        //to stop may not have been initialized errors
-                        default:imageview = findViewById(R.id.showInterior);break;
-
-                    }
-                    Glide.with(vehicleRegistration2.this)
-                            .load(uri)
-                            .apply(new RequestOptions().centerInside().placeholder(R.drawable.ic_car))
-                            .into(imageview);
-                }
-                break;
+            } else {
+                Toast.makeText(getBaseContext(), "Please provide all info.",
+                        Toast.LENGTH_LONG).show();
+            }
         }
-    }*/
+    }
 }

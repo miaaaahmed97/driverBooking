@@ -22,6 +22,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.rasai.driverBooking.CustomObject.Driver;
+import com.rasai.driverBooking.CustomObject.Vehicle;
 import com.rasai.driverBooking.DriverHome;
 import com.rasai.driverBooking.R;
 import com.rasai.driverBooking.CustomObject.SecurityDeposit;
@@ -48,6 +49,8 @@ public class SecurityDepositUpload extends AppCompatActivity {
 
     private Driver driverInfo;
     private SecurityDeposit securityDeposit;
+
+    private int totalImages = 10;
 
     public void setDriverInfo(Driver driverInfo) {
         this.driverInfo = driverInfo;
@@ -109,24 +112,28 @@ public class SecurityDepositUpload extends AppCompatActivity {
             public void onClick(View view) {
                 //Log.d("testing3", driverInfo.toString());
 
-                Integer amount = Integer.parseInt(mAmount.getText().toString());
+                //Integer amount = Integer.parseInt(mAmount.getText().toString());
                 String date = mDate.getText().toString();
 
-                if (amount != null && date.length()>0 && getSecurityDeposit().getDepositImage() !=null ) {
-                    getSecurityDeposit().setAmount(amount);
+                if (mAmount.getText().toString().length()>0 && date.length()>0 && getSecurityDeposit().getDepositImage() !=null ) {
+                    getSecurityDeposit().setAmount(Integer.parseInt(mAmount.getText().toString()));
                     getSecurityDeposit().setDepositDate(date);
                     getDriverInfo().setSecurityDeposit(getSecurityDeposit());
                     getDriverInfo().setRating((float) 5.0);
 
+                    Vehicle vehicle = getDriverInfo().getVehicle();
+
                     String[] imageNames = {getDriverInfo().getCnicImage(), getDriverInfo().getIdImage(),
-                            getDriverInfo().getDrivingLicenseImage(), getDriverInfo().getVehicle().getExteriorImage(),
-                            getDriverInfo().getVehicle().getInteriorImage(), getSecurityDeposit().getDepositImage()};
+                            getDriverInfo().getDrivingLicenseImage(), vehicle.getFrontviewImage(),
+                            vehicle.getBackviewImage(), vehicle.getSideviewImage(), vehicle.getSeatsImage(),
+                            vehicle.getInteriorImage1(), vehicle.getInteriorImage2(), getSecurityDeposit().getDepositImage()};
 
                     getDriverInfo().uploadImage(storageReference, imageNames);
 
                     Intent navNext = new Intent(SecurityDepositUpload.this, DriverHome.class);
                     navNext.putExtra("driverObject", driverInfo);
                     startActivity(navNext);
+
                 } else {
                     Toast.makeText(SecurityDepositUpload.this, "Please fill all info ", Toast.LENGTH_SHORT).show();
                 }
