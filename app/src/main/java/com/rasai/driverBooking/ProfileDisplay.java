@@ -518,9 +518,10 @@ public class ProfileDisplay extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 // [END auth_sign_out]
 
-                finish();
+                finishAffinity();
 
                 Intent intent = new Intent(ProfileDisplay.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
             }
         });
