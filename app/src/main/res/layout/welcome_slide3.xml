@@ -15,6 +15,7 @@
             android:layout_width="@dimen/img_width_height"
             android:layout_height="@dimen/img_width_height"
             android:layout_margin="24dp"
+            android:src="@drawable/make_offer"
             />
             <!--android:src="@drawable/ic_discount"
             android:src="@drawable/wait_circle"-->
