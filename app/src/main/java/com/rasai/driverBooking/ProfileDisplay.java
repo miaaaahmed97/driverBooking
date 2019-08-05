@@ -8,15 +8,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.graphics.Bitmap;
+
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
+
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -40,8 +39,6 @@ import com.rasai.driverBooking.CustomObject.SecurityDeposit;
 import com.rasai.driverBooking.CustomObject.Vehicle;
 import com.rasai.driverBooking.Registration.MultiSelectionSpinner;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

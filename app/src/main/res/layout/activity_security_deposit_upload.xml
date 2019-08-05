@@ -3,14 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_height="match_parent" android:orientation="vertical"
     tools:context=".Registration.SecurityDepositUpload">
+
+    <include layout="@layout/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_height="0dp"
+        android:gravity="center"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -36,7 +40,6 @@
             android:layout_marginEnd="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
             android:padding="8dp"
             android:src="@drawable/bankslip"
             android:scaleType="centerInside"/>
@@ -45,14 +48,15 @@
             android:id="@+id/uploadPictureText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
             android:layout_marginBottom="16dp"
             android:textColor="@color/darkgrey2"
+            android:gravity="center"
             android:text="@string/add_bank_slip"
-            android:textSize="14sp"/>
+            android:textSize="12sp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/amount"

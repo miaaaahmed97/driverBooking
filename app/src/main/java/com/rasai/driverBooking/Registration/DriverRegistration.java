@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.rasai.driverBooking.CustomObject.Driver;
 import com.rasai.driverBooking.R;
 
@@ -30,6 +31,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class DriverRegistration extends AppCompatActivity implements Serializable {
 
@@ -44,7 +46,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
     private TextView mSelectLanguagesText;
 
     private Driver driverInformation;
-    private List<String> listLangSelected;
+    //private List<String> listLangSelected;
     //private String StringLangSelected;
     private String phoneNumber;
     private int languageCounter = 0;
@@ -58,16 +60,22 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_registration);
 
-        //Set tht title
-        assert getSupportActionBar() != null;   //null check
-        setTitle("REGISTRATION");
+        //hide actionbar
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         driverInformation = new Driver();
-
         phoneNumber = user.getPhoneNumber();
         //mLangSpinner = findViewById(R.id.lang_spinner);
         mSelectLanguages = findViewById(R.id.selectLanguagesLayout);
         mSelectLanguagesText = findViewById(R.id.selectLanguagesText);
+
+        //set the progress
+        //String[] descriptionData = {"Driver\nRegistration", "Upload\nPictures", "Register\nVehicle", "Car\nPictures" , "Security\nDeposit"};
+        StateProgressBar stateProgressBar = findViewById(R.id.simpleProgressBar);
+        //stateProgressBar.setStateDescriptionData(descriptionData);
+        //stateProgressBar.setStateDescriptionTypeface("fonts/roboto_light.ttf");
+        stateProgressBar.setStateNumberTypeface("fonts/roboto_thin.ttf");
+
 
         mSelectLanguages.setOnClickListener(new View.OnClickListener() {
             @Override

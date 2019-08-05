@@ -6,12 +6,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.rasai.driverBooking.CustomObject.Driver;
 import com.rasai.driverBooking.CustomObject.Vehicle;
 import com.rasai.driverBooking.DriverHome;
@@ -30,6 +33,7 @@ import com.rasai.driverBooking.CustomObject.SecurityDeposit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Objects;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -85,8 +89,13 @@ public class SecurityDepositUpload extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_security_deposit_upload);
 
-        assert getSupportActionBar() != null;   //null check
-        setTitle("SECURITY DEPOSIT");
+        //hise top bar and set value of progress bar
+        Objects.requireNonNull(getSupportActionBar()).hide();
+        //set the progress
+        StateProgressBar stateProgressBar = findViewById(R.id.simpleProgressBar);
+        stateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.FIVE);
+        stateProgressBar.enableAnimationToCurrentState(true);
+        stateProgressBar.setAnimationDuration(2000);
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();

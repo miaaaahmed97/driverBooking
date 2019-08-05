@@ -5,13 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="16dp"
+    android:gravity="center_horizontal"
     tools:context=".Registration.DriverRegistration">
+
+    <include layout="@layout/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
+        android:gravity="center"
         android:layout_weight="1">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -20,7 +25,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             app:helperText="Eg. Nouman Akram">
@@ -140,6 +144,7 @@
             app:layout_constraintTop_toBottomOf="@+id/Languages" />-->
 
     </LinearLayout>
+
     <Button
         android:id="@+id/continueDriverReg"
         android:layout_width="match_parent"

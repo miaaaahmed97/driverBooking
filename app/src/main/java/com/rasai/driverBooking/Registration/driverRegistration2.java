@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,10 +23,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.rasai.driverBooking.CustomObject.Driver;
 import com.rasai.driverBooking.R;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class driverRegistration2 extends AppCompatActivity implements Serializable{
 
@@ -75,15 +78,20 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_registration2);
 
-        //Set tht title
-        assert getSupportActionBar() != null;   //null check
-        setTitle("IDENTITY CONFIRMATION");
+        //hide the bar
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         //get firebase storage reference
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
         Intent i = getIntent();
         setDriverInformation((Driver) i.getSerializableExtra("driverObject"));
+
+        //set the progress
+        StateProgressBar stateProgressBar = findViewById(R.id.simpleProgressBar);
+        stateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.TWO);
+        stateProgressBar.enableAnimationToCurrentState(true);
+        stateProgressBar.setAnimationDuration(2000);
 
         addIDButton = findViewById(R.id.addIDPicture);
         addCNICButton =findViewById(R.id.addCnic);
@@ -169,7 +177,7 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
                     Glide.with(driverRegistration2.this).
                             load(Uri.parse(getDriverInformation().getIdImage()))
                             .apply(new RequestOptions().centerInside()
-                                    .placeholder(R.drawable.ic_image))
+                                    .placeholder(R.drawable.ic_avatar))
                             .into(mSelectedImage);
                 }
                 break;

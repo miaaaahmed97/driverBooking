@@ -64,11 +64,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:18.0.1'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    //glide transformations
     implementation 'jp.wasabeef:glide-transformations:3.3.0'
 
-
+    //for registration progress bar
+    implementation 'com.kofigyan.stateprogressbar:stateprogressbar:1.0.0'
     //for bottom navigation view
-    implementation 'com.google.android.material:material:1.1.0-alpha09'
     implementation 'com.google.android.material:material:1.0.0'
 
     // reactive

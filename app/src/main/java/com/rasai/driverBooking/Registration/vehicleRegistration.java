@@ -3,21 +3,25 @@ package com.rasai.driverBooking.Registration;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.rasai.driverBooking.CustomObject.Driver;
 import com.rasai.driverBooking.CustomObject.Vehicle;
 import com.rasai.driverBooking.R;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class vehicleRegistration extends AppCompatActivity implements Serializable {
 
@@ -52,8 +56,12 @@ public class vehicleRegistration extends AppCompatActivity implements Serializab
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle_registration);
 
-        assert getSupportActionBar() != null;   //null check
-        setTitle("VEHICLE REGISTRATION");
+        Objects.requireNonNull(getSupportActionBar()).hide();
+        //set the progress
+        StateProgressBar stateProgressBar = findViewById(R.id.simpleProgressBar);
+        stateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.THREE);
+        stateProgressBar.enableAnimationToCurrentState(true);
+        stateProgressBar.setAnimationDuration(2000);
 
         mManufacturer = findViewById(R.id.manufacturer_field);
         mModel =  findViewById(R.id.model_field);

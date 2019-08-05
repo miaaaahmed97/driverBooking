@@ -7,9 +7,14 @@
     android:orientation="vertical"
     tools:context=".Registration.vehicleRegistration2">
 
+    <include layout="@layout/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:gravity="center"
             android:layout_gravity="center"
             android:layout_weight="1">
