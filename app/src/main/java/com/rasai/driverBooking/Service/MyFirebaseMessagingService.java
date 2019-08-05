@@ -51,6 +51,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle(title)
                 .setContentText(body)
                 .setSound(soundUri)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
