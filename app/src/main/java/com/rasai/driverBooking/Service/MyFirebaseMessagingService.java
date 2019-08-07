@@ -15,8 +15,12 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.rasai.driverBooking.DriverHome;
 import com.rasai.driverBooking.MainActivity;
+import com.rasai.driverBooking.MessageActivity.MainChat;
 import com.rasai.driverBooking.R;
+import com.rasai.driverBooking.TripTabsActivity.TripTabsActivity;
+import com.rasai.driverBooking.WelcomeActivity;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
@@ -33,13 +37,33 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        //showNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
-        generateNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
+        generateNotification(remoteMessage.getData().get("title"),
+                remoteMessage.getData().get("body"), remoteMessage.getData().get("click_action"));
     }
 
-    private void generateNotification(String title, String body) {
+    private void generateNotification(String title, String body, String click_action) {
 
-        Intent intent = new Intent(this, MainActivity.class);
+        //Intent intent = new Intent(this, MainActivity.class);
+        Intent intent;
+
+        if(click_action.equals("CHAT")){
+            intent = new Intent(this, MainChat.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        }
+        else if(click_action.equals("WELCOME")) {
+            intent = new Intent(this, WelcomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        }
+        else if(click_action.equals("ASSIGNED")) {
+            intent = new Intent(this, TripTabsActivity.class);
+            intent.putExtra("OPEN_TAB", "assigned");
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        }
+        else{
+            intent = new Intent(this, DriverHome.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        }
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , intent, PendingIntent.FLAG_ONE_SHOT);

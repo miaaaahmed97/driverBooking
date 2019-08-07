@@ -9,6 +9,8 @@ import android.util.Log;
 
 import com.firebase.client.Firebase;
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -16,6 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.rasai.driverBooking.Registration.DriverRegistration;
 
 import java.io.Serializable;
@@ -110,6 +114,28 @@ public class MainActivity extends AppCompatActivity {
                     if(child.getKey().equals(user.getPhoneNumber())){
 
                         Intent intentHome = new Intent(MainActivity.this, DriverHome.class);
+
+                        //Update Firebase Messaging token
+                        FirebaseInstanceId.getInstance().getInstanceId()
+                                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                        if (!task.isSuccessful()) {
+                                            Log.w("MainActivity", "getInstanceId failed", task.getException());
+                                            return;
+                                        }
+
+                                        // Get new Instance ID token
+                                        String token_id = task.getResult().getToken();
+
+                                        //Add name to Customer in Firebase
+                                        final DatabaseReference mRef= FirebaseDatabase.getInstance().getReference()
+                                                .child("Driver").child(user.getPhoneNumber());
+                                        mRef.child("token_id").setValue(token_id);
+
+                                    }
+                                });
+
                         startActivity(intentHome);
                         controller = false;
                     }
