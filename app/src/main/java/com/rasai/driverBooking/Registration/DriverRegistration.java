@@ -211,14 +211,14 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
 
     /*date validator
     * this works for format and values both*/
-    private boolean isThisDateValid(String dateToValidate, String dateFromat){
+    private boolean isThisDateValid(String dateToValidate, String dateFormat){
 
         //empty date field
         if(dateToValidate == null){
             return false;
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
         sdf.setLenient(false);
 
         try {
