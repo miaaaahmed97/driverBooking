@@ -8,6 +8,12 @@
     android:layout_height="match_parent"
     tools:context=".MessageActivity.MessageListActivity">
 
+    <ViewStub
+        android:id="@+id/noMessageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/start_chat_layout"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/reyclerview_message_list"
         android:layout_width="match_parent"

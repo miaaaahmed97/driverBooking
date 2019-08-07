@@ -36,14 +36,13 @@ public class HistoryTabFragment extends Fragment {
     private FirebaseUser user = mauth.getCurrentUser();
 
     private ListView mListView;
-    private View mNoHistoryLayout;
     private CustomListAdapter mAdapter;
-    private View inflateView;
+    private View inflateView, mNoHistoryLayout;
 
     private DatabaseReference mRef;
     private List<String> tripsList = new ArrayList<String>();
     private List<Offer> offerObjects = new ArrayList<Offer>();
-    List<TripInformation> list = new ArrayList<TripInformation>();
+    //List<TripInformation> list = new ArrayList<TripInformation>();
     private Offer m_offer;
     private TripInformation m_trip;
 
@@ -57,7 +56,7 @@ public class HistoryTabFragment extends Fragment {
         //minflater = HistoryTabFragment.this.getLayoutInflater();
         if(inflateView==null){
             inflateView = inflater.inflate(R.layout.activity_history_list,container,false);
-            mListView = (ListView) inflateView.findViewById(R.id.history_list_view);
+            mListView =  inflateView.findViewById(R.id.history_list_view);
             mNoHistoryLayout = inflateView.findViewById(R.id.noHistoryLayout);
         }
 
@@ -103,6 +102,10 @@ public class HistoryTabFragment extends Fragment {
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
             completedTripsList.clear();
+            if(!isVisibleToUser(mListView)){
+                mListView.setVisibility(View.VISIBLE);
+                mNoHistoryLayout.setVisibility(View.GONE);
+            }
 
             //Log.d("testing1", dataSnapshot.getValue().toString());
             Iterable<DataSnapshot> children = dataSnapshot.getChildren();
@@ -115,14 +118,23 @@ public class HistoryTabFragment extends Fragment {
                 Log.d("testing0 HistoryTab", "after offers callback");
             }
             else{
-                mNoHistoryLayout.setVisibility(View.VISIBLE);
-                mListView.setVisibility(View.GONE);
+                if(!isVisibleToUser(mNoHistoryLayout)){
+                    mNoHistoryLayout.setVisibility(View.VISIBLE);
+                    mListView.setVisibility(View.GONE);
+                }
             }
 
         }
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
         }
+    }
+
+    private boolean isVisibleToUser(View view) {
+        if (view.getVisibility() == View.VISIBLE) {
+            return true;
+        }
+        else return false;
     }
 
     private class MyOfferValueEventListener implements ValueEventListener, Serializable {

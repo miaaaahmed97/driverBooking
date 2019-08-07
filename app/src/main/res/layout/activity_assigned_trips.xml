@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="16dp"
     android:paddingStart="16dp"
@@ -10,32 +10,20 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingRight="16dp"
     android:paddingEnd="16dp">
 
-    <LinearLayout
+    <TextView
         android:id="@+id/noAssignedTripsLayout"
         android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="24dp"
-            android:src="@drawable/wait_circle"/>
-        <!--android:src="@drawable/ic_food" -->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="@dimen/desc_padding"
-            android:paddingRight="@dimen/desc_padding"
-            android:text="Have you made an offer? Wait for the customer to accept it and we'll send you a notification."
-            android:textAlignment="center"
-            android:textColor="@color/darkgrey"
-            android:textSize="@dimen/slide_desc" />
-    </LinearLayout>
+        android:drawableTop="@drawable/wait_sad_circle"
+        android:drawablePadding="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp"
+        android:paddingLeft="@dimen/desc_padding"
+        android:paddingRight="@dimen/desc_padding"
+        android:text="Have you made an offer? Wait for the customer to accept it and we'll send you a notification."
+        android:textAlignment="center"
+        android:textColor="@color/darkgrey"
+        android:textSize="16sp" />
 
     <ListView
     android:id="@+id/assigned_list_view"

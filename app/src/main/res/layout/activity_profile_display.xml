@@ -421,6 +421,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="edit"
+                    android:padding="18dp"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:textColor="@color/white"
                     android:textStyle="bold"/>
@@ -428,6 +429,7 @@
                 <Button
                     android:id="@+id/save"
                     android:layout_marginTop="16dp"
+                    android:padding="18dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="save"
@@ -440,7 +442,8 @@
                     android:id="@+id/logout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
+                    android:padding="18dp"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:text="LOG OUT"
                     android:textColor="@color/white"

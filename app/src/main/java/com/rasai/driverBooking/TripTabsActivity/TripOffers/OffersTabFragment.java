@@ -38,14 +38,13 @@ public class OffersTabFragment extends Fragment {
     private FirebaseUser user = mauth.getCurrentUser();
 
     private ListView mListView;
-    private View mNoOffersLayout;
     private CustomListAdapter mAdapter;
-    private View inflateView;
-    private LayoutInflater minflater;
+    private View inflateView, mNoOffersLayout;
+    //private LayoutInflater minflater;
 
     private List<String> offersList = new ArrayList<String>();
     private List<Offer> offerObjects = new ArrayList<Offer>();
-    private List<TripInformation> list = new ArrayList<TripInformation>();
+    //private List<TripInformation> list = new ArrayList<TripInformation>();
     private Offer m_offer;
     private TripInformation m_trip;
 
@@ -56,10 +55,12 @@ public class OffersTabFragment extends Fragment {
     public  View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        minflater = OffersTabFragment.this.getLayoutInflater();
-        inflateView = minflater.inflate(R.layout.activity_offer_list,null,true);
-        mListView = (ListView) inflateView.findViewById(R.id.offers_list_view);
-        mNoOffersLayout = inflateView.findViewById(R.id.noOffersLayout);
+        //minflater = OffersTabFragment.this.getLayoutInflater();
+        if(inflateView==null){
+            inflateView = inflater.inflate(R.layout.activity_offer_list,null,true);
+            mListView =  inflateView.findViewById(R.id.offers_list_view);
+            mNoOffersLayout = inflateView.findViewById(R.id.noOffersLayout);
+        }
 
         phone_Number = user.getPhoneNumber();
 
@@ -103,6 +104,10 @@ public class OffersTabFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 offeredTripsList.clear();
+                if(!isVisibleToUser(mListView)){
+                    mListView.setVisibility(View.VISIBLE);
+                    mNoOffersLayout.setVisibility(View.GONE);
+                }
 
                 //get all the unconfirmed offers made by the driver
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
@@ -114,8 +119,11 @@ public class OffersTabFragment extends Fragment {
                     offersCallback();
                 }
                 else{
-                    mNoOffersLayout.setVisibility(View.VISIBLE);
-                    mListView.setVisibility(View.GONE);
+                    if(!isVisibleToUser(mNoOffersLayout)){
+                        mNoOffersLayout.setVisibility(View.VISIBLE);
+                        mListView.setVisibility(View.GONE);
+                    }
+
                 }
 
             }
@@ -127,6 +135,13 @@ public class OffersTabFragment extends Fragment {
         mRef.addValueEventListener(new MyValueEventListener());
 
         return inflateView;
+    }
+
+    private boolean isVisibleToUser(View view) {
+        if (view.getVisibility() == View.VISIBLE) {
+            return true;
+        }
+        else return false;
     }
 
     class MyOfferValueEventListener implements ValueEventListener, Serializable {

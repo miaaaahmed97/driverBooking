@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -27,17 +28,18 @@ import java.util.List;
 
 public class MessageListActivity extends AppCompatActivity {
 
-    private static final int ACTIVITY_NUM = 1;
+    //private static final int ACTIVITY_NUM = 1;
 
     private RecyclerView mMessageRecycler;
     private MessageListAdapter mMessageAdapter;
 
-    LinearLayoutManager mManager;
+    private LinearLayoutManager mManager;
 
     private Button mSendButton;
     private EditText mTextbox;
+    private View mNoMessageLayout;
 
-    List<Message> messageList = new ArrayList<>();
+    private List<Message> messageList = new ArrayList<>();
 
     private ChatListItem chat;
 
@@ -52,10 +54,10 @@ public class MessageListActivity extends AppCompatActivity {
         //Display name of customer at the top
         setTitle(chat.getName());
 
-        mMessageRecycler = (RecyclerView) findViewById(R.id.reyclerview_message_list);
+        mMessageRecycler =  findViewById(R.id.reyclerview_message_list);
 
-        mSendButton = (Button) findViewById(R.id.button_chatbox_send);
-        mTextbox = (EditText) findViewById(R.id.edittext_chatbox);
+        mSendButton =  findViewById(R.id.button_chatbox_send);
+        mTextbox =  findViewById(R.id.edittext_chatbox);
 
         mMessageAdapter = new MessageListAdapter(MessageListActivity.this, messageList);
         mMessageRecycler.setAdapter(mMessageAdapter);
@@ -76,6 +78,10 @@ public class MessageListActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 messageList.clear();
+                mMessageRecycler.setVisibility(View.VISIBLE);
+                if(mNoMessageLayout!=null){
+                    mNoMessageLayout.setVisibility(View.GONE);
+                }
 
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for(DataSnapshot child: children){
@@ -85,7 +91,19 @@ public class MessageListActivity extends AppCompatActivity {
 
                 Log.d("testing0 ListActivity", messageList.toString());
 
-                mMessageAdapter.notifyDataSetChanged();
+                if(messageList.size()>0){
+                    mMessageAdapter.notifyDataSetChanged();
+                }
+                else{
+                    if(mNoMessageLayout==null){
+                        ViewStub stub = findViewById(R.id.noMessageLayout);
+                        mNoMessageLayout =  stub.inflate();
+                    }
+                    else{
+                        mNoMessageLayout.setVisibility(View.VISIBLE);
+                    }
+                    mMessageRecycler.setVisibility(View.GONE);
+                }
 
             }
 

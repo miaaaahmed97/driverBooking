@@ -28,7 +28,10 @@ import com.rasai.driverBooking.CustomObject.Driver;
 import com.rasai.driverBooking.R;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -40,7 +43,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
     private TextInputEditText mCnic;
     private TextInputEditText mBday;
     private TextInputEditText mAddress;
-    private MultiSelectionSpinner mLangSpinner;
+    //private MultiSelectionSpinner mLangSpinner;
     private Button mnextButton;
     private FrameLayout mSelectLanguages;
     private TextView mSelectLanguagesText;
@@ -156,36 +159,41 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
 
                 //Log.d("testing1", StringLangSelected);
 
-                //set tripInformation
-                if (name.length()>0 && cnic.length()==13 && bday.length()==10
-                        && address.length()>0 && languageCounter > 0) {
-                    driverInformation.setPhoneNumber(phoneNumber);
-                    driverInformation.setName(name);
-                    driverInformation.setCnic(cnic);
-                    driverInformation.setBirthday(bday);
-                    driverInformation.setAddress(address);
-                    driverInformation.setLanguages(StringLangSelected);
+                if(isThisDateValid(bday, "dd/MM/yyyy")) {
+                    //set tripInformation
+                    if (name.length() > 0 && cnic.length() == 13 && bday.length() == 10
+                            && address.length() > 0 && languageCounter > 0) {
+                        driverInformation.setPhoneNumber(phoneNumber);
+                        driverInformation.setName(name);
+                        driverInformation.setCnic(cnic);
+                        driverInformation.setBirthday(bday);
+                        driverInformation.setAddress(address);
+                        driverInformation.setLanguages(StringLangSelected);
 
-                    FirebaseInstanceId.getInstance().getInstanceId()
-                            .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                                    if (!task.isSuccessful()) {
-                                        Log.w(TAG, "getInstanceId failed", task.getException());
-                                        return;
+                        FirebaseInstanceId.getInstance().getInstanceId()
+                                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                        if (!task.isSuccessful()) {
+                                            Log.w(TAG, "getInstanceId failed", task.getException());
+                                            return;
+                                        }
+
+                                        // Get new Instance ID token
+                                        String token_id = task.getResult().getToken();
+                                        driverInformation.setToken_id(token_id);
+
+                                        Intent navNext = new Intent(DriverRegistration.this, driverRegistration2.class);
+                                        navNext.putExtra("driverObject", driverInformation);
+                                        startActivity(navNext);
                                     }
-
-                                    // Get new Instance ID token
-                                    String token_id = task.getResult().getToken();
-                                    driverInformation.setToken_id(token_id);
-
-                                    Intent navNext = new Intent(DriverRegistration.this, driverRegistration2.class);
-                                    navNext.putExtra("driverObject", driverInformation);
-                                    startActivity(navNext);
-                                }
-                            });
-                } else {
-                    Toast.makeText(getBaseContext(), "Please fill all fields correctly.",
+                                });
+                    } else {
+                        Toast.makeText(getBaseContext(), "Please fill all fields correctly.",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }else{
+                    Toast.makeText(getBaseContext(), "Please fill in the date correctly",
                             Toast.LENGTH_LONG).show();
                 }
 
@@ -201,62 +209,31 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
     //    mSelectLanguages.setVisibility(View.GONE);
     //}
 
-    //dunno random
-    private class DateMask implements TextWatcher {
+    /*date validator
+    * this works for format and values both*/
+    private boolean isThisDateValid(String dateToValidate, String dateFromat){
 
-        private static final int MAX_LENGTH = 8;
-        private static final int MIN_LENGTH = 2;
-
-        private String updatedText;
-        private boolean editing;
-
-
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
-
+        //empty date field
+        if(dateToValidate == null){
+            return false;
         }
 
-        @Override
-        public void onTextChanged(CharSequence text, int start, int before, int count) {
-            if (text.toString().equals(updatedText) || editing) return;
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
+        sdf.setLenient(false);
 
-            String digits = text.toString().replaceAll("\\D", "");
-            int length = digits.length();
+        try {
 
-            if (length <= MIN_LENGTH) {
-                updatedText = digits;
-                return;
-            }
+            //if not valid, it will throw ParseException
+            Date date = sdf.parse(dateToValidate);
+            System.out.println(date);
 
-            if (length > MAX_LENGTH) {
-                digits = digits.substring(0, MAX_LENGTH);
-            }
+        } catch (ParseException e) {
 
-            if (length <= 4) {
-                String day = digits.substring(0, 2);
-                String month = digits.substring(2);
-
-                updatedText = String.format(Locale.US, "%s/%s",day,month);
-            } else {
-                String day = digits.substring(0, 2);
-                String month = digits.substring(2, 4);
-                String year = digits.substring(4);
-
-                updatedText = String.format(Locale.US, "%s/%s/%s",day, month, year);
-            }
+            e.printStackTrace();
+            return false;
         }
 
-        @Override
-        public void afterTextChanged(Editable editable) {
-            if (editing) return;
-
-            editing = true;
-
-            editable.clear();
-            editable.insert(0, updatedText);
-
-            editing = false;
-        }
+        return true;
     }
 
 }

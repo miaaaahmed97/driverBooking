@@ -36,9 +36,8 @@ public class AssignedTripsTabFragment extends Fragment {
     private FirebaseUser user = mauth.getCurrentUser();
 
     private ListView mListView;
-    private View mNoAssignedLayout;
     private CustomListAdapter mAdapter;
-    private View inflateView;
+    private View inflateView, mNoAssignedTrips;
     //private LayoutInflater minflater;
 
     private List<String> offersList = new ArrayList<String>();
@@ -58,7 +57,7 @@ public class AssignedTripsTabFragment extends Fragment {
         if(inflateView==null){
             inflateView = inflater.inflate(R.layout.activity_assigned_trips,container,false);
             mListView = (ListView) inflateView.findViewById(R.id.assigned_list_view);
-            mNoAssignedLayout = inflateView.findViewById(R.id.noAssignedTripsLayout);
+            mNoAssignedTrips = inflateView.findViewById(R.id.noAssignedTripsLayout);
         }
 
         phone_Number = user.getPhoneNumber();
@@ -88,6 +87,12 @@ public class AssignedTripsTabFragment extends Fragment {
         mRef.addValueEventListener(new MyValueEventListener());
     }*/
 
+    private boolean isVisibleToUser(View view) {
+        if (view.getVisibility() == View.VISIBLE) {
+            return true;
+        }
+        else return false;
+    }
     @Override
     public void onDestroyView() {
         if (inflateView.getParent() != null) {
@@ -101,6 +106,10 @@ public class AssignedTripsTabFragment extends Fragment {
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
             assignedTripsList.clear();
+            if(!isVisibleToUser(mListView)){
+                mListView.setVisibility(View.VISIBLE);
+                mNoAssignedTrips.setVisibility(View.GONE);
+            }
 
             //Log.d("testing1", dataSnapshot.getValue().toString());
             Iterable<DataSnapshot> children = dataSnapshot.getChildren();
@@ -113,8 +122,11 @@ public class AssignedTripsTabFragment extends Fragment {
                 Log.d("TAG", "after offers callback");
             }
             else{
-                mNoAssignedLayout.setVisibility(View.VISIBLE);
-                mListView.setVisibility(View.GONE);
+                if(!isVisibleToUser(mNoAssignedTrips)){
+                    mNoAssignedTrips.setVisibility(View.VISIBLE);
+                    mListView.setVisibility(View.GONE);
+                }
+
             }
         }
         @Override

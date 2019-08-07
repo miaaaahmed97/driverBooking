@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -40,8 +41,8 @@ public class MainChat extends AppCompatActivity {
 
     private static final int ACTIVITY_NUM = 2;
     private ListView mListView;
-    private View mNoChatsLayout;
     private ChatListAdapter mAdapter;
+    private View mNoChatsLayout;
 
     private List<String> tripList = new ArrayList<>();
     private List<ChatListItem> chatsList = new ArrayList<ChatListItem>();
@@ -61,7 +62,6 @@ public class MainChat extends AppCompatActivity {
         phone_Number = user.getPhoneNumber();
 
         mListView = findViewById(R.id.chats_list_view);
-        mNoChatsLayout = findViewById(R.id.noChatsLayout);
         mAdapter = new ChatListAdapter(MainChat.this, R.layout.activity_chats_main, chatsList);
         mListView.setAdapter(mAdapter);
 
@@ -122,7 +122,11 @@ public class MainChat extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 tripList.clear();
-
+                mListView.setVisibility(View.VISIBLE);
+                if(mNoChatsLayout!=null){
+                    mNoChatsLayout.setVisibility(View.GONE);
+                }
+                
                 Iterable<DataSnapshot> offersConfirmed = dataSnapshot.child("chatThreads").getChildren();
 
                 for(DataSnapshot child: offersConfirmed){
@@ -133,7 +137,13 @@ public class MainChat extends AppCompatActivity {
                     driverCallback();
                 }
                 else{
-                    mNoChatsLayout.setVisibility(View.VISIBLE);
+                    if(mNoChatsLayout==null){
+                        ViewStub stub = findViewById(R.id.noChatsLayout);
+                        mNoChatsLayout = stub.inflate();
+                    }
+                    else{
+                        mNoChatsLayout.setVisibility(View.VISIBLE);
+                    }
                     mListView.setVisibility(View.GONE);
                 }
             }
