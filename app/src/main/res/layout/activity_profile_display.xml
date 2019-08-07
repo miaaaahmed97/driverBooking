@@ -61,7 +61,7 @@
                         android:text="Muhammad Sarfaraz"
                         android:focusableInTouchMode="false"
                         android:maxLength="30"
-                        android:textColor="@color/lightslategray"
+                        android:textColor="@color/hintgray"
                         android:isIndicator="true"
                         android:clickable="false"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -77,7 +77,7 @@
                         android:layout_height="match_parent"
                         android:clickable="false"
                         android:isIndicator="true"
-                        android:textColor="@color/lightslategray"
+                        android:textColor="@color/hintgray"
                         android:focusableInTouchMode="false"
                         android:focusable="false"
                         android:hint="Mobile"
@@ -95,7 +95,7 @@
                         android:layout_height="match_parent"
                         android:clickable="false"
                         android:isIndicator="true"
-                        android:textColor="@color/lightslategray"
+                        android:textColor="@color/hintgray"
                         app:errorTextColor="@color/darkgrey"
                         android:focusableInTouchMode="false"
                         android:focusable="false"
@@ -120,7 +120,7 @@
                         android:focusableInTouchMode="false"
                         android:isIndicator="true"
                         android:clickable="false"
-                        android:textColor="@color/lightslategray"
+                        android:textColor="@color/hintgray"
                         android:maxLength="10" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -167,16 +167,36 @@
                         android:focusableInTouchMode="false"
                         android:isIndicator="true"
                         android:clickable="false"
-                        android:textColor="@color/lightslategray"
+                        android:textColor="@color/hintgray"
                         android:inputType="textPostalAddress|textMultiLine|textCapWords"
                         android:maxLines="3"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/LanguagesLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/LanguagesText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Languages"
+                        android:text="English, Urdu"
+                        android:inputType="none"
+                        android:textColor="@color/hintgray"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:isIndicator ="true"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/lightslategray" />
+                android:background="@color/hintgray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -217,7 +237,7 @@
                         android:text=""
                         android:focusableInTouchMode="false"
                         android:isIndicator="true"
-                        android:textColor="@color/lightslategray"
+                        android:textColor="@color/hintgray"
                         android:maxLength="30"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -236,7 +256,7 @@
                         android:layout_height="match_parent"
                         android:focusableInTouchMode="false"
                         android:isIndicator="true"
-                        android:textColor="@color/lightslategray"
+                        android:textColor="@color/hintgray"
                         android:clickable="false"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -255,11 +275,29 @@
                         android:text="AFY 654"
                         android:focusableInTouchMode="false"
                         android:isIndicator="true"
-                        android:textColor="@color/lightslategray"
+                        android:textColor="@color/hintgray"
                         android:clickable="false"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:hint="Number of Seats">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/numberSeats_field"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:isIndicator ="true"
+                        android:textColor="@color/hintgray"
+                        android:maxLength="2"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--<androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
@@ -284,10 +322,10 @@
                         android:dropDownSelector="@android:drawable/arrow_down_float"
                         app:layout_constraintBottom_toBottomOf="@+id/numberSeats"
                         app:layout_constraintEnd_toEndOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="250dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:layout_gravity="start">
@@ -295,10 +333,9 @@
                         android:id="@+id/ac_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="AC"
+                        android:textSize="17sp"
+                        android:text="Air Conditioning"
                         android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -327,7 +364,7 @@
                 android:layout_height="1dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/darkgrey2"/>
+                android:background="@color/hintgray"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

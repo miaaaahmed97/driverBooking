@@ -50,7 +50,6 @@ public class OffersTabFragment extends Fragment {
 
     private List<TripInformation> offeredTripsList = new ArrayList<TripInformation>();
 
-
     @Override
     public  View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -69,7 +68,6 @@ public class OffersTabFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 final Intent intent = new Intent(getActivity(), MakeOffer.class);
-
                 final TripInformation offerSelected = offeredTripsList.get(position);
 
                 DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Offer/"+
@@ -133,7 +131,6 @@ public class OffersTabFragment extends Fragment {
         }
 
         mRef.addValueEventListener(new MyValueEventListener());
-
         return inflateView;
     }
 

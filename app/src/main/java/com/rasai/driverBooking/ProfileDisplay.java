@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 
@@ -13,11 +14,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -37,7 +36,6 @@ import com.google.firebase.storage.UploadTask;
 import com.rasai.driverBooking.CustomObject.Driver;
 import com.rasai.driverBooking.CustomObject.SecurityDeposit;
 import com.rasai.driverBooking.CustomObject.Vehicle;
-import com.rasai.driverBooking.Registration.MultiSelectionSpinner;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -47,15 +45,16 @@ import java.util.UUID;
 
 public class ProfileDisplay extends AppCompatActivity {
 
-    private MultiSelectionSpinner mLangSpinner;
-    private Spinner seatsSpinner;
+    //private MultiSelectionSpinner mLangSpinner;
+    //private Spinner seatsSpinner;
 
     private static final int GET_FROM_GALLERY = 1;
-    Intent imageIntent;
+    private Intent imageIntent;
     private View mSecurityDepositPopup;
 
     //get current user
-    private String phone_Number,StringLangSelected, mHasAC;
+    //StringLangSelected,
+    private String phone_Number, mHasAC;
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
     private FirebaseUser user = mauth.getCurrentUser();
     private ImageView mIDImage, mSecurityDepositImage;
@@ -67,9 +66,17 @@ public class ProfileDisplay extends AppCompatActivity {
     private Button mSave;
     private Button mSubmitSecurityPopupButton;
 
+    //initializing the popup listener to be added to the languages textview on clicking edit button
+    private LanguagePopupListener languagePopupListener = new LanguagePopupListener();
+    private SeatsPopupListener seatsPopupListener = new SeatsPopupListener();
+
     private Uri DepositUri;
 
-    private TextView mDriverName, mDriverMobile, mDriverCNIC,mDriverDOB, mDriverAddress, mRegField, mSecurityAmount, mModel, mManufacturer;
+    private TextView mDriverName, mDriverMobile, mDriverCNIC,mDriverDOB, mDriverAddress, mDriverLanguages, mManufacturer, mModel,mRegField, mNumberOfseats, mSecurityAmount;
+    private int numberOfSeats;
+    private int languageCounter = 0;
+    //private TextInputLayout mLanguagesLayout;
+
     private TextView mSecurityDepositAmount;
 
     private AlertDialog alertDialog;
@@ -86,21 +93,25 @@ public class ProfileDisplay extends AppCompatActivity {
         phone_Number = user.getPhoneNumber();
 
         mIDImage = findViewById(R.id.userPicture);
-        mDriverName = (TextView)findViewById(R.id.driverName);
+        mDriverName = findViewById(R.id.driverName);
 
         //mLangSpinner = findViewById(R.id.lang_spinner);
-        List<String> languageList = new ArrayList<String>();
+        //List<String> languageList = new ArrayList<String>();
 
         mDriverMobile = findViewById(R.id.driverMobile);
         mDriverCNIC = findViewById(R.id.driverCNIC);
         mDriverDOB = findViewById(R.id.driverDOB);
         mDriverAddress = findViewById(R.id.driverAddress);
+        mDriverLanguages = findViewById(R.id.LanguagesText);
+        //mLanguagesLayout = findViewById(R.id.LanguagesLayout);
+
 
         mManufacturer =  findViewById(R.id.manufacturer_field);
-        seatsSpinner =  findViewById(R.id.seatsSpinner);
-        mRegField = findViewById(R.id.registration_field);
-        mACSwitch = findViewById(R.id.ac_switch);
         mModel = findViewById(R.id.model_field);
+        //seatsSpinner =  findViewById(R.id.seatsSpinner);
+        mRegField = findViewById(R.id.registration_field);
+        mNumberOfseats = findViewById(R.id.numberSeats_field);
+        mACSwitch = findViewById(R.id.ac_switch);
         mAddSecurityDeposit = findViewById(R.id.addSecurityButton);
         mSecurityAmount = findViewById(R.id.securityDepositAmount);
 
@@ -110,21 +121,21 @@ public class ProfileDisplay extends AppCompatActivity {
         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver").child(phone_Number);
         mRef.addValueEventListener(new MyValueEventListener());
 
-        languageList.add("English");
-        languageList.add("Urdu");
-        languageList.add("Punjabi");
+        //languageList.add("English");
+        //languageList.add("Urdu");
+        //languageList.add("Punjabi");
         //mLangSpinner.setItems(languageList);
 
         //Start - Spinner Layout Setup
         /*ArrayAdapter<CharSequence> manufacturerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.manufacturer_array, android.R.layout.simple_spinner_item);
         manufacturerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        manufacturerSpinner.setAdapter(manufacturerAdapter);*/
+        manufacturerSpinner.setAdapter(manufacturerAdapter);
 
         ArrayAdapter<CharSequence> seatsAdapter = ArrayAdapter.createFromResource(this,
                 R.array.seats_array, android.R.layout.simple_spinner_item);
         seatsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        seatsSpinner.setAdapter(seatsAdapter);
+        seatsSpinner.setAdapter(seatsAdapter);*/
         //End - Spinner Layout Setup
 
         //adding change image code to ID image
@@ -138,7 +149,7 @@ public class ProfileDisplay extends AppCompatActivity {
         edit(mEdit);
         save(mSave);
 
-        mSignOut = (Button) findViewById(R.id.logout);
+        mSignOut =  findViewById(R.id.logout);
         signOut(mSignOut);
     }
 
@@ -206,7 +217,7 @@ public class ProfileDisplay extends AppCompatActivity {
         mSecurityDepositAmount = mSecurityDepositPopup.findViewById(R.id.newSecurityDepositAmount);
         mSubmitSecurityPopupButton = mSecurityDepositPopup.findViewById(R.id.submitNewSecurityButton);
 
-        //todo add a listener for the button
+        //adds the amount and stores the picture
         mSubmitSecurityPopupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -269,6 +280,7 @@ public class ProfileDisplay extends AppCompatActivity {
             imageIntent.putExtra("EXTRA",viewID);
         }
     }
+
     class MyValueEventListener implements ValueEventListener, Serializable {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -302,17 +314,13 @@ public class ProfileDisplay extends AppCompatActivity {
         mDriverMobile.setText(driver.getPhoneNumber());
         mDriverCNIC.setText(driver.getCnic());
         mDriverDOB.setText(driver.getBirthday());
-
-        //todo StringLangSelected = mLangSpinner.getSelectedItemsAsString();
-
-
-
         mDriverAddress.setText(driver.getAddress());
+        mDriverLanguages.setText(driver.getLanguages());
 
         mManufacturer.setText(driver.getVehicle().getManufacturer());
         mModel.setText(driver.getVehicle().getModel());
         mRegField.setText(driver.getVehicle().getRegistration());
-        //todo number of seats
+        mNumberOfseats.setText(driver.getVehicle().getVehicleSeats());
         if(driver.getVehicle().getHasAc().contentEquals("yes"))
             mACSwitch.setChecked(true);
         else
@@ -382,6 +390,100 @@ public class ProfileDisplay extends AppCompatActivity {
             }
     }
 
+    private class LanguagePopupListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View view) {
+            List<String> languagesList = new ArrayList<>();
+            // setup the alert builder
+            AlertDialog.Builder builder = new AlertDialog.Builder(ProfileDisplay.this);
+            builder.setTitle("Choose Languages");
+            // add a checkbox list
+            String[] languages = getResources().getStringArray(R.array.languages_array);
+            boolean[] checkedItems = null;
+            builder.setMultiChoiceItems(languages, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                    // user checked a box, add to the array
+                    if(isChecked){
+                        languagesList.add(languages[which]);
+                        languageCounter+=1;
+                    }
+                    //user unchecked a box remove from array
+                    else {
+                        languagesList.remove(languages[which]);
+                        languageCounter-=1;
+                    }
+                }
+            });
+            // add OK and Cancel buttons
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // user clicked OK
+                    if(languagesList.size()>0){
+                        mDriverLanguages.setText(languagesList.toString());
+                    }
+                }
+            });
+            builder.setNegativeButton("Cancel", null);
+
+            // create and show the alert dialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+        }
+    }
+
+    private class SeatsPopupListener implements  View.OnClickListener{
+
+        @Override
+        public void onClick(View view) {
+
+            // setup the alert builder
+            AlertDialog.Builder builder = new AlertDialog.Builder(ProfileDisplay.this);
+            builder.setTitle("Choose Number of Seats");
+
+            // add a checkbox list
+            String[] seatNumbersArray = getResources().getStringArray(R.array.seats_array);
+            builder.setSingleChoiceItems(seatNumbersArray, -1, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    switch (i){
+                        case 0:numberOfSeats=4;break;
+                        case 1:numberOfSeats=5; break;
+                        case 2: numberOfSeats=6;break;
+                        case 3: numberOfSeats=7;break;
+                        case 4:numberOfSeats=8; break;
+                        case 5: numberOfSeats=9;break;
+                        case 6:numberOfSeats=10; break;
+                        case 7: numberOfSeats=11;break;
+                        case 8: numberOfSeats=12;break;
+                        case 9: numberOfSeats=13;break;
+                        case 10:numberOfSeats=14; break;
+                        case 11: numberOfSeats=15;break;
+                        case 12: numberOfSeats=16;break;
+                    }
+
+                }
+            });
+
+            // add OK and Cancel buttons
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // user clicked OK
+                    mNumberOfseats.setText(String.valueOf(numberOfSeats));
+                }
+            });
+            builder.setNegativeButton("Cancel", null);
+
+            // create and show the alert dialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+    }
+
     private void edit(Button button){
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -395,6 +497,9 @@ public class ProfileDisplay extends AppCompatActivity {
                 mDriverAddress.setFocusableInTouchMode(true);
                 mDriverAddress.setEnabled(true);
                 mDriverAddress.setTextColor(getResources().getColor(R.color.black));
+
+                mDriverLanguages.setOnClickListener(languagePopupListener);
+                mDriverLanguages.setTextColor(getResources().getColor(R.color.black));
 
                 mManufacturer.setClickable(true);
                 mManufacturer.setFocusableInTouchMode(true);
@@ -411,9 +516,13 @@ public class ProfileDisplay extends AppCompatActivity {
                 mRegField.setEnabled(true);
                 mRegField.setTextColor(getResources().getColor(R.color.black));
 
+                mNumberOfseats.setOnClickListener(seatsPopupListener);
+                mNumberOfseats.setTextColor(getResources().getColor(R.color.black));
+
+
                 mACSwitch.setClickable(true);
 
-                seatsSpinner.setClickable(true);
+                //seatsSpinner.setClickable(true);
 
                 //hide edit button and show save button
                 mEdit.setVisibility(View.GONE);
@@ -431,35 +540,41 @@ public class ProfileDisplay extends AppCompatActivity {
                 mDriverName.setFocusable(false);
                 mDriverName.setFocusableInTouchMode(false);
                 mDriverName.setEnabled(false);
-                mDriverName.setTextColor(getResources().getColor(R.color.darkgrey2));
+                mDriverName.setTextColor(getResources().getColor(R.color.hintgray));
 
                 mDriverAddress.setClickable(false);
                 mDriverAddress.setFocusable(false);
                 mDriverAddress.setFocusableInTouchMode(false);
                 mDriverAddress.setEnabled(false);
-                mDriverAddress.setTextColor(getResources().getColor(R.color.darkgrey2));
+                mDriverAddress.setTextColor(getResources().getColor(R.color.hintgray));
+
+                mDriverLanguages.setOnClickListener(null);
+                mDriverLanguages.setTextColor(getResources().getColor(R.color.hintgray));
 
                 mManufacturer.setClickable(false);
                 mManufacturer.setFocusable(false);
                 mManufacturer.setFocusableInTouchMode(false);
                 mManufacturer.setEnabled(false);
-                mManufacturer.setTextColor(getResources().getColor(R.color.darkgrey2));
+                mManufacturer.setTextColor(getResources().getColor(R.color.hintgray));
 
                 mModel.setClickable(false);
                 mModel.setFocusable(false);
                 mModel.setFocusableInTouchMode(false);
                 mModel.setEnabled(false);
-                mModel.setTextColor(getResources().getColor(R.color.darkgrey2));
+                mModel.setTextColor(getResources().getColor(R.color.hintgray));
 
                 mRegField.setClickable(false);
                 mRegField.setFocusable(false);
                 mRegField.setFocusableInTouchMode(false);
                 mRegField.setEnabled(false);
-                mRegField.setTextColor(getResources().getColor(R.color.darkgrey2));
+                mRegField.setTextColor(getResources().getColor(R.color.hintgray));
+
+                mNumberOfseats.setOnClickListener(null);
+                mNumberOfseats.setTextColor(getResources().getColor(R.color.hintgray));
 
                 mACSwitch.setClickable(false);
 
-                seatsSpinner.setClickable(false);
+                //seatsSpinner.setClickable(false);
 
 
                 //hide save button and show edit button
@@ -468,13 +583,17 @@ public class ProfileDisplay extends AppCompatActivity {
 
                 String name = mDriverName.getText().toString();
                 String address = mDriverAddress.getText().toString();
+                String languages = mDriverLanguages.getText().toString();
                 String manufacturer = mManufacturer.getText().toString();
                 String model = mModel.getText().toString();
                 String registration =  mRegField.getText().toString();
 
 
+                //TODO SAVE THE ITEMS
                 DatabaseReference mDriverRef = FirebaseDatabase.getInstance().getReference().child("Driver")
                         .child(phone_Number);
+
+                //todo use language counter to check selected languages
                 /*if(name.length()>0){
                     mDriverRef.child("name").setValue(name);
                 }
