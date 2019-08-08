@@ -179,7 +179,7 @@
                     android:layout_margin="8dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/LanguagesText"
+                        android:id="@+id/languagesText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="Languages"
