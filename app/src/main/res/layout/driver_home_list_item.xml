@@ -81,6 +81,7 @@
                     android:text="18 July 2019"
                     android:maxLines="1"
                     android:ellipsize="end"
+                    android:singleLine="true"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -94,6 +95,7 @@
                     android:text="10:40 PM"
                     android:maxLines="1"
                     android:ellipsize="end"
+                    android:singleLine="true"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     />
