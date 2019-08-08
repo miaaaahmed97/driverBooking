@@ -282,7 +282,7 @@ public class ViewAssignedTrips extends AppCompatActivity {
                 //Add customer's rating to customer object
                 final DatabaseReference mCustomerRef = FirebaseDatabase.getInstance().getReference().
                         child("Customer").child(review.getCustomerPhoneNumber());
-                mCustomerRef.addValueEventListener(new ValueEventListener() {
+                mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
