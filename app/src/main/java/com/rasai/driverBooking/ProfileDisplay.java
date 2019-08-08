@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -39,21 +40,17 @@ import com.rasai.driverBooking.CustomObject.Vehicle;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.UUID;
 
 
 public class ProfileDisplay extends AppCompatActivity {
-
-    //private MultiSelectionSpinner mLangSpinner;
-    //private Spinner seatsSpinner;
 
     private static final int GET_FROM_GALLERY = 1;
     private Intent imageIntent;
     private View mSecurityDepositPopup;
 
     //get current user
-    //StringLangSelected,
     private String phone_Number, mHasAC;
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
     private FirebaseUser user = mauth.getCurrentUser();
@@ -72,14 +69,55 @@ public class ProfileDisplay extends AppCompatActivity {
 
     private Uri DepositUri;
 
-    private TextView mDriverName, mDriverMobile, mDriverCNIC,mDriverDOB, mDriverAddress, mDriverLanguages, mManufacturer, mModel,mRegField, mNumberOfseats, mSecurityAmount;
+    private TextView mDriverName, mDriverMobile, mDriverCNIC,mDriverDOB, mDriverAddress,
+            mDriverLanguages, mManufacturer, mModel,mRegField, mNumberOfseats, mSecurityAmount;
     private int numberOfSeats;
-    private int languageCounter = 0;
-    //private TextInputLayout mLanguagesLayout;
+
+    Driver driver;
+    ArrayList<String> mDriverLang = new ArrayList<>();
+
+    int languageCounter = 0;
 
     private TextView mSecurityDepositAmount;
-
     private AlertDialog alertDialog;
+
+    class addImageListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View view) {
+            //calls gallery
+            imageIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+            startActivityForResult(imageIntent, GET_FROM_GALLERY);
+            //get ID of calling button
+            String viewID= String.valueOf(view.getId());
+            imageIntent.putExtra("EXTRA",viewID);
+        }
+    }
+
+    class MyValueEventListener implements ValueEventListener, Serializable {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            //Log.d("pD",dataSnapshot.toString());
+            driver= new Driver();
+            driver.setIdImage(dataSnapshot.child("idImage").getValue(String.class));
+            driver.setName(dataSnapshot.child("name").getValue(String.class));
+            driver.setPhoneNumber(dataSnapshot.child("phoneNumber").getValue(String.class));
+            driver.setCnic(dataSnapshot.child("cnic").getValue(String.class));
+            driver.setBirthday(dataSnapshot.child("birthday").getValue(String.class));
+            driver.setLanguages(dataSnapshot.child("languages").getValue(String.class));
+            driver.setAddress(dataSnapshot.child("address").getValue(String.class));
+            driver.setVehicle(dataSnapshot.child("vehicle").getValue(Vehicle.class));
+            driver.setSecurityDeposit(dataSnapshot.child("securityDeposit").getValue(SecurityDeposit.class));
+            //Log.d("vehicle",driver.getVehicle().getManufacturer());
+
+            setWidgets();
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,21 +132,13 @@ public class ProfileDisplay extends AppCompatActivity {
 
         mIDImage = findViewById(R.id.userPicture);
         mDriverName = findViewById(R.id.driverName);
-
-        //mLangSpinner = findViewById(R.id.lang_spinner);
-        //List<String> languageList = new ArrayList<String>();
-
         mDriverMobile = findViewById(R.id.driverMobile);
         mDriverCNIC = findViewById(R.id.driverCNIC);
         mDriverDOB = findViewById(R.id.driverDOB);
         mDriverAddress = findViewById(R.id.driverAddress);
-        mDriverLanguages = findViewById(R.id.LanguagesText);
-        //mLanguagesLayout = findViewById(R.id.LanguagesLayout);
-
-
+        mDriverLanguages = findViewById(R.id.languagesText);
         mManufacturer =  findViewById(R.id.manufacturer_field);
         mModel = findViewById(R.id.model_field);
-        //seatsSpinner =  findViewById(R.id.seatsSpinner);
         mRegField = findViewById(R.id.registration_field);
         mNumberOfseats = findViewById(R.id.numberSeats_field);
         mACSwitch = findViewById(R.id.ac_switch);
@@ -117,29 +147,17 @@ public class ProfileDisplay extends AppCompatActivity {
 
         mEdit = findViewById(R.id.edit);
         mSave = findViewById(R.id.save);
+        mSignOut =  findViewById(R.id.logout);
 
+        /*
+        * Database reference to retrieve information about the logged in driver
+        * */
         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver").child(phone_Number);
         mRef.addValueEventListener(new MyValueEventListener());
 
-        //languageList.add("English");
-        //languageList.add("Urdu");
-        //languageList.add("Punjabi");
-        //mLangSpinner.setItems(languageList);
-
-        //Start - Spinner Layout Setup
-        /*ArrayAdapter<CharSequence> manufacturerAdapter = ArrayAdapter.createFromResource(this,
-                R.array.manufacturer_array, android.R.layout.simple_spinner_item);
-        manufacturerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        manufacturerSpinner.setAdapter(manufacturerAdapter);
-
-        ArrayAdapter<CharSequence> seatsAdapter = ArrayAdapter.createFromResource(this,
-                R.array.seats_array, android.R.layout.simple_spinner_item);
-        seatsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        seatsSpinner.setAdapter(seatsAdapter);*/
-        //End - Spinner Layout Setup
-
         //adding change image code to ID image
         mIDImage.setOnClickListener(new addImageListener());
+
         //adding select image code to security deposit button
         mAddSecurityDeposit.setOnClickListener(new addImageListener());
 
@@ -149,7 +167,6 @@ public class ProfileDisplay extends AppCompatActivity {
         edit(mEdit);
         save(mSave);
 
-        mSignOut =  findViewById(R.id.logout);
         signOut(mSignOut);
     }
 
@@ -268,45 +285,7 @@ public class ProfileDisplay extends AppCompatActivity {
         });
     }
 
-    class addImageListener implements View.OnClickListener{
-
-        @Override
-        public void onClick(View view) {
-            //calls gallery
-            imageIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-            startActivityForResult(imageIntent, GET_FROM_GALLERY);
-            //get ID of calling button
-            String viewID= String.valueOf(view.getId());
-            imageIntent.putExtra("EXTRA",viewID);
-        }
-    }
-
-    class MyValueEventListener implements ValueEventListener, Serializable {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            //Log.d("pD",dataSnapshot.toString());
-            Driver driver= new Driver();
-            driver.setIdImage(dataSnapshot.child("idImage").getValue(String.class));
-            driver.setName(dataSnapshot.child("name").getValue(String.class));
-            driver.setPhoneNumber(dataSnapshot.child("phoneNumber").getValue(String.class));
-            driver.setCnic(dataSnapshot.child("cnic").getValue(String.class));
-            driver.setBirthday(dataSnapshot.child("birthday").getValue(String.class));
-            driver.setLanguages(dataSnapshot.child("languages").getValue(String.class));
-            driver.setAddress(dataSnapshot.child("address").getValue(String.class));
-            driver.setVehicle(dataSnapshot.child("vehicle").getValue(Vehicle.class));
-            driver.setSecurityDeposit(dataSnapshot.child("securityDeposit").getValue(SecurityDeposit.class));
-            //Log.d("vehicle",driver.getVehicle().getManufacturer());
-
-            setWidgets(driver);
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-        }
-    }
-
-    private void setWidgets(Driver driver) {
+    private void setWidgets() {
 
         //todo setRating(driver.getRating());
 
@@ -315,8 +294,7 @@ public class ProfileDisplay extends AppCompatActivity {
         mDriverCNIC.setText(driver.getCnic());
         mDriverDOB.setText(driver.getBirthday());
         mDriverAddress.setText(driver.getAddress());
-        mDriverLanguages.setText(driver.getLanguages());
-
+        mDriverLanguages.setText(extractLanguages(driver.getLanguages()));
         mManufacturer.setText(driver.getVehicle().getManufacturer());
         mModel.setText(driver.getVehicle().getModel());
         mRegField.setText(driver.getVehicle().getRegistration());
@@ -325,9 +303,13 @@ public class ProfileDisplay extends AppCompatActivity {
             mACSwitch.setChecked(true);
         else
             mACSwitch.setChecked(false);
-        //todo image display
         Log.d("ProfileDisplay", String.valueOf(driver.getSecurityDeposit().getAmount()));
         mSecurityAmount.setText(String.valueOf(driver.getSecurityDeposit().getAmount()));
+    }
+
+    private String extractLanguages(String languages) {
+        int length = languages.length();
+        return languages.substring(1, (length-1));
     }
 
     private void displayProfilePicture(final Context context){
@@ -393,26 +375,55 @@ public class ProfileDisplay extends AppCompatActivity {
     private class LanguagePopupListener implements View.OnClickListener{
 
         @Override
-        public void onClick(View view) {
-            List<String> languagesList = new ArrayList<>();
+        public void onClick(View view)
+        {
+            //List<String> languagesList = new ArrayList<>();
+
             // setup the alert builder
             AlertDialog.Builder builder = new AlertDialog.Builder(ProfileDisplay.this);
             builder.setTitle("Choose Languages");
+
+            //covert languages string from driver object to array list
+            mDriverLang = new ArrayList<String>(Arrays.asList(extractLanguages(driver.getLanguages()).split(",")));
+            int i = 0;
+            for (String lang: mDriverLang){
+                mDriverLang.set(i, lang.replaceAll(" ", ""));
+                i++;
+                Log.d("ProfileDisplay", "language: "+lang);
+            }
+
+            Log.d("ProfileDisplay", mDriverLang.toString());
+
             // add a checkbox list
             String[] languages = getResources().getStringArray(R.array.languages_array);
-            boolean[] checkedItems = null;
+
+            boolean[] checkedItems = new boolean[languages.length];
+            for(int itr=0; itr<languages.length; itr++){
+                if(mDriverLang.contains(languages[itr])){
+                    checkedItems[itr] = true;
+                }else{
+                    checkedItems[itr] = false;
+                }
+            }
+
+
+
             builder.setMultiChoiceItems(languages, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                     // user checked a box, add to the array
                     if(isChecked){
-                        languagesList.add(languages[which]);
-                        languageCounter+=1;
+                        if (!(mDriverLang.contains(languages[which]))) {
+                            mDriverLang.add(languages[which]);
+                            checkedItems[which] = true;
+                        }
                     }
                     //user unchecked a box remove from array
                     else {
-                        languagesList.remove(languages[which]);
-                        languageCounter-=1;
+                        if (mDriverLang.contains(languages[which])) {
+                            mDriverLang.remove(languages[which]);
+                            checkedItems[which] = false;
+                        }
                     }
                 }
             });
@@ -421,8 +432,8 @@ public class ProfileDisplay extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     // user clicked OK
-                    if(languagesList.size()>0){
-                        mDriverLanguages.setText(languagesList.toString());
+                    if(mDriverLang.size()>0){
+                        mDriverLanguages.setText(extractLanguages(mDriverLang.toString()));
                     }
                 }
             });
@@ -583,7 +594,7 @@ public class ProfileDisplay extends AppCompatActivity {
 
                 String name = mDriverName.getText().toString();
                 String address = mDriverAddress.getText().toString();
-                String languages = mDriverLanguages.getText().toString();
+                String languages = mDriverLang.toString();
                 String manufacturer = mManufacturer.getText().toString();
                 String model = mModel.getText().toString();
                 String registration =  mRegField.getText().toString();
@@ -594,14 +605,18 @@ public class ProfileDisplay extends AppCompatActivity {
                         .child(phone_Number);
 
                 //todo use language counter to check selected languages
-                /*if(name.length()>0){
+                if(name.length()>0){
                     mDriverRef.child("name").setValue(name);
                 }
                 if(address.length()>0){
                     mDriverRef.child("address").setValue(address);
                 }
+                if(mDriverLang.size()>0){
+                    mDriverRef.child("languages").setValue(languages);
+                }
                 if(manufacturer.length()>0){
                     mDriverRef.child("manufacturer").setValue(manufacturer);
+                }
                 if(model.length()>0){
                     mDriverRef.child("vehicle").child("model").setValue(address);
                 }
@@ -620,7 +635,7 @@ public class ProfileDisplay extends AppCompatActivity {
                         }
                             mDriverRef.child("vehicle").child("hasAc").setValue(ac[0]);
                     }
-                });*/
+                });
 
             }
         });

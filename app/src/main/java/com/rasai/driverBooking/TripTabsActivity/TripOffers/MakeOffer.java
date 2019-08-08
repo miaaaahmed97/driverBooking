@@ -219,7 +219,10 @@ public class MakeOffer extends AppCompatActivity {
             }
         });
 
-        //Start -Delete Trip
+        /*
+        * Deletes trips that are no longer available
+        * to thr driver
+        * */
         mDeleteButton = (Button) findViewById(R.id.deleteOfferButton);
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
