@@ -323,7 +323,7 @@ public class ProfileDisplay extends AppCompatActivity {
 
                     Glide.with(context).
                             load(Uri.parse(dataSnapshot.getValue(String.class))).
-                            apply(RequestOptions.circleCropTransform()).into(mIDImage);
+                            apply( new RequestOptions().circleCropTransform()).into(mIDImage);
 
                 }
             }

@@ -189,7 +189,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
                                     }
                                 });
                     } else {
-                        Toast.makeText(getBaseContext(), "Please fill all fields correctly.",
+                        Toast.makeText(getBaseContext(), "Please fill all fields according to format.",
                                 Toast.LENGTH_LONG).show();
                     }
                 }else{
@@ -225,7 +225,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
 
             //if not valid, it will throw ParseException
             Date date = sdf.parse(dateToValidate);
-            System.out.println(date);
+            //System.out.println(date);
 
         } catch (ParseException e) {
 
