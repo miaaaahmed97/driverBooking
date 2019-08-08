@@ -101,9 +101,9 @@ public class SecurityDepositUpload extends AppCompatActivity {
         storageReference = storage.getReference();
 
         depositSlipImage = findViewById(R.id.bankDepositSlip);
-        registrationButton = (Button) findViewById(R.id.Done);
-        mDate = (TextInputEditText) findViewById(R.id.date_field);
-        mAmount = (TextInputEditText) findViewById(R.id.amount_field);
+        registrationButton =  findViewById(R.id.Done);
+        mDate =  findViewById(R.id.date_field);
+        mAmount =  findViewById(R.id.amount_field);
         addDepositText = findViewById(R.id.uploadPictureText);
         depositSlipImage.setOnClickListener(new ImageButtonListener());
 
