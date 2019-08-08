@@ -46,6 +46,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/name_chat"
                     android:textColor="@color/colorPrimaryDark"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:paddingLeft="2sp"
                     android:paddingRight="2sp"
                     android:text="Islamabad" />
@@ -58,6 +61,9 @@
                     android:layout_toEndOf="@id/fromCd"
                     android:layout_below="@id/name_chat"
                     android:textColor="@color/colorPrimaryDark"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:paddingLeft="2sp"
                     android:paddingRight="2sp"
                     android:text="to" />
@@ -70,6 +76,9 @@
                     android:layout_toEndOf="@id/toText2"
                     android:layout_below="@id/name_chat"
                     android:textColor="@color/colorPrimaryDark"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:paddingLeft="2sp"
                     android:paddingRight="2sp"
                     android:text="Murree" />
