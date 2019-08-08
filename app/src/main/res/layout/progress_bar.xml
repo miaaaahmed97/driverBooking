@@ -12,6 +12,8 @@
         android:layout_marginRight="0dp"
         android:layout_marginBottom="16dp"
         app:spb_currentStateNumber="one"
+        app:spb_stateSize="25dp"
+        app:spb_stateTextSize="1dp"
         app:spb_maxStateNumber="five"
         app:spb_stateBackgroundColor="#BDBDBD"
         app:spb_stateForegroundColor="@color/green"
