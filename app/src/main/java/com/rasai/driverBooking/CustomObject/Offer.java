@@ -10,7 +10,6 @@ public class Offer implements Serializable {
     private String amount;
     private String driverPhoneNumber;
     private String tripID;
-    private String databaseId;
     private String acceptanceStatus = "unconfirmed";
     private String customerPhoneNumber;
     private String token_id;
@@ -31,14 +30,6 @@ public class Offer implements Serializable {
 
     public void setCustomerPhoneNumber(String customerPhoneNumber) {
         this.customerPhoneNumber = customerPhoneNumber;
-    }
-
-    public String getDatabaseId() {
-        return databaseId;
-    }
-
-    public void setDatabaseId(String databaseId) {
-        this.databaseId = databaseId;
     }
 
     public String getAmount() {
@@ -79,12 +70,9 @@ public class Offer implements Serializable {
                 "amount='" + amount + '\'' +
                 ", driverPhoneNumber='" + driverPhoneNumber + '\'' +
                 ", tripID='" + tripID + '\'' +
-                ", databaseId='" + databaseId + '\'' +
                 ", acceptanceStatus='" + acceptanceStatus + '\'' +
                 ", customerPhoneNumber='" + customerPhoneNumber + '\'' +
                 ", token_id='" + token_id + '\'' +
-                ", offers=" + offers +
-                ", driver=" + driver +
                 '}';
     }
 

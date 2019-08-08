@@ -286,7 +286,7 @@ public class ViewAssignedTrips extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        if(dataSnapshot.child("rating").getValue() !=null ){
+                        if(dataSnapshot.child("ratedBy").getValue() !=null ){
                             float rating = Float.parseFloat(dataSnapshot.child("rating").getValue().toString());
                             int raters = Integer.parseInt(dataSnapshot.child("ratedBy").getValue().toString());
                             rating = ((rating * raters) + ratingNumber) / (raters+1);

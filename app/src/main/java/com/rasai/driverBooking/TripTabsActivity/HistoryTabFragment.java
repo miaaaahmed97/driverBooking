@@ -142,8 +142,8 @@ public class HistoryTabFragment extends Fragment {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             m_offer = dataSnapshot.getValue(Offer.class);
+            Log.d("HistoryTabFragment", "offer from database: " + m_offer.toString());
 
-            Log.d("testing1 HistoryTabs", m_offer.getAcceptanceStatus());
             if (m_offer.getAcceptanceStatus().equals("completed")) {
                 offerObjects.add(m_offer);
             }
