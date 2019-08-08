@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
             //if (mUser != null) {
                 for(DataSnapshot child: children){
 
+                    assert (user.getPhoneNumber()!=null);
                     if(child.getKey().equals(user.getPhoneNumber())){
 
                         Intent intentHome = new Intent(MainActivity.this, DriverHome.class);
