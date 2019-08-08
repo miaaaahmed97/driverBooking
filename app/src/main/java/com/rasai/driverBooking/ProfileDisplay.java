@@ -340,7 +340,7 @@ public class ProfileDisplay extends AppCompatActivity {
 
             Glide.with(ProfileDisplay.this)
                     .load(uri)
-                    .apply(new RequestOptions().centerInside()
+                    .apply(new RequestOptions().centerInside().circleCropTransform()
                             .placeholder(R.drawable.ic_image))
                     .into(mIDImage);
             //Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
