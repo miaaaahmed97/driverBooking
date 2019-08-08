@@ -321,9 +321,10 @@ public class ProfileDisplay extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue()!=null){
 
+                    new RequestOptions();
                     Glide.with(context).
                             load(Uri.parse(dataSnapshot.getValue(String.class))).
-                            apply( new RequestOptions().circleCropTransform()).into(mIDImage);
+                            apply( RequestOptions.circleCropTransform()).into(mIDImage);
 
                 }
             }
@@ -338,9 +339,10 @@ public class ProfileDisplay extends AppCompatActivity {
 
     private void uploadProfilePicture(Uri uri){
 
-            Glide.with(ProfileDisplay.this)
+        new RequestOptions();
+        Glide.with(ProfileDisplay.this)
                     .load(uri)
-                    .apply(new RequestOptions().centerInside().circleCropTransform()
+                    .apply(RequestOptions.circleCropTransform().centerInside()
                             .placeholder(R.drawable.ic_image))
                     .into(mIDImage);
             //Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
@@ -598,6 +600,7 @@ public class ProfileDisplay extends AppCompatActivity {
                 String manufacturer = mManufacturer.getText().toString();
                 String model = mModel.getText().toString();
                 String registration =  mRegField.getText().toString();
+                String numberSeats = mNumberOfseats.getText().toString();
 
 
                 //TODO SAVE THE ITEMS
@@ -618,10 +621,13 @@ public class ProfileDisplay extends AppCompatActivity {
                     mDriverRef.child("manufacturer").setValue(manufacturer);
                 }
                 if(model.length()>0){
-                    mDriverRef.child("vehicle").child("model").setValue(address);
+                    mDriverRef.child("vehicle").child("model").setValue(model);
                 }
                 if(registration.length()>0){
                     mDriverRef.child("vehicle").child("registration").setValue(registration);
+                }
+                if(numberSeats.length()>0){
+                    mDriverRef.child("vehicle").child("vehicleSeats").setValue(numberSeats);
                 }
                 final String[] ac = new String[1];
                 mACSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
