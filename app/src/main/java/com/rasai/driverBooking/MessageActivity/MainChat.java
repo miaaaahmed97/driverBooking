@@ -64,8 +64,6 @@ public class MainChat extends AppCompatActivity {
         phone_Number = user.getPhoneNumber();
 
         mListView = findViewById(R.id.chats_list_view);
-        mAdapter = new ChatListAdapter(MainChat.this, R.layout.activity_chats_main, chatsList);
-        mListView.setAdapter(mAdapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -150,6 +148,10 @@ public class MainChat extends AppCompatActivity {
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
             tripList.clear();
+            chatsList.clear();
+
+            Log.d("MainChat", "MyDriverValueEventListener");
+
             mListView.setVisibility(View.VISIBLE);
             if(mNoChatsLayout!=null){
                 mNoChatsLayout.setVisibility(View.GONE);
@@ -158,8 +160,11 @@ public class MainChat extends AppCompatActivity {
             Iterable<DataSnapshot> offersConfirmed = dataSnapshot.child("chatThreads").getChildren();
 
             for(DataSnapshot child: offersConfirmed){
+                Log.d("MainChat", "child: "+child.toString());
                 tripList.add(child.getValue(String.class));
             }
+
+            Log.d("MainChat", "tripList.size(): "+tripList.size());
 
             if(tripList.size()>0){
                 driverCallback();
@@ -192,11 +197,11 @@ public class MainChat extends AppCompatActivity {
 
             chat.setDriverPhone(phone_Number);
             chat.setCustomerPhone(dataSnapshot.child("customerPhoneNumber").getValue(String.class));
-            //chat.setChatId(createChatID(chat.getCustomerPhone(), phone_Number));
 
             chatsList.add(chat);
 
             if(tripList.size() == chatsList.size()){
+                Log.d("MainChat", "calling offersCallback()");
                 offersCallback();
             }
         }
@@ -223,7 +228,7 @@ public class MainChat extends AppCompatActivity {
             Query query = mChatRef.child("Chat").child(chat.getChatId()).orderByKey().limitToLast(1);
             query.addListenerForSingleValueEvent(new MyChatValueEventListener());
 
-            tripsCounter +=1 ;
+            tripsCounter+=1;
 
             Log.d("testing2 mainChat", chatsList.toString());
         }
@@ -253,9 +258,11 @@ public class MainChat extends AppCompatActivity {
 
             chatCounter +=1 ;
 
-            if(chatCounter == chatsList.size()){
+            if(chatCounter == (chatsList.size())){
 
                 Log.d("testing3 mainChat", chatsList.toString());
+                mAdapter = new ChatListAdapter(MainChat.this, R.layout.activity_chats_main, chatsList);
+                mListView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
             }
         }
@@ -278,6 +285,9 @@ public class MainChat extends AppCompatActivity {
     }
 
     private void offersCallback(){
+
+        tripsCounter =0;
+        chatCounter =0;
 
         int itr;
         for (itr=0; itr < chatsList.size(); itr++){
