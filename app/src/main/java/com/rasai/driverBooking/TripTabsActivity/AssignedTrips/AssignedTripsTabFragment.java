@@ -21,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.CustomObject.Offer;
 import com.rasai.driverBooking.CustomObject.TripInformation;
-import com.rasai.driverBooking.DriverHome;
 import com.rasai.driverBooking.R;
 import com.rasai.driverBooking.TripTabsActivity.CustomListAdapter;
 
@@ -78,12 +77,27 @@ public class AssignedTripsTabFragment extends Fragment {
         return inflateView;
     }
 
-    private boolean isVisibleToUser(View view) {
-        if (view.getVisibility() == View.VISIBLE) {
-            return true;
-        }
-        else return false;
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d("AssignedTrips", "inside onStart()");
+        mRef.addValueEventListener(listener);
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("AssignedTrips", "inside onStop()");
+        mRef.removeEventListener(listener);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("AssignedTrips", "inside onPause()");
+        mRef.removeEventListener(listener);
+    }
+
     @Override
     public void onDestroyView() {
         if (inflateView.getParent() != null) {
@@ -98,7 +112,16 @@ public class AssignedTripsTabFragment extends Fragment {
 
             Log.d("AssignedTrips", "datasnapshot: "+dataSnapshot);
 
+            offersList.clear();
+            offerObjects.clear();
             assignedTripsList.clear();
+
+            if(!isVisibleToUser(mListView)){
+                Log.d("AssignedTrips", "inside if. make listview visible");
+                mListView.setVisibility(View.VISIBLE);
+                mNoAssignedTrips.setVisibility(View.GONE);
+            }
+
 
             Iterable<DataSnapshot> children = dataSnapshot.getChildren();
             for (DataSnapshot child: children){
@@ -108,24 +131,13 @@ public class AssignedTripsTabFragment extends Fragment {
 
             Log.d("AssignedTrips", "offersList: "+offersList);
 
-            if(!isVisibleToUser(mListView)){
-                Log.d("AssignedTrips", "inside if. make listview visible");
-                mListView.setVisibility(View.VISIBLE);
-                mNoAssignedTrips.setVisibility(View.GONE);
-            }
-
             if(offersList.size()>0){
                 Log.d("AssignedTrips", "offersList.size() is: "+offersList.size());
-                mAdapter = new CustomListAdapter(getActivity(),R.layout.offers_list_item, assignedTripsList);
-                mAdapter.notifyDataSetChanged();
                 offersCallback();
             }
             else{
-                if(!isVisibleToUser(mNoAssignedTrips)){
-                    mNoAssignedTrips.setVisibility(View.VISIBLE);
-                    mListView.setVisibility(View.GONE);
-                }
-
+                mNoAssignedTrips.setVisibility(View.VISIBLE);
+                mListView.setVisibility(View.GONE);
             }
         }
         @Override
@@ -135,18 +147,11 @@ public class AssignedTripsTabFragment extends Fragment {
 
     private ValueEventListener listener = new MyValueEventListener();
 
-    @Override
-    public void onStart(){
-        super.onStart();
-        Log.d("AssignedTrips", "inside onStart()");
-        mRef.addValueEventListener(listener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d("AssignedTrips", "inside onStop()");
-        mRef.removeEventListener(listener);
+    private boolean isVisibleToUser(View view) {
+        if (view.getVisibility() == View.VISIBLE) {
+            return true;
+        }
+        else return false;
     }
 
     private class MyOfferValueEventListener implements ValueEventListener, Serializable {
@@ -200,7 +205,9 @@ public class AssignedTripsTabFragment extends Fragment {
 
                     if (assignedTripsList.size() == offerObjects.size()) {
                         Log.d("TAG", "calling adapter");
+                        mAdapter = new CustomListAdapter(getActivity(),R.layout.offers_list_item, assignedTripsList);
                         mListView.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
                     }
 
                 }

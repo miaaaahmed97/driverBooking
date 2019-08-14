@@ -92,7 +92,10 @@ public class HistoryTabFragment extends Fragment {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+            tripsList.clear();
+            offerObjects.clear();
             completedTripsList.clear();
+
             if(!isVisibleToUser(mListView)){
                 mListView.setVisibility(View.VISIBLE);
                 mNoHistoryLayout.setVisibility(View.GONE);

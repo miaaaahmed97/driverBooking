@@ -23,9 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.CustomObject.Offer;
 import com.rasai.driverBooking.CustomObject.TripInformation;
 import com.rasai.driverBooking.R;
-import com.rasai.driverBooking.TripTabsActivity.AssignedTrips.AssignedTripsTabFragment;
 import com.rasai.driverBooking.TripTabsActivity.CustomListAdapter;
-import com.rasai.driverBooking.TripTabsActivity.HistoryTabFragment;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -103,18 +101,21 @@ public class OffersTabFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        Log.d("OffersTab", "inside onStart()");
         mRef.addValueEventListener(listener);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        Log.d("OffersTab", "inside onStop()");
         mRef.removeEventListener(listener);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        Log.d("OffersTab", "inside onPause()");
         mRef.removeEventListener(listener);
     }
 
@@ -123,11 +124,14 @@ public class OffersTabFragment extends Fragment {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                offeredTripsList.clear();
-                if(!isVisibleToUser(mListView)){
-                    mListView.setVisibility(View.VISIBLE);
-                    mNoOffersLayout.setVisibility(View.GONE);
-                }
+            offersList.clear();
+            offerObjects.clear();
+            offeredTripsList.clear();
+
+            if(!isVisibleToUser(mListView)){
+                mListView.setVisibility(View.VISIBLE);
+                mNoOffersLayout.setVisibility(View.GONE);
+            }
 
             //get all the unconfirmed offers made by the driver
             Iterable<DataSnapshot> children = dataSnapshot.getChildren();
@@ -139,10 +143,8 @@ public class OffersTabFragment extends Fragment {
                 offersCallback();
             }
             else{
-                    mNoOffersLayout.setVisibility(View.VISIBLE);
-                    mListView.setVisibility(View.GONE);
-
-
+                mNoOffersLayout.setVisibility(View.VISIBLE);
+                mListView.setVisibility(View.GONE);
             }
 
         }
@@ -219,6 +221,7 @@ public class OffersTabFragment extends Fragment {
 
                         mAdapter = new CustomListAdapter(getActivity(),R.layout.offers_list_item, offeredTripsList);
                         mListView.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
                     }
 
                 }
