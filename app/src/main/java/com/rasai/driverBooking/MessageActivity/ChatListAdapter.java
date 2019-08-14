@@ -38,22 +38,11 @@ public class ChatListAdapter extends ArrayAdapter<ChatListItem> {
         mTo = (TextView) customView.findViewById(R.id.toCd);
         mName = (TextView) customView.findViewById(R.id.name_chat);
         mPreview = (TextView) customView.findViewById(R.id.lastMessage);
-        //mId = (ImageView) customView.findViewById(R.id.pictureChat);
-
-
 
         mFrom.setText(getItem(position).getFrom());
         mTo.setText(getItem(position).getTo());
         mName.setText(getItem(position).getName());
         mPreview.setText(getItem(position).getMsgPreview());
-
-        /*if (getItem(position).getPictureUri()!= null) {
-
-            Log.d("testing ChatAdapter", "inside if");
-            Glide.with(getContext()).load(Uri.parse(getItem(position).
-                    getPictureUri())).apply(RequestOptions.circleCropTransform()).into(mId);
-
-        }*/
 
         return customView;
     }
