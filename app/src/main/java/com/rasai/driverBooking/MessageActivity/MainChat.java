@@ -39,6 +39,8 @@ public class MainChat extends AppCompatActivity {
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
     private FirebaseUser user = mauth.getCurrentUser();
 
+    DatabaseReference mDriverRef;
+
     private static final int ACTIVITY_NUM = 2;
     private ListView mListView;
     private ChatListAdapter mAdapter;
@@ -117,52 +119,70 @@ public class MainChat extends AppCompatActivity {
             }
         });
 
-        class MyDriverValueEventListener implements ValueEventListener, Serializable{
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                tripList.clear();
-                mListView.setVisibility(View.VISIBLE);
-                if(mNoChatsLayout!=null){
-                    mNoChatsLayout.setVisibility(View.GONE);
-                }
-                
-                Iterable<DataSnapshot> offersConfirmed = dataSnapshot.child("chatThreads").getChildren();
-
-                for(DataSnapshot child: offersConfirmed){
-                    tripList.add(child.getValue(String.class));
-                }
-
-                if(tripList.size()>0){
-                    driverCallback();
-                }
-                else{
-                    if(mNoChatsLayout==null){
-                        ViewStub stub = findViewById(R.id.noChatsLayout);
-                        mNoChatsLayout = stub.inflate();
-                    }
-                    else{
-                        mNoChatsLayout.setVisibility(View.VISIBLE);
-                    }
-                    mListView.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        }
-
-        DatabaseReference mDriverRef = FirebaseDatabase.getInstance().getReference().child("Driver")
+        mDriverRef = FirebaseDatabase.getInstance().getReference().child("Driver")
                 .child(phone_Number);
-        mDriverRef.addValueEventListener(new MyDriverValueEventListener());
-
 
         //creating bottom navigation view
         setupBottomNavigationView();
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mDriverRef.addValueEventListener(listener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mDriverRef.removeEventListener(listener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mDriverRef.removeEventListener(listener);
+    }
+
+    class MyDriverValueEventListener implements ValueEventListener, Serializable{
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            tripList.clear();
+            mListView.setVisibility(View.VISIBLE);
+            if(mNoChatsLayout!=null){
+                mNoChatsLayout.setVisibility(View.GONE);
+            }
+
+            Iterable<DataSnapshot> offersConfirmed = dataSnapshot.child("chatThreads").getChildren();
+
+            for(DataSnapshot child: offersConfirmed){
+                tripList.add(child.getValue(String.class));
+            }
+
+            if(tripList.size()>0){
+                driverCallback();
+            }
+            else{
+                if(mNoChatsLayout==null){
+                    ViewStub stub = findViewById(R.id.noChatsLayout);
+                    mNoChatsLayout = stub.inflate();
+                }
+                else{
+                    mNoChatsLayout.setVisibility(View.VISIBLE);
+                }
+                mListView.setVisibility(View.GONE);
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    }
+
+    private ValueEventListener listener = new MyDriverValueEventListener();
 
     class MyOfferValueEventListener implements ValueEventListener, Serializable{
         @Override
@@ -269,29 +289,6 @@ public class MainChat extends AppCompatActivity {
         }
 
     }
-
-    /*private String createChatID(String customerPhone, String driverPhone){
-        String chatThreadId = "";
-
-        /*
-         * compareTo() returns a positive number if customer number is lexically smaller than
-         * the driver number
-         * and negative number if customer number is lexically greater than the driver number
-         *
-        if(customerPhone.compareTo(driverPhone) > 0)
-        {
-            chatThreadId = driverPhone+customerPhone;
-        }
-        else if(customerPhone.compareTo(driverPhone) <0 )
-        {
-            chatThreadId =  customerPhone+driverPhone;
-        }
-        else{
-            chatThreadId =  customerPhone+driverPhone;
-        }
-
-        return chatThreadId;
-    }*/
 
     private void delete(String id){
         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver")

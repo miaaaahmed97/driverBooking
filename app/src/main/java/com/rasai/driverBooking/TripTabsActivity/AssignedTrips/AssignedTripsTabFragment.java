@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.CustomObject.Offer;
 import com.rasai.driverBooking.CustomObject.TripInformation;
+import com.rasai.driverBooking.DriverHome;
 import com.rasai.driverBooking.R;
 import com.rasai.driverBooking.TripTabsActivity.CustomListAdapter;
 
@@ -38,22 +39,20 @@ public class AssignedTripsTabFragment extends Fragment {
     private ListView mListView;
     private CustomListAdapter mAdapter;
     private View inflateView, mNoAssignedTrips;
-    //private LayoutInflater minflater;
 
     private List<String> offersList = new ArrayList<String>();
     private List<Offer> offerObjects = new ArrayList<Offer>();
-    List<TripInformation> list = new ArrayList<TripInformation>();
-    private Offer m_offer;
-    private TripInformation m_trip;
-    private DatabaseReference mRef;
     private List<TripInformation> assignedTripsList = new ArrayList<TripInformation>();
 
+    private Offer m_offer;
+    private TripInformation m_trip;
+
+    private DatabaseReference mRef;
 
     @Override
     public  View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        //minflater = AssignedTripsTabFragment.this.getLayoutInflater();
         if(inflateView==null){
             inflateView = inflater.inflate(R.layout.activity_assigned_trips,container,false);
             mListView = (ListView) inflateView.findViewById(R.id.assigned_list_view);
@@ -61,6 +60,8 @@ public class AssignedTripsTabFragment extends Fragment {
         }
 
         phone_Number = user.getPhoneNumber();
+
+        mRef = FirebaseDatabase.getInstance().getReference().child("Driver/"+phone_Number+"/offerConfirmed");
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,18 +75,8 @@ public class AssignedTripsTabFragment extends Fragment {
             }
         });
 
-        mRef = FirebaseDatabase.getInstance().getReference().child("Driver/"+phone_Number+"/offerConfirmed");
-
-        mRef.addValueEventListener(new MyValueEventListener());
-
         return inflateView;
     }
-
-    /*@Override
-    public void onStart(){
-        super.onStart();
-        mRef.addValueEventListener(new MyValueEventListener());
-    }*/
 
     private boolean isVisibleToUser(View view) {
         if (view.getVisibility() == View.VISIBLE) {
@@ -105,21 +96,29 @@ public class AssignedTripsTabFragment extends Fragment {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+            Log.d("AssignedTrips", "datasnapshot: "+dataSnapshot);
+
             assignedTripsList.clear();
+
+            Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+            for (DataSnapshot child: children){
+                Log.d("AssignedTrips", "cihld: "+child);
+                offersList.add(child.getValue().toString());
+            }
+
+            Log.d("AssignedTrips", "offersList: "+offersList);
+
             if(!isVisibleToUser(mListView)){
+                Log.d("AssignedTrips", "inside if. make listview visible");
                 mListView.setVisibility(View.VISIBLE);
                 mNoAssignedTrips.setVisibility(View.GONE);
             }
 
-            //Log.d("testing1", dataSnapshot.getValue().toString());
-            Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-            for (DataSnapshot child: children){
-                offersList.add(child.getValue().toString());
-            }
-
             if(offersList.size()>0){
+                Log.d("AssignedTrips", "offersList.size() is: "+offersList.size());
+                mAdapter = new CustomListAdapter(getActivity(),R.layout.offers_list_item, assignedTripsList);
+                mAdapter.notifyDataSetChanged();
                 offersCallback();
-                Log.d("TAG", "after offers callback");
             }
             else{
                 if(!isVisibleToUser(mNoAssignedTrips)){
@@ -134,6 +133,21 @@ public class AssignedTripsTabFragment extends Fragment {
         }
     }
 
+    private ValueEventListener listener = new MyValueEventListener();
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d("AssignedTrips", "inside onStart()");
+        mRef.addValueEventListener(listener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("AssignedTrips", "inside onStop()");
+        mRef.removeEventListener(listener);
+    }
 
     private class MyOfferValueEventListener implements ValueEventListener, Serializable {
         @Override
@@ -186,7 +200,6 @@ public class AssignedTripsTabFragment extends Fragment {
 
                     if (assignedTripsList.size() == offerObjects.size()) {
                         Log.d("TAG", "calling adapter");
-                        mAdapter = new CustomListAdapter(getActivity(),R.layout.offers_list_item, assignedTripsList);
                         mListView.setAdapter(mAdapter);
                     }
 

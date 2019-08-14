@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.CustomObject.Offer;
 import com.rasai.driverBooking.CustomObject.TripInformation;
 import com.rasai.driverBooking.R;
+import com.rasai.driverBooking.TripTabsActivity.AssignedTrips.AssignedTripsTabFragment;
 import com.rasai.driverBooking.TripTabsActivity.CustomListAdapter;
 import com.rasai.driverBooking.TripTabsActivity.HistoryTabFragment;
 
@@ -37,14 +38,14 @@ public class OffersTabFragment extends Fragment {
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
     private FirebaseUser user = mauth.getCurrentUser();
 
+    DatabaseReference mRef;
+
     private ListView mListView;
     private CustomListAdapter mAdapter;
     private View inflateView, mNoOffersLayout;
-    //private LayoutInflater minflater;
 
     private List<String> offersList = new ArrayList<String>();
     private List<Offer> offerObjects = new ArrayList<Offer>();
-    //private List<TripInformation> list = new ArrayList<TripInformation>();
     private Offer m_offer;
     private TripInformation m_trip;
 
@@ -54,7 +55,6 @@ public class OffersTabFragment extends Fragment {
     public  View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        //minflater = OffersTabFragment.this.getLayoutInflater();
         if(inflateView==null){
             inflateView = inflater.inflate(R.layout.activity_offer_list,null,true);
             mListView =  inflateView.findViewById(R.id.offers_list_view);
@@ -95,11 +95,33 @@ public class OffersTabFragment extends Fragment {
             }
         });
 
-        final DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Driver/"+phone_Number+"/offersMade");
-        //First Database Reference called
-        class MyValueEventListener implements ValueEventListener, Serializable {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        mRef = FirebaseDatabase.getInstance().getReference().child("Driver/"+phone_Number+"/offersMade");
+
+        return inflateView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mRef.addValueEventListener(listener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mRef.removeEventListener(listener);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mRef.removeEventListener(listener);
+    }
+
+    //First Database Reference called
+    class MyValueEventListener implements ValueEventListener, Serializable {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 offeredTripsList.clear();
                 if(!isVisibleToUser(mListView)){
@@ -107,32 +129,29 @@ public class OffersTabFragment extends Fragment {
                     mNoOffersLayout.setVisibility(View.GONE);
                 }
 
-                //get all the unconfirmed offers made by the driver
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                for (DataSnapshot child: children){
-                    offersList.add(child.getValue().toString());
-                }
+            //get all the unconfirmed offers made by the driver
+            Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+            for (DataSnapshot child: children){
+                offersList.add(child.getValue().toString());
+            }
 
-                if(offersList.size()>0){
-                    offersCallback();
-                }
-                else{
-                    if(!isVisibleToUser(mNoOffersLayout)){
-                        mNoOffersLayout.setVisibility(View.VISIBLE);
-                        mListView.setVisibility(View.GONE);
-                    }
+            if(offersList.size()>0){
+                offersCallback();
+            }
+            else{
+                    mNoOffersLayout.setVisibility(View.VISIBLE);
+                    mListView.setVisibility(View.GONE);
 
-                }
 
             }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
+
         }
-
-        mRef.addValueEventListener(new MyValueEventListener());
-        return inflateView;
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+        }
     }
+
+    private ValueEventListener listener = new MyValueEventListener();
 
     private boolean isVisibleToUser(View view) {
         if (view.getVisibility() == View.VISIBLE) {
@@ -193,9 +212,6 @@ public class OffersTabFragment extends Fragment {
 
                     m_trip= dataSnapshot.getValue(TripInformation.class);
                     m_trip.setDriverOffer(m_offer.getAmount());
-                    /*if (m_trip.getConfirmed() == false ) {
-                        offeredTripsList.add(m_trip);
-                    }*/
                     offeredTripsList.add(m_trip);
 
 

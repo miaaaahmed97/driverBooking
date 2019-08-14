@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.CustomObject.Offer;
 import com.rasai.driverBooking.CustomObject.TripInformation;
 import com.rasai.driverBooking.R;
+import com.rasai.driverBooking.TripTabsActivity.AssignedTrips.AssignedTripsTabFragment;
 import com.rasai.driverBooking.TripTabsActivity.AssignedTrips.ViewAssignedTrips;
 
 import java.io.Serializable;
@@ -39,21 +40,20 @@ public class HistoryTabFragment extends Fragment {
     private CustomListAdapter mAdapter;
     private View inflateView, mNoHistoryLayout;
 
-    private DatabaseReference mRef;
     private List<String> tripsList = new ArrayList<String>();
     private List<Offer> offerObjects = new ArrayList<Offer>();
-    //List<TripInformation> list = new ArrayList<TripInformation>();
+
     private Offer m_offer;
     private TripInformation m_trip;
 
     private List<TripInformation> completedTripsList = new ArrayList<TripInformation>();
 
+    private DatabaseReference mRef;
 
     @Override
     public  View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        //minflater = HistoryTabFragment.this.getLayoutInflater();
         if(inflateView==null){
             inflateView = inflater.inflate(R.layout.activity_history_list,container,false);
             mListView =  inflateView.findViewById(R.id.history_list_view);
@@ -61,6 +61,8 @@ public class HistoryTabFragment extends Fragment {
         }
 
         phone_Number = user.getPhoneNumber();
+
+        mRef = FirebaseDatabase.getInstance().getReference().child("Driver/"+phone_Number+"/tripsCompleted");
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,19 +76,8 @@ public class HistoryTabFragment extends Fragment {
             }
         });
 
-         mRef = FirebaseDatabase.getInstance().
-                getReference().child("Driver/"+phone_Number+"/tripsCompleted");
-
-        mRef.addValueEventListener(new MyValueEventListener());
-
         return inflateView;
     }
-
-    /*@Override
-    public void onStart(){
-        super.onStart();
-        mRef.addValueEventListener(new MyValueEventListener());
-    }*/
 
     @Override
     public void onDestroyView() {
@@ -107,15 +98,15 @@ public class HistoryTabFragment extends Fragment {
                 mNoHistoryLayout.setVisibility(View.GONE);
             }
 
-            //Log.d("testing1", dataSnapshot.getValue().toString());
             Iterable<DataSnapshot> children = dataSnapshot.getChildren();
             for (DataSnapshot child: children){
                 tripsList.add(child.getValue().toString());
             }
 
             if(tripsList.size()>0){
+                mAdapter = new CustomListAdapter(getActivity(),R.layout.offers_list_item, completedTripsList);
+                mAdapter.notifyDataSetChanged();
                 offersCallback();
-                Log.d("testing0 HistoryTab", "after offers callback");
             }
             else{
                 if(!isVisibleToUser(mNoHistoryLayout)){
@@ -128,6 +119,20 @@ public class HistoryTabFragment extends Fragment {
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
         }
+    }
+
+    private ValueEventListener listener = new MyValueEventListener();
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        mRef.addValueEventListener(listener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mRef.removeEventListener(listener);
     }
 
     private boolean isVisibleToUser(View view) {
@@ -190,7 +195,6 @@ public class HistoryTabFragment extends Fragment {
 
                     if (completedTripsList.size() == offerObjects.size()) {
                         Log.d("TAG", "calling adapter");
-                        mAdapter = new CustomListAdapter(getActivity(),R.layout.offers_list_item, completedTripsList);
                         mListView.setAdapter(mAdapter);
                     }
 
