@@ -401,11 +401,7 @@ public class ProfileDisplay extends AppCompatActivity {
 
             boolean[] checkedItems = new boolean[languages.length];
             for(int itr=0; itr<languages.length; itr++){
-                if(mDriverLang.contains(languages[itr])){
-                    checkedItems[itr] = true;
-                }else{
-                    checkedItems[itr] = false;
-                }
+                checkedItems[itr] = mDriverLang.contains(languages[itr]);
             }
 
 

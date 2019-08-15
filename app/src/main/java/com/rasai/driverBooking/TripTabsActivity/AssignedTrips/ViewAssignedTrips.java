@@ -130,8 +130,8 @@ public class ViewAssignedTrips extends AppCompatActivity {
         mReviewPopup = layoutInflater.inflate(R.layout.review_popup, null);
 
         // Get user input edittext and button ui controls in the popup dialog.
-        mRatingBar = (RatingBar) mReviewPopup.findViewById(R.id.ratingBar);
-        mReviewDetails = (EditText) mReviewPopup.findViewById(R.id.userReviewDetails);
+        mRatingBar = mReviewPopup.findViewById(R.id.ratingBar);
+        mReviewDetails = mReviewPopup.findViewById(R.id.userReviewDetails);
         mSubmitReview = mReviewPopup.findViewById(R.id.submitReviewButton);
 
         if (mReviewDetails.getText().toString() != null) {
@@ -168,19 +168,19 @@ public class ViewAssignedTrips extends AppCompatActivity {
     private  void setWidgets(){
 
         //View to hide
-        TextView mToText = (TextView) findViewById(R.id.toText);
+        TextView mToText = findViewById(R.id.toText);
 
-        mFrom = (TextView) findViewById(R.id.fromCd);
-        mTo = (TextView) findViewById(R.id.toCd);
-        mSDate = (TextView) findViewById(R.id.startDateCd);
-        mSTime = (TextView) findViewById(R.id.startTimeCd);
-        mEDate = (TextView) findViewById(R.id.endDateCd);
-        mETime = (TextView) findViewById(R.id.endTimeCd);
-        mOffer= (TextView) findViewById(R.id.offeredBudget);
-        mTripType = (TextView) findViewById(R.id.familyOrFriendsCd);
-        mSeats = (TextView) findViewById(R.id.numSeatsCd);
-        mIsReturn = (TextView) findViewById(R.id.returnCd);
-        mExtraDetails = (TextView) findViewById(R.id.additionalDetailsCd);
+        mFrom = findViewById(R.id.fromCd);
+        mTo = findViewById(R.id.toCd);
+        mSDate = findViewById(R.id.startDateCd);
+        mSTime = findViewById(R.id.startTimeCd);
+        mEDate = findViewById(R.id.endDateCd);
+        mETime = findViewById(R.id.endTimeCd);
+        mOffer= findViewById(R.id.offeredBudget);
+        mTripType = findViewById(R.id.familyOrFriendsCd);
+        mSeats = findViewById(R.id.numSeatsCd);
+        mIsReturn = findViewById(R.id.returnCd);
+        mExtraDetails = findViewById(R.id.additionalDetailsCd);
 
         mFrom.setText(tripInfo.getFrom());
         mTo.setText(tripInfo.getTo());

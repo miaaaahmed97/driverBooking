@@ -43,17 +43,17 @@ public class CustomListAdapter extends ArrayAdapter<TripInformation> {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(resourceLayout, parent, false);
 
-            mFrom = (TextView) convertView.findViewById(R.id.fromCd);
-            mTo = (TextView) convertView.findViewById(R.id.toCd);
-            mSDate = (TextView) convertView.findViewById(R.id.startDateCd);
-            mSTime = (TextView) convertView.findViewById(R.id.startTimeCd);
-            mEDate = (TextView) convertView.findViewById(R.id.endDateCd);
-            mETime = (TextView) convertView.findViewById(R.id.endTimeCd);
-            mOfferMade= (TextView) convertView.findViewById(R.id.offerMadeCd);
+            mFrom = convertView.findViewById(R.id.fromCd);
+            mTo = convertView.findViewById(R.id.toCd);
+            mSDate = convertView.findViewById(R.id.startDateCd);
+            mSTime = convertView.findViewById(R.id.startTimeCd);
+            mEDate = convertView.findViewById(R.id.endDateCd);
+            mETime = convertView.findViewById(R.id.endTimeCd);
+            mOfferMade= convertView.findViewById(R.id.offerMadeCd);
             //mMaxBudget = (TextView) convertView.findViewById(R.id.budgetMaxCd);
-            mTripType = (TextView) convertView.findViewById(R.id.familyOrFriendsCd);
+            mTripType = convertView.findViewById(R.id.familyOrFriendsCd);
             //mSeats = (TextView) convertView.findViewById(R.id.numSeatsCd);
-            mIsReturn = (TextView) convertView.findViewById(R.id.returnCd);
+            mIsReturn = convertView.findViewById(R.id.returnCd);
         }
 
         mFrom.setText(getItem(position).getFrom());

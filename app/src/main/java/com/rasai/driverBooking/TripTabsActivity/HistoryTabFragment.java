@@ -139,10 +139,7 @@ public class HistoryTabFragment extends Fragment {
     }
 
     private boolean isVisibleToUser(View view) {
-        if (view.getVisibility() == View.VISIBLE) {
-            return true;
-        }
-        else return false;
+        return view.getVisibility() == View.VISIBLE;
     }
 
     private class MyOfferValueEventListener implements ValueEventListener, Serializable {

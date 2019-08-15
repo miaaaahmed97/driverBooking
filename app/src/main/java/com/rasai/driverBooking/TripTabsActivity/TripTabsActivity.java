@@ -35,9 +35,9 @@ public class TripTabsActivity extends AppCompatActivity implements Serializable 
         //hide the top bar
         getSupportActionBar().hide();
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        mListView = (ListView) findViewById(R.id.history_list_view);
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabLayout);
+        mListView = findViewById(R.id.history_list_view);
 
         adapter = new TabAdapter(getSupportFragmentManager());
 
