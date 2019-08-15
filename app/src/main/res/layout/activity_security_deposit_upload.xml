@@ -93,6 +93,7 @@
                 android:id="@+id/date_field"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:digits="01234567890/"
                 android:hint="Deposit date"
                 android:inputType="date"
                 android:maxLength="10"/>

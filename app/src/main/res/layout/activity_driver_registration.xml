@@ -79,6 +79,7 @@
                 android:hint="Date of Birth"
                 android:maxLength="10"
                 android:text=""
+                android:digits="01234567890/"
                 android:inputType="date" />
         </com.google.android.material.textfield.TextInputLayout>
 
