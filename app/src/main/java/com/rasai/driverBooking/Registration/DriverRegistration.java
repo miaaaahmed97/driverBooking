@@ -139,7 +139,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
             public void onClick(View view) {
                 EditText clickedEditText = (EditText) view;
                 //final Calendar cldr = Calendar.getInstance();
-                int day = 0; //cldr.get(Calendar.DAY_OF_MONTH);
+                int day = 1; //cldr.get(Calendar.DAY_OF_MONTH);
                 int month = 0; //cldr.get(Calendar.MONTH);
                 int year = 1990; //cldr.get(Calendar.YEAR);
                 // date datePicker dialog
@@ -148,7 +148,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 //view.updateDate(1980, 1, 1);
-                                clickedEditText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                clickedEditText.setText(String.format("%02d/%02d/%04d",dayOfMonth ,(monthOfYear + 1), year));
                             }
                         }, year, month, day);
                 datePicker.show();
