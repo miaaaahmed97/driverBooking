@@ -50,7 +50,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         }
         else if(click_action.equals("WELCOME")) {
-            intent = new Intent(this, WelcomeActivity.class);
+            intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         }
         else if(click_action.equals("ASSIGNED")) {
