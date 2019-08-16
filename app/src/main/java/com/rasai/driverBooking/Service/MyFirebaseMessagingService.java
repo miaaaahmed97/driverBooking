@@ -134,14 +134,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(String s) {
         super.onNewToken(s);
 
-        Log.d("FirebaseMessagingTag", s);
+        /*Log.d("FirebaseMessagingTag", s);
         String deviceToken = null;
         try {
             deviceToken = FirebaseInstanceId.getInstance().getToken(s, "test");
             Log.d("DEVICE TOKEN: ", deviceToken);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 
