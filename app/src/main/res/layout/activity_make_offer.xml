@@ -15,7 +15,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv"
 
             android:layout_margin="8dp"
             android:layout_width="match_parent"
@@ -68,9 +67,9 @@
                         android:textSize="18sp"
                         android:textColor="@color/colorAccent"
                         android:layout_toRightOf="@id/location1"
-                        android:lastBaselineToBottomHeight="@id/location1"
-
-                        android:layout_toEndOf="@id/location1" />
+                        android:layout_alignBaseline="@id/location1"
+                        android:layout_toEndOf="@id/location1"
+                        tools:ignore="UnusedAttribute" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/location2"
@@ -97,7 +96,6 @@
                         android:paddingLeft="2dp"
                         android:paddingRight="2dp"
                         android:layout_margin="8dp"
-
                         android:text="Murree"
                         android:layout_toRightOf="@id/location2"
                         android:layout_below="@id/fromCd"
@@ -179,7 +177,6 @@
                         android:layout_below="@id/calendar">
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/calendar2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:tint="@color/black"
@@ -242,7 +239,6 @@
                         android:layout_marginTop="4dp">
 
                         <TextView
-                            android:id="@+id/PKRText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="PKR  "
@@ -259,7 +255,6 @@
                             android:textColor="@color/black"/>
 
                         <TextView
-                            android:id="@+id/toText3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
@@ -328,7 +323,6 @@
                         android:layout_toEndOf="@id/seatsText" />
 
                     <View
-                        android:id="@+id/line4"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="#dfdfdf"
@@ -338,7 +332,6 @@
                 </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/addDetailsText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="13dp"

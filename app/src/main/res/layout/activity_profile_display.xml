@@ -34,7 +34,6 @@
                     app:srcCompat="@drawable/ic_avatar" />
 
                 <RatingBar
-                    android:id="@+id/userRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="false"
@@ -141,15 +140,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
 
-                    <com.rasai.driverBooking.Registration.MultiSelectionSpinner
-                        android:id="@+id/lang_spinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:scaleY="1"
-                        android:scaleX="1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-
 
                 </androidx.constraintlayout.widget.ConstraintLayout>-->
 
@@ -173,7 +163,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/LanguagesLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp">
@@ -261,7 +250,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/registration"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Registration Field"
@@ -450,7 +438,7 @@
                     android:layout_marginLeft="12dp"
                     android:layout_marginStart="12dp"
                     android:layout_marginBottom="8dp"
-                    />
+                    tools:targetApi="lollipop" />
 
                 <Button
                     android:id="@+id/edit"

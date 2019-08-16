@@ -2,13 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingTop="16dp"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="4dp"
@@ -194,7 +192,6 @@
                     />
 
                 <LinearLayout
-                    android:id="@+id/LL2"
                     android:layout_below="@id/line"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
@@ -214,7 +211,6 @@
 
 
                     <TextView
-                        android:id="@+id/PKRText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="15dp"
@@ -236,7 +232,6 @@
                         tools:text="3000" />
 
                     <TextView
-                        android:id="@+id/toText3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"

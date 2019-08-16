@@ -5,14 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -23,13 +21,7 @@ import com.rasai.driverBooking.CustomObject.Vehicle;
 import com.rasai.driverBooking.R;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class vehicleRegistration2 extends AppCompatActivity {
 
@@ -38,8 +30,8 @@ public class vehicleRegistration2 extends AppCompatActivity {
     private Intent buttonIntent;
     private Button mRegisterVehicle2Button;
 
-    Vehicle vehicleInfo;
-    Driver driverInformation;
+    private Vehicle vehicleInfo;
+    private Driver driverInformation;
 
     int radius = 15; // corner radius, higher value = more rounded
     int margin = 0; // crop margin, set to 0 for corners with no crop

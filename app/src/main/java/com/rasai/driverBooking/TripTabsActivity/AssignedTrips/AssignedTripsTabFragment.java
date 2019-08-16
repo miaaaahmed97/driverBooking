@@ -54,7 +54,7 @@ public class AssignedTripsTabFragment extends Fragment {
 
         if(inflateView==null){
             inflateView = inflater.inflate(R.layout.activity_assigned_trips,container,false);
-            mListView = (ListView) inflateView.findViewById(R.id.assigned_list_view);
+            mListView = inflateView.findViewById(R.id.assigned_list_view);
             mNoAssignedTrips = inflateView.findViewById(R.id.noAssignedTripsLayout);
         }
 
@@ -148,10 +148,7 @@ public class AssignedTripsTabFragment extends Fragment {
     private ValueEventListener listener = new MyValueEventListener();
 
     private boolean isVisibleToUser(View view) {
-        if (view.getVisibility() == View.VISIBLE) {
-            return true;
-        }
-        else return false;
+        return view.getVisibility() == View.VISIBLE;
     }
 
     private class MyOfferValueEventListener implements ValueEventListener, Serializable {
@@ -198,7 +195,7 @@ public class AssignedTripsTabFragment extends Fragment {
 
                     m_trip= dataSnapshot.getValue(TripInformation.class);
                     m_trip.setDriverOffer(m_offer.getAmount());
-                    if (m_trip.getConfirmed() == true ) {
+                    if (m_trip.getConfirmed()) {
                         assignedTripsList.add(m_trip);
                     }
 

@@ -1,14 +1,15 @@
 package com.rasai.driverBooking.Registration;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,9 +32,9 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class DriverRegistration extends AppCompatActivity implements Serializable {
@@ -43,7 +44,6 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
     private TextInputEditText mCnic;
     private TextInputEditText mBday;
     private TextInputEditText mAddress;
-    //private MultiSelectionSpinner mLangSpinner;
     private Button mnextButton;
     private FrameLayout mSelectLanguages;
     private TextView mSelectLanguagesText;
@@ -90,7 +90,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
                 // add a checkbox list
                 String[] languages = getResources().getStringArray(R.array.languages_array);
                 boolean[] checkedItems = null;
-                builder.setMultiChoiceItems(languages, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                builder.setMultiChoiceItems(languages, null, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                         // user checked a box, add to the array
@@ -138,6 +138,26 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
         mName = findViewById(R.id.name_field);
         mCnic =  findViewById(R.id.cnic_field);
         mBday =  findViewById(R.id.birthday_field);
+        mBday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText clickedEditText = (EditText) view;
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date datePicker dialog
+                DatePickerDialog datePicker = new DatePickerDialog(DriverRegistration.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                view.updateDate(1980, 1, 1);
+                                clickedEditText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                            }
+                        }, year, month, day);
+
+            }
+        });
         mAddress =  findViewById(R.id.address_field);
 
         //mBday.addTextChangedListener(new DateMask());
@@ -159,7 +179,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
 
                 //Log.d("testing1", StringLangSelected);
 
-                if(isThisDateValid(bday, "dd/MM/yyyy")) {
+                if(isThisDateValid(bday)) {
                     //set tripInformation
                     if (name.length() > 0 && cnic.length() == 13 && bday.length() == 10
                             && address.length() > 0 && languageCounter > 0) {
@@ -211,14 +231,14 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
 
     /*date validator
     * this works for format and values both*/
-    private boolean isThisDateValid(String dateToValidate, String dateFormat){
+    private boolean isThisDateValid(String dateToValidate){
 
         //empty date field
         if(dateToValidate == null){
             return false;
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setLenient(false);
 
         try {

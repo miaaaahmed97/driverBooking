@@ -35,9 +35,9 @@ public class TripTabsActivity extends AppCompatActivity implements Serializable 
         //hide the top bar
         getSupportActionBar().hide();
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        mListView = (ListView) findViewById(R.id.history_list_view);
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabLayout);
+        mListView = findViewById(R.id.history_list_view);
 
         adapter = new TabAdapter(getSupportFragmentManager());
 
@@ -57,14 +57,7 @@ public class TripTabsActivity extends AppCompatActivity implements Serializable 
         setupBottomNavigationView();
     }
 
-    /**
-     * Dispatch onResume() to fragments.  Note that for better inter-operation
-     * with older versions of the platform, at the point of this call the
-     * fragments attached to the activity are <em>not</em> resumed.
-     */
-
-    /**
-     * Handle onNewIntent() to inform the fragment manager that the
+    /*** Handle onNewIntent() to inform the fragment manager that the
      * state is not saved.  If you are handling new intents and may be
      * making changes to the fragment state, you want to be sure to call
      * through to the super-class here first.  Otherwise, if your state
@@ -73,7 +66,7 @@ public class TripTabsActivity extends AppCompatActivity implements Serializable 
      * perform fragment operations at that point will throw IllegalStateException
      * because the fragment manager thinks the state is still saved.
      *
-     * @param intent
+     * @param intent idk it does something leave it be
      */
     @Override
     protected void onNewIntent(Intent intent) {

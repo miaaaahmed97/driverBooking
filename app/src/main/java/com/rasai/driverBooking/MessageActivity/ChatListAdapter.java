@@ -14,6 +14,7 @@ import com.rasai.driverBooking.R;
 
 import java.util.List;
 
+@SuppressWarnings("NullableProblems")
 public class ChatListAdapter extends ArrayAdapter<ChatListItem> {
 
     TextView mFrom;
@@ -34,10 +35,10 @@ public class ChatListAdapter extends ArrayAdapter<ChatListItem> {
         LayoutInflater myCustomInflater = LayoutInflater.from(getContext());
         View customView = myCustomInflater.inflate(R.layout.chat_main_card, parent, false);
 
-        mFrom = (TextView) customView.findViewById(R.id.fromCd);
-        mTo = (TextView) customView.findViewById(R.id.toCd);
-        mName = (TextView) customView.findViewById(R.id.name_chat);
-        mPreview = (TextView) customView.findViewById(R.id.lastMessage);
+        mFrom = customView.findViewById(R.id.fromCd);
+        mTo = customView.findViewById(R.id.toCd);
+        mName = customView.findViewById(R.id.name_chat);
+        mPreview = customView.findViewById(R.id.lastMessage);
 
         mFrom.setText(getItem(position).getFrom());
         mTo.setText(getItem(position).getTo());

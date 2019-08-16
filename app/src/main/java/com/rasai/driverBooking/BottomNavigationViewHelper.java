@@ -2,7 +2,6 @@ package com.rasai.driverBooking;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -13,7 +12,7 @@ import com.rasai.driverBooking.TripTabsActivity.TripTabsActivity;
 
 public class BottomNavigationViewHelper {
 
-    private static final String TAG = "BottomNavigationViewHel";
+    // --Commented out by Inspection (8/16/2019 6:29 PM):private static final String TAG = "BottomNavigationViewHel";
 
     public static void enableNavigation(final Context context, BottomNavigationView view) {
         view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

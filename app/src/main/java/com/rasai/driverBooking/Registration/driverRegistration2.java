@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +30,7 @@ import java.util.Objects;
 
 public class driverRegistration2 extends AppCompatActivity implements Serializable{
 
-    Intent buttonIntent;
+    private Intent buttonIntent;
 
     private static final int GET_FROM_GALLERY = 1;
 
@@ -49,11 +47,11 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
 
     private Driver driverInformation;
 
-    public Driver getDriverInformation() {
+    private Driver getDriverInformation() {
         return driverInformation;
     }
 
-    public void setDriverInformation(Driver driverInformation) {
+    private void setDriverInformation(Driver driverInformation) {
         this.driverInformation = driverInformation;
     }
 
@@ -265,8 +263,7 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
         }
     }
 
-    /**
-     * Showing Alert Dialog with Settings option
+    /*** Showing Alert Dialog with Settings option
      * Navigates user to app settings
      * NOTE: Keep proper title and message depending on your app
 
@@ -282,8 +279,7 @@ public class driverRegistration2 extends AppCompatActivity implements Serializab
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
         builder.show();
     }*/
-    /**
-     * Select image from gallery
+    /***Select image from gallery
 
     private void dispatchGalleryIntent() {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK,

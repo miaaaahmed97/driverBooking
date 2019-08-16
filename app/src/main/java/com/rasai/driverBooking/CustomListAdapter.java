@@ -12,21 +12,22 @@ import com.rasai.driverBooking.CustomObject.TripInformation;
 
 import java.util.List;
 
+@SuppressWarnings("NullableProblems")
 public class CustomListAdapter extends ArrayAdapter<TripInformation> {
 
-    List<TripInformation> list;
+    private List<TripInformation> list;
 
-    TextView mFrom;
-    TextView mTo;
-    TextView mSDate;
-    TextView mSTime;
-    TextView mEDate;
-    TextView mETime;
-    TextView mMinBudget;
-    TextView mMaxBudget;
+    private TextView mFrom;
+    private TextView mTo;
+    private TextView mSDate;
+    private TextView mSTime;
+    private TextView mEDate;
+    private TextView mETime;
+    private TextView mMinBudget;
+    private TextView mMaxBudget;
     TextView mTripType;
-    TextView mSeats;
-    TextView mIsReturn;
+    private TextView mSeats;
+    private TextView mIsReturn;
 
     public CustomListAdapter(Context context, int resource, List<TripInformation> objects) {
         super(context, resource, objects);
@@ -43,17 +44,17 @@ public class CustomListAdapter extends ArrayAdapter<TripInformation> {
         LayoutInflater myCustomInflater = LayoutInflater.from(getContext());
         View customView = myCustomInflater.inflate(R.layout.driver_home_list_item, parent, false);
 
-        mFrom = (TextView) customView.findViewById(R.id.fromCd);
-        mTo = (TextView) customView.findViewById(R.id.toCd);
-        mSDate = (TextView) customView.findViewById(R.id.startDateCd);
-        mSTime = (TextView) customView.findViewById(R.id.startTimeCd);
-        mEDate = (TextView) customView.findViewById(R.id.endDateCd);
-        mETime = (TextView) customView.findViewById(R.id.endTimeCd);
-        mMinBudget= (TextView) customView.findViewById(R.id.budgetMinCd);
-        mMaxBudget = (TextView) customView.findViewById(R.id.budgetMaxCd);
+        mFrom = customView.findViewById(R.id.fromCd);
+        mTo = customView.findViewById(R.id.toCd);
+        mSDate = customView.findViewById(R.id.startDateCd);
+        mSTime = customView.findViewById(R.id.startTimeCd);
+        mEDate = customView.findViewById(R.id.endDateCd);
+        mETime = customView.findViewById(R.id.endTimeCd);
+        mMinBudget= customView.findViewById(R.id.budgetMinCd);
+        mMaxBudget = customView.findViewById(R.id.budgetMaxCd);
         //mTripType = (TextView) customView.findViewById(R.id.familyOrFriendsCd);
-        mSeats = (TextView) customView.findViewById(R.id.numSeatsCd);
-        mIsReturn = (TextView) customView.findViewById(R.id.returnCd);
+        mSeats = customView.findViewById(R.id.numSeatsCd);
+        mIsReturn = customView.findViewById(R.id.returnCd);
 
 
         //Log.d("getview2", getItem(position).getFrom());

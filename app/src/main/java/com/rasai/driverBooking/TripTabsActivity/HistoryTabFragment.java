@@ -22,7 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.CustomObject.Offer;
 import com.rasai.driverBooking.CustomObject.TripInformation;
 import com.rasai.driverBooking.R;
-import com.rasai.driverBooking.TripTabsActivity.AssignedTrips.AssignedTripsTabFragment;
 import com.rasai.driverBooking.TripTabsActivity.AssignedTrips.ViewAssignedTrips;
 
 import java.io.Serializable;
@@ -139,10 +138,7 @@ public class HistoryTabFragment extends Fragment {
     }
 
     private boolean isVisibleToUser(View view) {
-        if (view.getVisibility() == View.VISIBLE) {
-            return true;
-        }
-        else return false;
+        return view.getVisibility() == View.VISIBLE;
     }
 
     private class MyOfferValueEventListener implements ValueEventListener, Serializable {

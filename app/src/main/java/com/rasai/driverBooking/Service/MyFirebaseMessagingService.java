@@ -16,7 +16,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.rasai.driverBooking.DriverHome;
-import com.rasai.driverBooking.MainActivity;
 import com.rasai.driverBooking.MessageActivity.MainChat;
 import com.rasai.driverBooking.R;
 import com.rasai.driverBooking.TripTabsActivity.TripTabsActivity;
@@ -31,7 +30,7 @@ import java.util.Random;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMessaging";
-    public static int NOTIFICATION_ID = 1;
+    private static int NOTIFICATION_ID = 1;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -135,7 +134,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onNewToken(s);
 
         Log.d("FirebaseMessagingTag", s);
-        String deviceToken = null;
+        String deviceToken;
         try {
             deviceToken = FirebaseInstanceId.getInstance().getToken(s, "test");
             Log.d("DEVICE TOKEN: ", deviceToken);

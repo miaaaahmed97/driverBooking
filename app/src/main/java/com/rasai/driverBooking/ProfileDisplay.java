@@ -73,8 +73,8 @@ public class ProfileDisplay extends AppCompatActivity {
             mDriverLanguages, mManufacturer, mModel,mRegField, mNumberOfseats, mSecurityAmount;
     private int numberOfSeats;
 
-    Driver driver;
-    ArrayList<String> mDriverLang = new ArrayList<>();
+    private Driver driver;
+    private ArrayList<String> mDriverLang = new ArrayList<>();
 
     int languageCounter = 0;
 
@@ -401,11 +401,7 @@ public class ProfileDisplay extends AppCompatActivity {
 
             boolean[] checkedItems = new boolean[languages.length];
             for(int itr=0; itr<languages.length; itr++){
-                if(mDriverLang.contains(languages[itr])){
-                    checkedItems[itr] = true;
-                }else{
-                    checkedItems[itr] = false;
-                }
+                checkedItems[itr] = mDriverLang.contains(languages[itr]);
             }
 
 

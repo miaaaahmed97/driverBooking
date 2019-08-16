@@ -36,7 +36,7 @@ public class OffersTabFragment extends Fragment {
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
     private FirebaseUser user = mauth.getCurrentUser();
 
-    DatabaseReference mRef;
+    private DatabaseReference mRef;
 
     private ListView mListView;
     private CustomListAdapter mAdapter;
@@ -156,10 +156,7 @@ public class OffersTabFragment extends Fragment {
     private ValueEventListener listener = new MyValueEventListener();
 
     private boolean isVisibleToUser(View view) {
-        if (view.getVisibility() == View.VISIBLE) {
-            return true;
-        }
-        else return false;
+        return view.getVisibility() == View.VISIBLE;
     }
 
     class MyOfferValueEventListener implements ValueEventListener, Serializable {

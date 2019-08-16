@@ -37,10 +37,10 @@ public class DriverHome extends AppCompatActivity implements Serializable{
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
     private FirebaseUser user = mauth.getCurrentUser();
 
-    List<TripInformation> postedTripsList = new ArrayList<TripInformation>();
-    List<String> offersMade = new ArrayList<String>();
+    private List<TripInformation> postedTripsList = new ArrayList<TripInformation>();
+    private List<String> offersMade = new ArrayList<String>();
 
-    DatabaseReference mRef;
+    private DatabaseReference mRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +101,7 @@ public class DriverHome extends AppCompatActivity implements Serializable{
 
                             Log.d("DriverHome", "compare: "+ offersMade.contains(inner_child.child("databaseId").getValue(String.class)));
 
-                            if (inner_child.child("confirmed").getValue(Boolean.class) != true &&
+                            if (!inner_child.child("confirmed").getValue(Boolean.class) &&
                                     !(offersMade.contains(inner_child.child("databaseId").getValue(String.class)))) {
                                 TripInformation tripInfo = new TripInformation();
 

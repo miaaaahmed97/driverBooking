@@ -30,35 +30,35 @@ public class MakeOffer extends AppCompatActivity {
     private Button mDone, mChangeBudget, mMakeOffer;
 
     //cardview widgets
-    TextView mFrom;
-    TextView mTo;
-    TextView mSDate;
-    TextView mSTime;
-    TextView mEDate;
-    TextView mETime;
-    TextView mMinBudget;
-    TextView mMaxBudget;
-    TextView mTripType;
-    TextView mSeats;
-    TextView mIsReturn;
-    TextView mExtraDetails;
+    private TextView mFrom;
+    private TextView mTo;
+    private TextView mSDate;
+    private TextView mSTime;
+    private TextView mEDate;
+    private TextView mETime;
+    private TextView mMinBudget;
+    private TextView mMaxBudget;
+    private TextView mTripType;
+    private TextView mSeats;
+    private TextView mIsReturn;
+    private TextView mExtraDetails;
 
     //Budget managing widgets
-    TextInputEditText mBudgetField;
+    private TextInputEditText mBudgetField;
 
-    TripInformation tripInfo;
-    String availability;;
-    Offer offer;
+    private TripInformation tripInfo;
+    private String availability;
+    private Offer offer;
 
-    TripInformation mOffer;
+    private TripInformation mOffer;
 
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
     private FirebaseUser user = mauth.getCurrentUser();
 
     //Delete offer widgets
-    Button mDeleteButton;
+    private Button mDeleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,20 +83,20 @@ public class MakeOffer extends AppCompatActivity {
         //Start - Trip Details Display
 
         //view to hide
-        TextView mToText = (TextView) findViewById(R.id.toText);
+        TextView mToText = findViewById(R.id.toText);
 
-        mFrom = (TextView) findViewById(R.id.fromCd);
-        mTo = (TextView) findViewById(R.id.toCd);
-        mSDate = (TextView) findViewById(R.id.startDateCd);
-        mSTime = (TextView) findViewById(R.id.startTimeCd);
-        mEDate = (TextView) findViewById(R.id.endDateCd);
-        mETime = (TextView) findViewById(R.id.endTimeCd);
-        mMinBudget= (TextView) findViewById(R.id.budgetMinCd);
-        mMaxBudget = (TextView) findViewById(R.id.budgetMaxCd);
-        mTripType = (TextView) findViewById(R.id.familyOrFriendsCd);
-        mSeats = (TextView) findViewById(R.id.numSeatsCd);
-        mIsReturn = (TextView) findViewById(R.id.returnCd);
-        mExtraDetails = (TextView) findViewById(R.id.additionalDetailsCd);
+        mFrom = findViewById(R.id.fromCd);
+        mTo = findViewById(R.id.toCd);
+        mSDate = findViewById(R.id.startDateCd);
+        mSTime = findViewById(R.id.startTimeCd);
+        mEDate = findViewById(R.id.endDateCd);
+        mETime = findViewById(R.id.endTimeCd);
+        mMinBudget= findViewById(R.id.budgetMinCd);
+        mMaxBudget = findViewById(R.id.budgetMaxCd);
+        mTripType = findViewById(R.id.familyOrFriendsCd);
+        mSeats = findViewById(R.id.numSeatsCd);
+        mIsReturn = findViewById(R.id.returnCd);
+        mExtraDetails = findViewById(R.id.additionalDetailsCd);
 
         mFrom.setText(tripInfo.getFrom());
         mTo.setText(tripInfo.getTo());
@@ -141,7 +141,7 @@ public class MakeOffer extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
-        mBudgetField = (TextInputEditText) findViewById(R.id.offeredBudget);
+        mBudgetField = findViewById(R.id.offeredBudget);
 
 
         mMakeOffer = findViewById(R.id.makeOfferButton);
@@ -223,7 +223,7 @@ public class MakeOffer extends AppCompatActivity {
         * Deletes trips that are no longer available
         * to thr driver
         * */
-        mDeleteButton = (Button) findViewById(R.id.deleteOfferButton);
+        mDeleteButton = findViewById(R.id.deleteOfferButton);
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 

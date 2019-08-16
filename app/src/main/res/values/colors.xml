@@ -5,33 +5,16 @@
     <color name="colorAccent">#70163C</color>
     <color name="lightgrey">#BFBFBF</color>
     <color name="darkgrey">#777777</color>
-    <color name="red">#e50000</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
-    <color name="maroon">#BF0000</color>
-    <color name="dimgray">#696969</color>
     <color name="lightslategray">#778899</color>
-    <color name="slategray">#D3D3D3</color>
-    <color name="orange">#ECA400</color>
     <color name="green">#009688</color>
-    <color name="blue">#00B2FF</color>
     <color name="darkgrey2">#808080</color>
-    <color name="standardBlue"> #0000EE</color>
-    <color name="rasaiblue">#224B7F</color>
     <color name="hintgray">#808080</color>
 
     <!--App Intro Slider-->
-    <color name="colorPrimary2">#3F51B5</color>
-    <color name="colorPrimaryDark2">#303F9F</color>
-    <color name="colorAccent2">#FF4081</color>
 
     <!-- Screens background color-->
-    <color name="bg_screen1">#f64c73</color>
-    <color name="bg_screen2">#20d2bb</color>
-    <color name="bg_screen3">#3395ff</color>
-    <color name="bg_screen4">#c873f4</color>
-    <color name="bg_screen5">#f64c73</color>
-    <color name="bg_screen6">#20d2bb</color>
 
     <!-- dots inactive colors -->
     <color name="dot_dark_screen1">#d1395c</color>
