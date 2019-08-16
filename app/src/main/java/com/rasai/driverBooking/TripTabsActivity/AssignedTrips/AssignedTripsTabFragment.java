@@ -116,13 +116,6 @@ public class AssignedTripsTabFragment extends Fragment {
             offerObjects.clear();
             assignedTripsList.clear();
 
-            if(!isVisibleToUser(mListView)){
-                Log.d("AssignedTrips", "inside if. make listview visible");
-                mListView.setVisibility(View.VISIBLE);
-                mNoAssignedTrips.setVisibility(View.GONE);
-            }
-
-
             Iterable<DataSnapshot> children = dataSnapshot.getChildren();
             for (DataSnapshot child: children){
                 Log.d("AssignedTrips", "cihld: "+child);
@@ -133,6 +126,11 @@ public class AssignedTripsTabFragment extends Fragment {
 
             if(offersList.size()>0){
                 Log.d("AssignedTrips", "offersList.size() is: "+offersList.size());
+                if(!isVisibleToUser(mListView)){
+                    Log.d("AssignedTrips", "inside if. make listview visible");
+                    mListView.setVisibility(View.VISIBLE);
+                    mNoAssignedTrips.setVisibility(View.GONE);
+                }
                 offersCallback();
             }
             else{
@@ -197,6 +195,8 @@ public class AssignedTripsTabFragment extends Fragment {
                     m_trip.setDriverOffer(m_offer.getAmount());
                     if (m_trip.getConfirmed()) {
                         assignedTripsList.add(m_trip);
+                        Log.d("AssignedTrips", "assignedTripsList.size() is: "+assignedTripsList.size());
+
                     }
 
 

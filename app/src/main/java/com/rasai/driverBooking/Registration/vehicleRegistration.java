@@ -155,10 +155,10 @@ public class vehicleRegistration extends AppCompatActivity implements Serializab
                         String manufacturer = mManufacturer.getText().toString();
                         String model= mModel.getText().toString();
                         String registration = mRegistration.getText().toString();
-                        String seats = String.valueOf(numberOfSeats);
+                        String seats = mNumberSeats.getText().toString();
 
 
-                        if (manufacturer.length() > 0 && model.length() > 0 && registration.length() > 0 && numberOfSeats>0) {
+                        if (manufacturer.length() > 0 && model.length() > 0 && registration.length() > 0 && seats.length()>0) {
                             vehicleInformation.setManufacturer(manufacturer);
                             vehicleInformation.setModel(model);
                             vehicleInformation.setRegistration(registration);
