@@ -29,11 +29,7 @@ import com.rasai.driverBooking.CustomObject.Driver;
 import com.rasai.driverBooking.R;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -142,19 +138,20 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
             @Override
             public void onClick(View view) {
                 EditText clickedEditText = (EditText) view;
-                final Calendar cldr = Calendar.getInstance();
-                int day = cldr.get(Calendar.DAY_OF_MONTH);
-                int month = cldr.get(Calendar.MONTH);
-                int year = cldr.get(Calendar.YEAR);
+                //final Calendar cldr = Calendar.getInstance();
+                int day = 0; //cldr.get(Calendar.DAY_OF_MONTH);
+                int month = 0; //cldr.get(Calendar.MONTH);
+                int year = 1990; //cldr.get(Calendar.YEAR);
                 // date datePicker dialog
                 DatePickerDialog datePicker = new DatePickerDialog(DriverRegistration.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                view.updateDate(1980, 1, 1);
+                                //view.updateDate(1980, 1, 1);
                                 clickedEditText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                             }
                         }, year, month, day);
+                datePicker.show();
 
             }
         });
@@ -179,41 +176,34 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
 
                 //Log.d("testing1", StringLangSelected);
 
-                if(isThisDateValid(bday)) {
-                    //set tripInformation
-                    if (name.length() > 0 && cnic.length() == 13 && bday.length() == 10
-                            && address.length() > 0 && languageCounter > 0) {
-                        driverInformation.setPhoneNumber(phoneNumber);
-                        driverInformation.setName(name);
-                        driverInformation.setCnic(cnic);
-                        driverInformation.setBirthday(bday);
-                        driverInformation.setAddress(address);
-                        driverInformation.setLanguages(StringLangSelected);
+                //set tripInformation
+                if (name.length() > 0 && cnic.length() == 13 && bday.length()> 0
+                        && address.length() > 0 && languageCounter > 0) {
+                    driverInformation.setPhoneNumber(phoneNumber);
+                    driverInformation.setName(name);
+                    driverInformation.setCnic(cnic);
+                    driverInformation.setBirthday(bday);
+                    driverInformation.setAddress(address);
+                    driverInformation.setLanguages(StringLangSelected);
 
-                        FirebaseInstanceId.getInstance().getInstanceId()
-                                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                                        if (!task.isSuccessful()) {
-                                            Log.w(TAG, "getInstanceId failed", task.getException());
-                                            return;
-                                        }
-
-                                        // Get new Instance ID token
-                                        String token_id = task.getResult().getToken();
-                                        driverInformation.setToken_id(token_id);
-
-                                        Intent navNext = new Intent(DriverRegistration.this, driverRegistration2.class);
-                                        navNext.putExtra("driverObject", driverInformation);
-                                        startActivity(navNext);
+                    FirebaseInstanceId.getInstance().getInstanceId()
+                            .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                    if (!task.isSuccessful()) {
+                                        Log.w(TAG, "getInstanceId failed", task.getException());
+                                        return;
                                     }
-                                });
-                    } else {
-                        Toast.makeText(getBaseContext(), "Please fill all fields according to format.",
-                                Toast.LENGTH_LONG).show();
-                    }
-                }else{
-                    Toast.makeText(getBaseContext(), "Please fill in the date correctly",
+                                    // Get new Instance ID token
+                                    String token_id = task.getResult().getToken();
+                                    driverInformation.setToken_id(token_id);
+                                    Intent navNext = new Intent(DriverRegistration.this, driverRegistration2.class);
+                                    navNext.putExtra("driverObject", driverInformation);
+                                    startActivity(navNext);
+                                }
+                            });
+                } else {
+                    Toast.makeText(getBaseContext(), "Please fill all fields according to format.",
                             Toast.LENGTH_LONG).show();
                 }
 
@@ -230,7 +220,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
     //}
 
     /*date validator
-    * this works for format and values both*/
+    * this works for format and values both
     private boolean isThisDateValid(String dateToValidate){
 
         //empty date field
@@ -244,7 +234,7 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
         try {
 
             //if not valid, it will throw ParseException
-            Date date = sdf.parse(dateToValidate);
+            sdf.parse(dateToValidate);
             //System.out.println(date);
 
         } catch (ParseException e) {
@@ -255,5 +245,6 @@ public class DriverRegistration extends AppCompatActivity implements Serializabl
 
         return true;
     }
+    */
 
 }

@@ -73,11 +73,12 @@
                 android:id="@+id/birthday_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:focusableInTouchMode="false"
+                android:clickable="true"
                 android:hint="Date of Birth"
-                android:maxLength="10"
                 android:text=""
-                android:digits="01234567890/"
-                android:inputType="date" />
+                android:focusable="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
