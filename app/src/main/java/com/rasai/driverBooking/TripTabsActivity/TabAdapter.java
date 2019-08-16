@@ -12,7 +12,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
     TabAdapter(FragmentManager fm) {
-        super(fm);
+        super(fm, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
     @Override
     public Fragment getItem(int position) {
