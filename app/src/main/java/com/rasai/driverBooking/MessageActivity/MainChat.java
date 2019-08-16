@@ -39,7 +39,7 @@ public class MainChat extends AppCompatActivity {
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
     private FirebaseUser user = mauth.getCurrentUser();
 
-    DatabaseReference mDriverRef;
+    private DatabaseReference mDriverRef;
 
     private static final int ACTIVITY_NUM = 2;
     private ListView mListView;
@@ -49,8 +49,8 @@ public class MainChat extends AppCompatActivity {
     private List<String> tripList = new ArrayList<>();
     private List<ChatListItem> chatsList = new ArrayList<ChatListItem>();
 
-    int tripsCounter = 0;
-    int chatCounter = 0;
+    private int tripsCounter = 0;
+    private int chatCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

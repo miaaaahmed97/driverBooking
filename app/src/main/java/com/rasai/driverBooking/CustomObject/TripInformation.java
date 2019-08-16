@@ -228,7 +228,7 @@ public class TripInformation implements Serializable {
         SimpleDateFormat formatter=new SimpleDateFormat("dd/MM/yy");
         DateFormat reqFormatter=new SimpleDateFormat("dd MMM yyyy");
 
-        Date date1= null;
+        Date date1;
         try {
             date1 = formatter.parse(date);
         } catch (ParseException e) {

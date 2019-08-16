@@ -195,7 +195,7 @@ public class AssignedTripsTabFragment extends Fragment {
 
                     m_trip= dataSnapshot.getValue(TripInformation.class);
                     m_trip.setDriverOffer(m_offer.getAmount());
-                    if (m_trip.getConfirmed() == true ) {
+                    if (m_trip.getConfirmed()) {
                         assignedTripsList.add(m_trip);
                     }
 

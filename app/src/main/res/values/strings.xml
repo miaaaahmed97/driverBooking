@@ -29,7 +29,6 @@
     <string name="add_bank_slip">Click the image to upload picture of bank deposit slip</string>
 
     <!--App Intro Slider-->
-    <string name="title_activity_welcome">Home Screen</string>
     <string name="next">NEXT</string>
     <string name="skip">SKIP</string>
     <string name="start">GOT IT</string>
@@ -43,7 +42,7 @@
         \n- Pictures of your vehicle
         \n- Scanned CNIC
         \n- Scanned Driving License
-        \n- Scanned copy of Security deposit you payed us
+        \n- Scanned copy of Security deposit you paid us
     </string>
 
     <string name="slide_3_title">Make Offer</string>
@@ -60,8 +59,5 @@
 
     <string name="slide_7_title">Enjoy Your Trip</string>
     <string name="slide_7_desc">Safe Travels!</string>
-
-    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
-    <string name="play_again">Play Again</string>
 
 </resources>

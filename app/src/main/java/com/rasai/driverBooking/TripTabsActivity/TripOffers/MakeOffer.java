@@ -30,35 +30,35 @@ public class MakeOffer extends AppCompatActivity {
     private Button mDone, mChangeBudget, mMakeOffer;
 
     //cardview widgets
-    TextView mFrom;
-    TextView mTo;
-    TextView mSDate;
-    TextView mSTime;
-    TextView mEDate;
-    TextView mETime;
-    TextView mMinBudget;
-    TextView mMaxBudget;
-    TextView mTripType;
-    TextView mSeats;
-    TextView mIsReturn;
-    TextView mExtraDetails;
+    private TextView mFrom;
+    private TextView mTo;
+    private TextView mSDate;
+    private TextView mSTime;
+    private TextView mEDate;
+    private TextView mETime;
+    private TextView mMinBudget;
+    private TextView mMaxBudget;
+    private TextView mTripType;
+    private TextView mSeats;
+    private TextView mIsReturn;
+    private TextView mExtraDetails;
 
     //Budget managing widgets
-    TextInputEditText mBudgetField;
+    private TextInputEditText mBudgetField;
 
-    TripInformation tripInfo;
-    String availability;
-    Offer offer;
+    private TripInformation tripInfo;
+    private String availability;
+    private Offer offer;
 
-    TripInformation mOffer;
+    private TripInformation mOffer;
 
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
     private FirebaseUser user = mauth.getCurrentUser();
 
     //Delete offer widgets
-    Button mDeleteButton;
+    private Button mDeleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -62,7 +62,7 @@ public class Driver implements Serializable {
                 '}';
     }
 
-    public void postDriverInfo(DatabaseReference myRef) { //add to database package
+    private void postDriverInfo(DatabaseReference myRef) { //add to database package
         myRef.child("Driver/"+phoneNumber).setValue(this);
         //databaseId = myRef.getKey();
     }
@@ -156,8 +156,7 @@ public class Driver implements Serializable {
 
         for(final String image_Name: imageNameArray){
 
-            final String imageName = image_Name;
-            Uri filePath = getImageUri(imageName);
+            Uri filePath = getImageUri(image_Name);
 
             final String imageid;
 

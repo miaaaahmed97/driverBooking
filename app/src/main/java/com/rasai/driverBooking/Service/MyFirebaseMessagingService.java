@@ -31,7 +31,7 @@ import java.util.Random;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMessaging";
-    public static int NOTIFICATION_ID = 1;
+    private static int NOTIFICATION_ID = 1;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {

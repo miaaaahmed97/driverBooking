@@ -4,16 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +27,6 @@ import com.rasai.driverBooking.DriverHome;
 import com.rasai.driverBooking.R;
 import com.rasai.driverBooking.CustomObject.SecurityDeposit;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -56,19 +51,19 @@ public class SecurityDepositUpload extends AppCompatActivity {
 
     private int totalImages = 10;
 
-    public void setDriverInfo(Driver driverInfo) {
+    private void setDriverInfo(Driver driverInfo) {
         this.driverInfo = driverInfo;
     }
 
-    public Driver getDriverInfo() {
+    private Driver getDriverInfo() {
         return driverInfo;
     }
 
-    public SecurityDeposit getSecurityDeposit() {
+    private SecurityDeposit getSecurityDeposit() {
         return securityDeposit;
     }
 
-    public void setSecurityDeposit(SecurityDeposit securityDeposit) {
+    private void setSecurityDeposit(SecurityDeposit securityDeposit) {
         this.securityDeposit = securityDeposit;
     }
 

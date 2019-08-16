@@ -22,7 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.rasai.driverBooking.CustomObject.Offer;
 import com.rasai.driverBooking.CustomObject.TripInformation;
 import com.rasai.driverBooking.R;
-import com.rasai.driverBooking.TripTabsActivity.AssignedTrips.AssignedTripsTabFragment;
 import com.rasai.driverBooking.TripTabsActivity.AssignedTrips.ViewAssignedTrips;
 
 import java.io.Serializable;

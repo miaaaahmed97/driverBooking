@@ -36,7 +36,7 @@ public class OffersTabFragment extends Fragment {
     private FirebaseAuth mauth = FirebaseAuth.getInstance();
     private FirebaseUser user = mauth.getCurrentUser();
 
-    DatabaseReference mRef;
+    private DatabaseReference mRef;
 
     private ListView mListView;
     private CustomListAdapter mAdapter;

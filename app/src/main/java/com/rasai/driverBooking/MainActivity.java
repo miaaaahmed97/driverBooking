@@ -20,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.rasai.driverBooking.Registration.DriverRegistration;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -33,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser user = mauth.getCurrentUser();
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    DatabaseReference mRef;
-    ValueEventListener listener;
+    private DatabaseReference mRef;
+    private ValueEventListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

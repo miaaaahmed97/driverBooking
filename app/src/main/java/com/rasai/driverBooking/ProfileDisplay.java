@@ -73,8 +73,8 @@ public class ProfileDisplay extends AppCompatActivity {
             mDriverLanguages, mManufacturer, mModel,mRegField, mNumberOfseats, mSecurityAmount;
     private int numberOfSeats;
 
-    Driver driver;
-    ArrayList<String> mDriverLang = new ArrayList<>();
+    private Driver driver;
+    private ArrayList<String> mDriverLang = new ArrayList<>();
 
     int languageCounter = 0;
 

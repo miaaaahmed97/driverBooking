@@ -14,6 +14,7 @@ import com.rasai.driverBooking.R;
 
 import java.util.List;
 
+@SuppressWarnings("NullableProblems")
 public class ChatListAdapter extends ArrayAdapter<ChatListItem> {
 
     TextView mFrom;

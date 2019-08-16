@@ -12,21 +12,22 @@ import com.rasai.driverBooking.CustomObject.TripInformation;
 
 import java.util.List;
 
+@SuppressWarnings("NullableProblems")
 public class CustomListAdapter extends ArrayAdapter<TripInformation> {
 
-    List<TripInformation> list;
+    private List<TripInformation> list;
 
-    TextView mFrom;
-    TextView mTo;
-    TextView mSDate;
-    TextView mSTime;
-    TextView mEDate;
-    TextView mETime;
-    TextView mMinBudget;
-    TextView mMaxBudget;
+    private TextView mFrom;
+    private TextView mTo;
+    private TextView mSDate;
+    private TextView mSTime;
+    private TextView mEDate;
+    private TextView mETime;
+    private TextView mMinBudget;
+    private TextView mMaxBudget;
     TextView mTripType;
-    TextView mSeats;
-    TextView mIsReturn;
+    private TextView mSeats;
+    private TextView mIsReturn;
 
     public CustomListAdapter(Context context, int resource, List<TripInformation> objects) {
         super(context, resource, objects);
