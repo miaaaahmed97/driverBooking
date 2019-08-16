@@ -337,11 +337,11 @@ public class ViewAssignedTrips extends AppCompatActivity {
                             //Log.d("testing", child.getValue(String.class));
                             if (child.getValue(String.class).equals(tripInfo.getDatabaseId())) {
                                 child.getRef().removeValue();
+
+                                Intent intent = new Intent(ViewAssignedTrips.this, TripTabsActivity.class);
+                                startActivity(intent);
                             }
                         }
-
-                        Intent intent = new Intent(ViewAssignedTrips.this, TripTabsActivity.class);
-                        startActivity(intent);
                     }
 
                     @Override
