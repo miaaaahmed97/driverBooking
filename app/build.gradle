@@ -86,6 +86,3 @@ dependencies {
     implementation "com.jakewharton:butterknife:10.1.0"
     annotationProcessor "com.jakewharton:butterknife-compiler:10.1.0"
 }
-
-//adding firebase sdk
-apply plugin: 'com.google.gms.google-services'
