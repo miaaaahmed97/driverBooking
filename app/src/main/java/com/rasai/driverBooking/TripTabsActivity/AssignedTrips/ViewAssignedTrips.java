@@ -134,8 +134,9 @@ public class ViewAssignedTrips extends AppCompatActivity {
         mReviewDetails = mReviewPopup.findViewById(R.id.userReviewDetails);
         mSubmitReview = mReviewPopup.findViewById(R.id.submitReviewButton);
 
-        mReviewDetails.getText().toString();
-        reviewDetails = mReviewDetails.getText().toString();
+        if (mReviewDetails.getText().toString().length() > 0) {
+            reviewDetails = mReviewDetails.getText().toString();
+        }
 
         mSubmitReview.setOnClickListener(new View.OnClickListener() {
             @Override
