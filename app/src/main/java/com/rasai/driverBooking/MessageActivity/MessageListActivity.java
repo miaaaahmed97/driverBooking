@@ -51,6 +51,9 @@ public class MessageListActivity extends AppCompatActivity {
         Intent i = getIntent();
         chat = (ChatListItem) i.getSerializableExtra("CHAT");
 
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+
         //Display name of customer at the top
         setTitle(chat.getName());
 
@@ -113,6 +116,13 @@ public class MessageListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    //on clicking back button finish activity and go back
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 
     private void sendMessage(Button button){
