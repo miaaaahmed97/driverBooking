@@ -59,8 +59,11 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:layout_margin="16dp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:text="Submit"/>
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:backgroundTint="@color/colorPrimary"
+        android:focusableInTouchMode="false"
+        android:padding="16dp"
+        android:text="Submit"
+        tools:targetApi="lollipop" />
 
 </LinearLayout>
