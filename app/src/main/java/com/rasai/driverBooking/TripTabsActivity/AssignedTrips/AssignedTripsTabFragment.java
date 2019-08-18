@@ -126,11 +126,9 @@ public class AssignedTripsTabFragment extends Fragment {
 
             if(offersList.size()>0){
                 Log.d("AssignedTrips", "offersList.size() is: "+offersList.size());
-                if(!isVisibleToUser(mListView)){
-                    Log.d("AssignedTrips", "inside if. make listview visible");
-                    mListView.setVisibility(View.VISIBLE);
-                    mNoAssignedTrips.setVisibility(View.GONE);
-                }
+                Log.d("AssignedTrips", "inside if. make listview visible");
+                mListView.setVisibility(View.VISIBLE);
+                mNoAssignedTrips.setVisibility(View.GONE);
                 offersCallback();
             }
             else{
@@ -145,9 +143,6 @@ public class AssignedTripsTabFragment extends Fragment {
 
     private ValueEventListener listener = new MyValueEventListener();
 
-    private boolean isVisibleToUser(View view) {
-        return view.getVisibility() == View.VISIBLE;
-    }
 
     private class MyOfferValueEventListener implements ValueEventListener, Serializable {
         @Override
