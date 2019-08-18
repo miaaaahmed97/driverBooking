@@ -1,6 +1,7 @@
 package com.rasai.driverBooking.TripTabsActivity;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,13 +33,13 @@ public class CustomListAdapter extends ArrayAdapter<TripInformation> {
     private TextView mEDate;
     private TextView mETime;
     private TextView mOfferMade;
-    TextView mMaxBudget;
     private TextView mTripType;
-    TextView mSeats;
     private TextView mIsReturn;
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+
+        Log.d("CustomListAdapter", "inside getView()");
 
         if(convertView == null){
             LayoutInflater inflater = LayoutInflater.from(mContext);
@@ -51,9 +52,7 @@ public class CustomListAdapter extends ArrayAdapter<TripInformation> {
             mEDate = convertView.findViewById(R.id.endDateCd);
             mETime = convertView.findViewById(R.id.endTimeCd);
             mOfferMade= convertView.findViewById(R.id.offerMadeCd);
-            //mMaxBudget = (TextView) convertView.findViewById(R.id.budgetMaxCd);
             mTripType = convertView.findViewById(R.id.familyOrFriendsCd);
-            //mSeats = (TextView) convertView.findViewById(R.id.numSeatsCd);
             mIsReturn = convertView.findViewById(R.id.returnCd);
         }
 
@@ -62,9 +61,7 @@ public class CustomListAdapter extends ArrayAdapter<TripInformation> {
         mSDate.setText(getItem(position).getStartDate());
         mSTime.setText(getItem(position).getStartTime());
         mOfferMade.setText(getItem(position).getDriverOffer());
-        //mMaxBudget.setText(getItem(position).getMaxBudget());
         mTripType.setText(getItem(position).getTripType());
-        //mSeats.setText(getItem(position).getSeats());
         mIsReturn.setText(getItem(position).getIsReturn());
 
         if(getItem(position).getEndDate().length() > 0){

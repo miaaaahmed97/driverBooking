@@ -116,6 +116,11 @@ public class AssignedTripsTabFragment extends Fragment {
             offerObjects.clear();
             assignedTripsList.clear();
 
+            if(!isVisibleToUser(mListView)){
+                mListView.setVisibility(View.VISIBLE);
+                mNoAssignedTrips.setVisibility(View.GONE);
+            }
+
             Iterable<DataSnapshot> children = dataSnapshot.getChildren();
             for (DataSnapshot child: children){
                 Log.d("AssignedTrips", "cihld: "+child);
@@ -142,6 +147,10 @@ public class AssignedTripsTabFragment extends Fragment {
     }
 
     private ValueEventListener listener = new MyValueEventListener();
+
+    private boolean isVisibleToUser(View view) {
+        return view.getVisibility() == View.VISIBLE;
+    }
 
 
     private class MyOfferValueEventListener implements ValueEventListener, Serializable {
