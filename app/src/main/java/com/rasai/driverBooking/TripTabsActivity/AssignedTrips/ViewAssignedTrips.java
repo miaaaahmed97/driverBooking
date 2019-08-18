@@ -99,7 +99,7 @@ public class ViewAssignedTrips extends AppCompatActivity {
                 //creating the review popup
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ViewAssignedTrips.this);
                 alertDialogBuilder.setTitle("Review Your Trip");
-                alertDialogBuilder.setCancelable(false);
+                //alertDialogBuilder.setCancelable(false);
                 // Init popup dialog view and it's ui controls.
                 initReviewPopup();
                 // Set the inflated layout view object to the AlertDialog builder.
