@@ -15,6 +15,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.Serializable;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -64,13 +65,12 @@ public class Driver implements Serializable {
 
     private void postDriverInfo(DatabaseReference myRef) { //add to database package
         myRef.child("Driver/"+phoneNumber).setValue(this);
-        //databaseId = myRef.getKey();
     }
 
-    private Uri getImageUri(String imageName){
+    private Uri getImageUri(String image){
         Uri filePath;
 
-        switch(imageName){
+        switch(image){
             case "cnicImage":
                 filePath = Uri.parse(cnicImage);
                 break;
@@ -78,24 +78,26 @@ public class Driver implements Serializable {
                 filePath = Uri.parse(idImage);
                 break;
             case "drivingLicenseImage":
+                Log.d("Driver", "drivingLicenseImage: "+drivingLicenseImage);
                 filePath = Uri.parse(drivingLicenseImage);
                 break;
-            case "exteriorImage1":
+            case "frontviewImage":
+                Log.d("Driver", "vehicle.getFrontviewImage(): "+vehicle.getFrontviewImage());
                 filePath = Uri.parse(vehicle.getFrontviewImage());
                 break;
-            case "exteriorImage2":
+            case "backviewImage":
                 filePath = Uri.parse(vehicle.getBackviewImage());
                 break;
-            case "exteriorImage3":
+            case "sideviewImage":
                 filePath = Uri.parse(vehicle.getSideviewImage());
                 break;
-            case "interiorImage1":
+            case "seatsImage":
                 filePath = Uri.parse(vehicle.getSeatsImage());
                 break;
-            case "interiorImage2":
+            case "interiorImage1":
                 filePath = Uri.parse(vehicle.getInteriorImage1());
                 break;
-            case "interiorImage3":
+            case "interiorImage2":
                 filePath = Uri.parse(vehicle.getInteriorImage2());
                 break;
             case "depositImage":
@@ -154,9 +156,15 @@ public class Driver implements Serializable {
 
         final int[] counter = {0};
 
-        for(final String image_Name: imageNameArray){
+        String[] imageTrackerArray = {"cnicImage", "idImage", "drivingLicenseImage",
+                "frontviewImage", "backviewImage", "sideviewImage", "seatsImage",
+                "interiorImage1", "interiorImage2", "depositImage"};
 
-            Uri filePath = getImageUri(image_Name);
+        for(final String image: imageTrackerArray){
+
+            Log.d("Driver",  "image: "+image);
+
+            Uri filePath = getImageUri(image);
 
             final String imageid;
 
@@ -177,7 +185,7 @@ public class Driver implements Serializable {
                                         setImageUrl(counter[0], uri.toString());
                                         counter[0] +=1;
 
-                                        if (counter[0] == imageNameArray.length) {
+                                        if (counter[0] == imageTrackerArray.length) {
 
                                             DatabaseReference mDriver = FirebaseDatabase.getInstance().getReference();
                                             postDriverInfo(mDriver);
@@ -198,6 +206,7 @@ public class Driver implements Serializable {
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
+                                Log.d("Driver", "image upload failure exception: "+e.getMessage());
                             }
                         })
                         .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {

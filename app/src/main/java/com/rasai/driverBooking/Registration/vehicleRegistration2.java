@@ -110,27 +110,27 @@ public class vehicleRegistration2 extends AppCompatActivity {
         switch (intID){
             case R.id.showExterior:
                 imageview = mExterior1;
-                vehicleInfo.setFrontviewImage(mExterior1.toString());
+                vehicleInfo.setFrontviewImage(uri.toString());
                 break;
             case R.id.showExterior2:
                 imageview = mExterior2;
-                vehicleInfo.setBackviewImage(mExterior2.toString());
+                vehicleInfo.setBackviewImage(uri.toString());
                 break;
             case R.id.showExterior3:
                 imageview = mExterior3;
-                vehicleInfo.setSideviewImage(mExterior3.toString());
+                vehicleInfo.setSideviewImage(uri.toString());
                 break;
             case R.id.showInterior:
                 imageview = mInterior1;
-                vehicleInfo.setSeatsImage(mInterior1.toString());
+                vehicleInfo.setSeatsImage(uri.toString());
                 break;
             case R.id.showInterior2:
                 imageview = mInterior2;
-                vehicleInfo.setInteriorImage1(mInterior2.toString());
+                vehicleInfo.setInteriorImage1(uri.toString());
                 break;
             case R.id.showInterior3:
                 imageview = mInterior3;
-                vehicleInfo.setInteriorImage2(mInterior3.toString());
+                vehicleInfo.setInteriorImage2(uri.toString());
                 break;
 
                 default:
