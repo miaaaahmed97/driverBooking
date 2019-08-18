@@ -78,7 +78,6 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:textColor="@color/colorPrimaryDark"
-                    android:text="18 July 2019"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -92,7 +91,6 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:textColor="@color/colorPrimaryDark"
-                    android:text="10:40 PM"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     />

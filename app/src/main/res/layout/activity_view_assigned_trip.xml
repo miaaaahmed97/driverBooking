@@ -192,7 +192,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="2sp"
-                        android:text="18 July 2019"
                         android:textSize="16sp"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
@@ -202,7 +201,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="2sp"
-                        android:text="10:40 PM"
                         android:textSize="16sp"
                         android:textColor="@color/black"
                         android:textStyle="bold"
