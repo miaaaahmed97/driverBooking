@@ -1,4 +1,4 @@
-package com.rasai.driverBooking.TripTabsActivity;
+package com.dryver.driverBooking.TripTabsActivity;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;

@@ -1,4 +1,4 @@
-package com.rasai.driverBooking;
+package com.dryver.driverBooking;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,8 +7,8 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.rasai.driverBooking.MessageActivity.MainChat;
-import com.rasai.driverBooking.TripTabsActivity.TripTabsActivity;
+import com.dryver.driverBooking.MessageActivity.MainChat;
+import com.dryver.driverBooking.TripTabsActivity.TripTabsActivity;
 
 public class BottomNavigationViewHelper {
 

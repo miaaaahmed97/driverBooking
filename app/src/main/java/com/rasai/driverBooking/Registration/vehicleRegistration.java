@@ -1,4 +1,4 @@
-package com.rasai.driverBooking.Registration;
+package com.dryver.driverBooking.Registration;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,9 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.kofigyan.stateprogressbar.StateProgressBar;
-import com.rasai.driverBooking.CustomObject.Driver;
-import com.rasai.driverBooking.CustomObject.Vehicle;
-import com.rasai.driverBooking.R;
+import com.dryver.driverBooking.CustomObject.Driver;
+import com.dryver.driverBooking.CustomObject.Vehicle;
+import com.dryver.driverBooking.R;
 
 import java.io.Serializable;
 import java.util.Objects;

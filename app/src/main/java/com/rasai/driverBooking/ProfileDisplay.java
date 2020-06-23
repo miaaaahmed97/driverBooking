@@ -1,4 +1,4 @@
-package com.rasai.driverBooking;
+package com.dryver.driverBooking;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,9 +34,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.rasai.driverBooking.CustomObject.Driver;
-import com.rasai.driverBooking.CustomObject.SecurityDeposit;
-import com.rasai.driverBooking.CustomObject.Vehicle;
+import com.dryver.driverBooking.CustomObject.Driver;
+import com.dryver.driverBooking.CustomObject.SecurityDeposit;
+import com.dryver.driverBooking.CustomObject.Vehicle;
 
 import java.io.Serializable;
 import java.util.ArrayList;

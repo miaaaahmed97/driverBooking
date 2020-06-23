@@ -1,4 +1,4 @@
-package com.rasai.driverBooking.Service;
+package com.dryver.driverBooking.Service;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -15,12 +15,12 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.rasai.driverBooking.DriverHome;
-import com.rasai.driverBooking.MainActivity;
-import com.rasai.driverBooking.MessageActivity.MainChat;
-import com.rasai.driverBooking.R;
-import com.rasai.driverBooking.TripTabsActivity.TripTabsActivity;
-import com.rasai.driverBooking.WelcomeActivity;
+import com.dryver.driverBooking.DriverHome;
+import com.dryver.driverBooking.MainActivity;
+import com.dryver.driverBooking.MessageActivity.MainChat;
+import com.dryver.driverBooking.R;
+import com.dryver.driverBooking.TripTabsActivity.TripTabsActivity;
+import com.dryver.driverBooking.WelcomeActivity;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
@@ -70,7 +70,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "com.rasai.customerBooking.service.test")
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "com.dryver.customerBooking.service.test")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(body)
@@ -81,7 +81,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setAutoCancel(true);
 
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        String NOTIFICATION_CHANNEL_ID = "com.rasai.customerBooking.service.test";
+        String NOTIFICATION_CHANNEL_ID = "com.dryver.customerBooking.service.test";
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
 
@@ -105,7 +105,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void showNotification(String title, String body){
 
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        String NOTIFICATION_CHANNEL_ID = "com.rasai.customerBooking.service.test";
+        String NOTIFICATION_CHANNEL_ID = "com.dryver.customerBooking.service.test";
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
 

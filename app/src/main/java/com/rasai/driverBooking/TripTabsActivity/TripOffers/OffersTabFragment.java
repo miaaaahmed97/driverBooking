@@ -1,4 +1,4 @@
-package com.rasai.driverBooking.TripTabsActivity.TripOffers;
+package com.dryver.driverBooking.TripTabsActivity.TripOffers;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,10 +20,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.rasai.driverBooking.CustomObject.Offer;
-import com.rasai.driverBooking.CustomObject.TripInformation;
-import com.rasai.driverBooking.R;
-import com.rasai.driverBooking.TripTabsActivity.CustomListAdapter;
+import com.dryver.driverBooking.CustomObject.Offer;
+import com.dryver.driverBooking.CustomObject.TripInformation;
+import com.dryver.driverBooking.R;
+import com.dryver.driverBooking.TripTabsActivity.CustomListAdapter;
 
 import java.io.Serializable;
 import java.util.ArrayList;

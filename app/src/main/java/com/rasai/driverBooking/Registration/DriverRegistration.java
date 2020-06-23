@@ -1,4 +1,4 @@
-package com.rasai.driverBooking.Registration;
+package com.dryver.driverBooking.Registration;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -25,8 +25,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.kofigyan.stateprogressbar.StateProgressBar;
-import com.rasai.driverBooking.CustomObject.Driver;
-import com.rasai.driverBooking.R;
+import com.dryver.driverBooking.CustomObject.Driver;
+import com.dryver.driverBooking.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.rasai.driverBooking.CustomObject;
+package com.dryver.driverBooking.CustomObject;
 
 import java.io.Serializable;
 

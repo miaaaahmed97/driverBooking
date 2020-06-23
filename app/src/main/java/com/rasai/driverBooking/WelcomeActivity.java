@@ -1,4 +1,4 @@
-package com.rasai.driverBooking;
+package com.dryver.driverBooking;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.rasai.driverBooking.Registration.DriverRegistration;
+import com.dryver.driverBooking.Registration.DriverRegistration;
 
 public class WelcomeActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.rasai.driverBooking.TripTabsActivity.AssignedTrips;
+package com.dryver.driverBooking.TripTabsActivity.AssignedTrips;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,10 +22,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.rasai.driverBooking.CustomObject.Review;
-import com.rasai.driverBooking.CustomObject.TripInformation;
-import com.rasai.driverBooking.R;
-import com.rasai.driverBooking.TripTabsActivity.TripTabsActivity;
+import com.dryver.driverBooking.CustomObject.Review;
+import com.dryver.driverBooking.CustomObject.TripInformation;
+import com.dryver.driverBooking.R;
+import com.dryver.driverBooking.TripTabsActivity.TripTabsActivity;
 
 import java.util.ArrayList;
 import java.util.List;

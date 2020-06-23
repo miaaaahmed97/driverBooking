@@ -1,16 +1,16 @@
 {
   "project_info": {
     "project_number": "45410092913",
-    "firebase_url": "https://rasai-3c730.firebaseio.com",
-    "project_id": "rasai-3c730",
-    "storage_bucket": "rasai-3c730.appspot.com"
+    "firebase_url": "https://basic-3c730.firebaseio.com",
+    "project_id": "basic-3c730",
+    "storage_bucket": "basic-3c730.appspot.com"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:45410092913:android:800f7fb9f01750ed",
         "android_client_info": {
-          "package_name": "com.rasai.customerBooking"
+          "package_name": "com.dryver.customerBooking"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "45410092913-hj9mjl36oi37shf2o5cfpdbf4etei7s2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.rasai.customerBooking",
+            "package_name": "com.dryver.customerBooking",
             "certificate_hash": "57e49c50162c25a1dee5c59585b07136f645c559"
           }
         },
@@ -47,7 +47,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:45410092913:android:7bfde77faa24c45d",
         "android_client_info": {
-          "package_name": "com.rasai.driverBooking"
+          "package_name": "com.dryver.driverBooking"
         }
       },
       "oauth_client": [
@@ -55,7 +55,7 @@
           "client_id": "45410092913-5mmhhm1r0jj6nsrvcs6i2n13clltkphq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.rasai.driverBooking",
+            "package_name": "com.dryver.driverBooking",
             "certificate_hash": "57e49c50162c25a1dee5c59585b07136f645c559"
           }
         },

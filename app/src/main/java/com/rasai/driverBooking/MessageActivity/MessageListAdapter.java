@@ -1,4 +1,4 @@
-package com.rasai.driverBooking.MessageActivity;
+package com.dryver.driverBooking.MessageActivity;
 
 import android.content.Context;
 import android.util.Log;
@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.rasai.driverBooking.CustomObject.Message;
-import com.rasai.driverBooking.R;
+import com.dryver.driverBooking.CustomObject.Message;
+import com.dryver.driverBooking.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

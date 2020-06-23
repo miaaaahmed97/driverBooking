@@ -1,4 +1,4 @@
-package com.rasai.driverBooking.MessageActivity;
+package com.dryver.driverBooking.MessageActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,9 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import com.rasai.driverBooking.CustomObject.ChatListItem;
-import com.rasai.driverBooking.CustomObject.Message;
-import com.rasai.driverBooking.R;
+import com.dryver.driverBooking.CustomObject.ChatListItem;
+import com.dryver.driverBooking.CustomObject.Message;
+import com.dryver.driverBooking.R;
 
 import java.util.ArrayList;
 import java.util.List;

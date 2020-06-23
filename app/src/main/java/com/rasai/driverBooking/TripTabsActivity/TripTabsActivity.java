@@ -1,4 +1,4 @@
-package com.rasai.driverBooking.TripTabsActivity;
+package com.dryver.driverBooking.TripTabsActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -12,10 +12,10 @@ import android.widget.ListView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
-import com.rasai.driverBooking.BottomNavigationViewHelper;
-import com.rasai.driverBooking.R;
-import com.rasai.driverBooking.TripTabsActivity.AssignedTrips.AssignedTripsTabFragment;
-import com.rasai.driverBooking.TripTabsActivity.TripOffers.OffersTabFragment;
+import com.dryver.driverBooking.BottomNavigationViewHelper;
+import com.dryver.driverBooking.R;
+import com.dryver.driverBooking.TripTabsActivity.AssignedTrips.AssignedTripsTabFragment;
+import com.dryver.driverBooking.TripTabsActivity.TripOffers.OffersTabFragment;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.rasai.driverBooking.CustomObject;
+package com.dryver.driverBooking.CustomObject;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

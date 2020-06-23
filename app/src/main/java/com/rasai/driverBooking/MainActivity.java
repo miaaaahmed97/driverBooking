@@ -1,4 +1,4 @@
-package com.rasai.driverBooking;
+package com.dryver.driverBooking;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

@@ -1,4 +1,4 @@
-package com.rasai.driverBooking;
+package com.dryver.driverBooking;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.rasai.driverBooking.CustomObject.TripInformation;
+import com.dryver.driverBooking.CustomObject.TripInformation;
 
 import java.util.List;
 
